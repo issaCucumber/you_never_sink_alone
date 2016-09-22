@@ -4,30 +4,36 @@ using System.Collections;
 public class MoveChar : MonoBehaviour {
 
     public float moveSpeed;
+    public int playerNo;
+
+    //character states
     public bool isContactWheel;
     public bool isContactCannonRight;
     public bool isContactCannonLeft;
 
-    public int playerNo;
-
     Animator anim;
-    //float moveHorizontal, moveVertical;
+    bool isCollideWheel;
+    bool isCollideCannonLeft;
+    bool isCollideCannonRight;
 
-    // Use this for initialization
+    //for outlining of stations
+    public GameObject Wheel;
+    public GameObject CannonLeft;
+    public GameObject CannonRight;
+
     void Start () {
         anim = GetComponent<Animator>();
     }
 	
-	// Update is called once per frame
 	void Update () {
-
 
         float inputX = Input.GetAxisRaw("Horizontal" + playerNo);
         float inputY = Input.GetAxisRaw("Vertical" + playerNo);
 
-  anim.SetFloat("SpeedX", inputX);
-            anim.SetFloat("SpeedY", inputY);
+        anim.SetFloat("SpeedX", inputX);
+        anim.SetFloat("SpeedY", inputY);
 
+        //player movement when not stationed
         if (!isContactWheel && !isContactCannonLeft && !isContactCannonRight)
         {
 
@@ -35,54 +41,58 @@ public class MoveChar : MonoBehaviour {
 
             transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
 
-            
 
-            //moveHorizontal = Input.GetAxis ("Horizontal" + playerNo);
-            //moveVertical = Input.GetAxis ("Vertical" + playerNo);
-
-            /* if (Input.GetAxisRaw("Horizontal" + playerNo) > 0.5f || Input.GetAxisRaw("Horizontal" + +playerNo) < -0.5f)
-                 //transform.position += Vector3.right * Input.GetAxisRaw("Horizontal" + playerNo) * moveSpeed * Time.deltaTime;
-                 transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal" + playerNo) * moveSpeed * Time.deltaTime, 0f, 0f));
-
-             if (Input.GetAxisRaw("Vertical" + playerNo) > 0.5f || Input.GetAxisRaw("Vertical" + playerNo) < -0.5f)
-                 //transform.position += Vector3.up * Input.GetAxisRaw("Vertical" + playerNo) * moveSpeed * Time.deltaTime;
-                 transform.Translate(new Vector3(0f, Input.GetAxisRaw("Vertical" + playerNo) * moveSpeed * Time.deltaTime, 0f));
-
-             if (Input.GetAxisRaw ("Vertical" + playerNo) < -0.5f)
-                 GetComponent<SpriteRenderer>().flipY = true;
-             else
-                 GetComponent<SpriteRenderer>().flipY = false;
-
-             if (Input.GetAxisRaw("Horizontal" + playerNo) < -0.5f)
-                 GetComponent<SpriteRenderer>().flipX = true;
-             else
-                 GetComponent<SpriteRenderer>().flipX = false;
-
-     */
+        //reset state when disengaged
         } else if (Input.GetAxisRaw("Interact" + playerNo) < -0.5f)
             {
                 isContactWheel = false;
                 isContactCannonLeft = false;
                 isContactCannonRight = false;
+                Wheel.GetComponent<SpriteOutlineGreen>().enabled = false;
+                CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = false;
+                CannonRight.GetComponent<SpriteOutlineGreen>().enabled = false;
 
+            //lock character in place when stationed
         } else if (isContactCannonLeft)
-        {
-            anim.SetBool("walking", false);
-            anim.SetFloat("LastMoveX", -1f);
-            anim.SetFloat("LastMoveY", 0f);
+            {
+                anim.SetBool("walking", false);
+                anim.SetFloat("LastMoveX", -1f);
+                anim.SetFloat("LastMoveY", 0f);
+                CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = false;
+                CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = true;
+        } else if (isContactCannonRight)
+            {
+                anim.SetBool("walking", false);
+                anim.SetFloat("LastMoveX", 1f);
+                anim.SetFloat("LastMoveY", 0f);
+                CannonRight.GetComponent<SpriteOutlineWhite>().enabled = false;
+                CannonRight.GetComponent<SpriteOutlineGreen>().enabled = true;
+        } else if (isContactWheel)
+            {
+                anim.SetBool("walking", false);
+                anim.SetFloat("LastMoveX", 0f);
+                anim.SetFloat("LastMoveY", 1f);
+                Wheel.GetComponent<SpriteOutlineWhite>().enabled = false;
+                Wheel.GetComponent<SpriteOutlineGreen>().enabled = true;
         }
-        else if (isContactCannonRight)
+
+        if (isCollideWheel)
         {
-            anim.SetBool("walking", false);
-            anim.SetFloat("LastMoveX", 1f);
-            anim.SetFloat("LastMoveY", 0f);
+            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+                isContactWheel = true;
         }
-        else if (isContactWheel)
+        if (isCollideCannonLeft)
         {
-            anim.SetBool("walking", false);
-            anim.SetFloat("LastMoveX", 0f);
-            anim.SetFloat("LastMoveY", 1f);
+            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+                isContactCannonLeft = true;
+         }
+        if(isCollideCannonRight)
+        {
+            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+                isContactCannonRight = true;
         }
+
+
     }
 
     void FixedUpdate()
@@ -90,6 +100,7 @@ public class MoveChar : MonoBehaviour {
         float lastInputX = Input.GetAxisRaw("Horizontal" + playerNo);
         float lastInputY = Input.GetAxisRaw("Vertical" + playerNo);
 
+            //get last input to display static animation
             if (lastInputX != 0 || lastInputY != 0)
             {
                 anim.SetBool("walking", true);
@@ -128,13 +139,43 @@ public class MoveChar : MonoBehaviour {
 
 void OnTriggerEnter2D (Collider2D col)
     {
-        if (col.gameObject.tag == "wheel")  
-            isContactWheel = true;
-    
+        if (col.gameObject.tag == "wheel")
+        {
+            isCollideWheel = true;
+            Wheel.GetComponent<SpriteOutlineWhite>().enabled = true;
+        }
+
         if (col.gameObject.name == "cannon")
-            isContactCannonLeft = true;
+        {
+            isCollideCannonLeft = true;
+            CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = true;
+        }
 
         if (col.gameObject.name == "cannon right")
-            isContactCannonRight = true;
+        {
+            isCollideCannonRight = true;
+            CannonRight.GetComponent<SpriteOutlineWhite>().enabled = true;
+        }
+    }
+
+    void OnTriggerExit2D (Collider2D col)
+    {
+        if (col.gameObject.tag == "wheel")
+        {
+            isCollideWheel = false;
+            Wheel.GetComponent<SpriteOutlineWhite>().enabled = false;
+        }
+
+        if (col.gameObject.name == "cannon")
+        {
+            isCollideCannonLeft = false;
+            CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = false;
+        }
+
+        if (col.gameObject.name == "cannon right")
+        {
+            isCollideCannonRight = false;
+            CannonRight.GetComponent<SpriteOutlineWhite>().enabled = false;
+        }
     }
 }
