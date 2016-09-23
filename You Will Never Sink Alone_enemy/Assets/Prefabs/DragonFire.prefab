@@ -22,6 +22,7 @@ GameObject:
   - 212: {fileID: 212000011758860050}
   - 114: {fileID: 114000013398248200}
   - 60: {fileID: 60000013284074998}
+  - 114: {fileID: 114000010740171862}
   m_Layer: 0
   m_Name: DragonFire
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1000012304868180}
   m_LocalRotation: {x: -0, y: -0, z: 0.37747884, w: 0.92601824}
   m_LocalPosition: {x: 19.515041, y: 1.011445, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 44.222004}
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,6 +121,20 @@ PolygonCollider2D:
       - {x: 0.41, y: -0.42999998}
       - {x: 0.38, y: -0.42}
       - {x: 0.35999998, y: -0.44}
+--- !u!114 &114000010740171862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012304868180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc0260151fdb324f905377ad55296fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 30
+  stopWhenClashShip: 0
+  stop: 0
 --- !u!114 &114000013398248200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,7 +176,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1425823879
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7ac8ba3fae60e04488c20cd4d79b36e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 11b5db98a37751b42a58665bac0b4a8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

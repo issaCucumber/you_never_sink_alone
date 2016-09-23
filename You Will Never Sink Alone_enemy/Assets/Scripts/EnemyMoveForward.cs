@@ -5,15 +5,17 @@ public class EnemyMoveForward : MonoBehaviour {
 
 	public float maxSpeed = 2f;
 
+	public bool stopWhenClashShip = true;
+
 	public bool stop = false;
 
 	// Use this for initialization
 	void Start () {
-		
+		stop = false;
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.name == "Ship") {
+		if (stopWhenClashShip && other.name == "Ship") {
 			stop = true;
 		}
 	}

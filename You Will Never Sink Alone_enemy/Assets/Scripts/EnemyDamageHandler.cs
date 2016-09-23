@@ -30,19 +30,19 @@ public class EnemyDamageHandler : MonoBehaviour {
 			}
 		} else if (other.name.StartsWith ("Cannon")) {
 			
-			if (other.name == "Cannon1") {
+			if (isSameName(other.name,"Cannon1")) {
 				health -= 2;
-			} else if (other.name == "Cannon2") {
+			} else if (isSameName(other.name,"Cannon2")) {
 				health -= 4;
-			} else if (other.name == "Cannon3") {
+			} else if (isSameName(other.name,"Cannon3")) {
 				health -= 6;
-			} else if (other.name == "Cannon4") {
+			} else if (isSameName(other.name,"Cannon4")) {
 				health -= 8;
-			} else if (other.name == "Cannon5") {
+			} else if (isSameName(other.name,"Cannon5")) {
 				health -= 10;
 			} 
 
-		}else if (other.name.StartsWith("Dynamite")) {
+		}else if (isSameName(other.name,"Dynamite")) {
 			health = 0;
 		}
 
@@ -78,5 +78,17 @@ public class EnemyDamageHandler : MonoBehaviour {
 
 	void Die() {
 		Destroy (gameObject);
+	}
+
+
+	bool isSameName(string name1, string name2) {
+
+		int bracketIndex1 = name1.IndexOf ("(");
+		int bracketIndex2 = name2.IndexOf ("(");
+
+		string n1 = name1.Substring (0, bracketIndex1 > 0 ? bracketIndex1 : name1.Length);
+		string n2 = name2.Substring (0, bracketIndex2 > 0 ? bracketIndex2 : name2.Length);
+
+		return n1.Equals (n2);
 	}
 }
