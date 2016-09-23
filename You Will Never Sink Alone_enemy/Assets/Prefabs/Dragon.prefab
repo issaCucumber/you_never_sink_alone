@@ -133,7 +133,7 @@ MonoBehaviour:
   fire: {fileID: 1000012304868180, guid: b722246c01636ce4c94920d98ef36170, type: 2}
   wave: {fileID: 1000012897230684, guid: 566fd0ca466078b42b87d5db9adf48c4, type: 2}
   attackDistance: 10
-  shootDelay: 2
+  shootDelay: 5
 --- !u!212 &212000011590681850
 SpriteRenderer:
   m_ObjectHideFlags: 1
