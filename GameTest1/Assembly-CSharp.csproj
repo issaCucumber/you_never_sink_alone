@@ -45,13 +45,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Script\Cannonball.cs" />
-     <Compile Include="Assets\Script\MoveCannon.cs" />
-     <Compile Include="Assets\Script\MoveCannonRight.cs" />
+     <Compile Include="Assets\Script\Explosion.cs" />
      <Compile Include="Assets\Script\MoveChar.cs" />
-     <Compile Include="Assets\Script\MoveShip.cs" />
+     <Compile Include="Assets\Script\PortCannonActions.cs" />
+     <Compile Include="Assets\Script\ShipActions.cs" />
+     <Compile Include="Assets\Script\Shoot.cs" />
      <Compile Include="Assets\Script\SpriteOutlineGreen.cs" />
      <Compile Include="Assets\Script\SpriteOutlineWhite.cs" />
+     <Compile Include="Assets\Script\StarboardCannonActions.cs" />
+     <Compile Include="Assets\Script\ToolboxActions.cs" />
+     <Compile Include="Assets\Script\WheelActions.cs" />
+     <None Include="Assets\Shader &amp; Materials\2DOutlineDefault.shader" />
      <None Include="Assets\Shader &amp; Materials\SpriteOutline.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

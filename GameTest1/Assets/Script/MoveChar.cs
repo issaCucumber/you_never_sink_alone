@@ -10,16 +10,19 @@ public class MoveChar : MonoBehaviour {
     public bool isContactWheel;
     public bool isContactCannonRight;
     public bool isContactCannonLeft;
+    public bool isContactToolbox;
 
     Animator anim;
     bool isCollideWheel;
     bool isCollideCannonLeft;
     bool isCollideCannonRight;
+    bool isCollideToolbox;
 
     //for outlining of stations
     public GameObject Wheel;
     public GameObject CannonLeft;
     public GameObject CannonRight;
+    public GameObject Toolbox;
 
     void Start () {
         anim = GetComponent<Animator>();
@@ -34,7 +37,7 @@ public class MoveChar : MonoBehaviour {
         anim.SetFloat("SpeedY", inputY);
 
         //player movement when not stationed
-        if (!isContactWheel && !isContactCannonLeft && !isContactCannonRight)
+        if (!isContactWheel && !isContactCannonLeft && !isContactCannonRight && !isContactToolbox)
         {
 
             Vector3 movement = new Vector3(inputX, inputY, 0f);
@@ -74,7 +77,14 @@ public class MoveChar : MonoBehaviour {
                 anim.SetFloat("LastMoveY", 1f);
                 Wheel.GetComponent<SpriteOutlineWhite>().enabled = false;
                 Wheel.GetComponent<SpriteOutlineGreen>().enabled = true;
-        }
+        } else if (isContactToolbox)
+            {
+                anim.SetBool("walking", false);
+                anim.SetFloat("LastMoveX", 0f);
+                anim.SetFloat("LastMoveY", -1f);
+                Toolbox.GetComponent<SpriteOutlineWhite>().enabled = false;
+                Toolbox.GetComponent<SpriteOutlineGreen>().enabled = true;
+            }
 
         if (isCollideWheel)
         {
@@ -90,6 +100,11 @@ public class MoveChar : MonoBehaviour {
         {
             if (Input.GetAxis("Interact" + playerNo) > 0.5)
                 isContactCannonRight = true;
+        }
+        if (isCollideToolbox)
+        {
+            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+                isContactToolbox = true;
         }
 
 
@@ -139,43 +154,53 @@ public class MoveChar : MonoBehaviour {
 
 void OnTriggerEnter2D (Collider2D col)
     {
-        if (col.gameObject.tag == "wheel")
+        if (col.gameObject == Wheel)
         {
             isCollideWheel = true;
             Wheel.GetComponent<SpriteOutlineWhite>().enabled = true;
         }
 
-        if (col.gameObject.name == "cannon")
+        if (col.gameObject == CannonLeft)
         {
             isCollideCannonLeft = true;
             CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = true;
         }
 
-        if (col.gameObject.name == "cannon right")
+        if (col.gameObject == CannonRight)
         {
             isCollideCannonRight = true;
             CannonRight.GetComponent<SpriteOutlineWhite>().enabled = true;
+        }
+        if (col.gameObject == Toolbox)
+        {
+            isCollideToolbox = true;
+            Toolbox.GetComponent<SpriteOutlineWhite>().enabled = true;
         }
     }
 
     void OnTriggerExit2D (Collider2D col)
     {
-        if (col.gameObject.tag == "wheel")
+        if (col.gameObject == Wheel)
         {
             isCollideWheel = false;
             Wheel.GetComponent<SpriteOutlineWhite>().enabled = false;
         }
 
-        if (col.gameObject.name == "cannon")
+        if (col.gameObject == CannonLeft)
         {
             isCollideCannonLeft = false;
             CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = false;
         }
 
-        if (col.gameObject.name == "cannon right")
+        if (col.gameObject == CannonRight)
         {
             isCollideCannonRight = false;
             CannonRight.GetComponent<SpriteOutlineWhite>().enabled = false;
+        }
+        if (col.gameObject == Toolbox)
+        {
+            isCollideToolbox = false;
+            Toolbox.GetComponent<SpriteOutlineWhite>().enabled = false;
         }
     }
 }
