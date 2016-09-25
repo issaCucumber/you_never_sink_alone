@@ -49,7 +49,7 @@ public class WheelActions : MonoBehaviour
 
         Rigidbody2D rb = Ship.GetComponent<Rigidbody2D>();
 
-        for (int k = 0; k < 2; k++)
+        for (int k = 0; k < charArray.Length; k++)
         {
 
             //move character along with ship
@@ -110,10 +110,10 @@ public class WheelActions : MonoBehaviour
                 */
 
                 if (Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
-                    Ship.transform.Rotate(Vector3.forward * 15 * Time.deltaTime);
+                    Ship.transform.Rotate(Vector3.forward * 10 * Time.deltaTime);
 
                 if (Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
-                    Ship.transform.Rotate(Vector3.forward * -15 * Time.deltaTime);
+                    Ship.transform.Rotate(Vector3.forward * -10 * Time.deltaTime);
                 
 
             }

@@ -61,7 +61,7 @@ public class PortCannonActions : MonoBehaviour {
                 break;
         }
 
-        for (int k = 0; k < 2; k++)
+        for (int k = 0; k < charArray.Length; k++)
         {
             if (charArray[k].GetComponent<MoveChar>().isContactCannonLeft)
             {
@@ -69,9 +69,9 @@ public class PortCannonActions : MonoBehaviour {
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
-                if (transform.localEulerAngles.z > 60 && transform.localEulerAngles.z < 90)
+                if (transform.localEulerAngles.z > 40 && transform.localEulerAngles.z < 90)
                 {
-                    transform.localRotation = Quaternion.Euler(0, 0, 60);
+                    transform.localRotation = Quaternion.Euler(0, 0, 40);
                 }
                 if (transform.localEulerAngles.z > 270 && transform.localEulerAngles.z < 300)
                 {

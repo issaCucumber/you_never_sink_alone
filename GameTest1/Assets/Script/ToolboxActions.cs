@@ -43,7 +43,7 @@ public class ToolboxActions : MonoBehaviour {
         }
 
         // Repair hull
-        for (int k = 0; k < 2; k++)
+        for (int k = 0; k < charArray.Length; k++)
         {
 
             if (charArray[k].GetComponent<MoveChar>().isContactWheel)

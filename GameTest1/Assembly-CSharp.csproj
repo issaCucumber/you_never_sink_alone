@@ -55,7 +55,6 @@
      <Compile Include="Assets\Script\StarboardCannonActions.cs" />
      <Compile Include="Assets\Script\ToolboxActions.cs" />
      <Compile Include="Assets\Script\WheelActions.cs" />
-     <None Include="Assets\Shader &amp; Materials\2DOutlineDefault.shader" />
      <None Include="Assets\Shader &amp; Materials\SpriteOutline.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

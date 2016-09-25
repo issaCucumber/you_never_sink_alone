@@ -62,7 +62,7 @@ public class StarboardCannonActions : MonoBehaviour {
                 break;
         }
 
-        for (int k = 0; k < 2; k++)
+        for (int k = 0; k < charArray.Length; k++)
         {
             if (charArray[k].GetComponent<MoveChar>().isContactCannonRight)
             {
@@ -70,13 +70,13 @@ public class StarboardCannonActions : MonoBehaviour {
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
-                if (transform.localEulerAngles.z < 120)
+                if (transform.localEulerAngles.z < 140)
                 {
-                    transform.localRotation = Quaternion.Euler(0, 0, 120);
+                    transform.localRotation = Quaternion.Euler(0, 0, 140);
                 }
-                if (transform.localEulerAngles.z > 240)
+                if (transform.localEulerAngles.z > 230)
                 {
-                    transform.localRotation = Quaternion.Euler(0, 0, 240);
+                    transform.localRotation = Quaternion.Euler(0, 0, 230);
                 }
 
                 if (Input.GetButtonDown("Interact" + i))

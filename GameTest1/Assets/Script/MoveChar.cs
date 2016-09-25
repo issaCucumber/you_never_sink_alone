@@ -23,6 +23,7 @@ public class MoveChar : MonoBehaviour {
     public GameObject CannonLeft;
     public GameObject CannonRight;
     public GameObject Toolbox;
+    public GameObject Ship;
 
     void Start () {
         anim = GetComponent<Animator>();
@@ -42,18 +43,22 @@ public class MoveChar : MonoBehaviour {
 
             Vector3 movement = new Vector3(inputX, inputY, 0f);
 
-            transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
+            transform.Translate(movement * moveSpeed * Time.deltaTime);
 
 
-        //reset state when disengaged
+            //reset state when disengaged
         } else if (Input.GetAxisRaw("Interact" + playerNo) < -0.5f)
             {
                 isContactWheel = false;
                 isContactCannonLeft = false;
                 isContactCannonRight = false;
+                isContactToolbox = false;
+                transform.parent = Ship.transform;
+                transform.localRotation = Quaternion.Euler(0f,0f,0f);
                 Wheel.GetComponent<SpriteOutlineGreen>().enabled = false;
                 CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = false;
                 CannonRight.GetComponent<SpriteOutlineGreen>().enabled = false;
+                Toolbox.GetComponent<SpriteOutlineGreen>().enabled = false;
 
             //lock character in place when stationed
         } else if (isContactCannonLeft)
@@ -61,6 +66,8 @@ public class MoveChar : MonoBehaviour {
                 anim.SetBool("walking", false);
                 anim.SetFloat("LastMoveX", -1f);
                 anim.SetFloat("LastMoveY", 0f);
+                transform.parent = CannonLeft.transform;
+                transform.localPosition = new Vector3(0.33f, 0.0f, 0.0f);
                 CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = false;
                 CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = true;
         } else if (isContactCannonRight)
@@ -68,6 +75,8 @@ public class MoveChar : MonoBehaviour {
                 anim.SetBool("walking", false);
                 anim.SetFloat("LastMoveX", 1f);
                 anim.SetFloat("LastMoveY", 0f);
+                transform.parent = CannonRight.transform;
+                transform.localPosition = new Vector3(0.33f, 0.0f, 0.0f);
                 CannonRight.GetComponent<SpriteOutlineWhite>().enabled = false;
                 CannonRight.GetComponent<SpriteOutlineGreen>().enabled = true;
         } else if (isContactWheel)
@@ -75,6 +84,7 @@ public class MoveChar : MonoBehaviour {
                 anim.SetBool("walking", false);
                 anim.SetFloat("LastMoveX", 0f);
                 anim.SetFloat("LastMoveY", 1f);
+                transform.localPosition = new Vector3(0.04f, -1.6f, 0.0f);
                 Wheel.GetComponent<SpriteOutlineWhite>().enabled = false;
                 Wheel.GetComponent<SpriteOutlineGreen>().enabled = true;
         } else if (isContactToolbox)
@@ -82,6 +92,7 @@ public class MoveChar : MonoBehaviour {
                 anim.SetBool("walking", false);
                 anim.SetFloat("LastMoveX", 0f);
                 anim.SetFloat("LastMoveY", -1f);
+                transform.localPosition = new Vector3(0.06f, 2.04f, 0.0f);
                 Toolbox.GetComponent<SpriteOutlineWhite>().enabled = false;
                 Toolbox.GetComponent<SpriteOutlineGreen>().enabled = true;
             }
