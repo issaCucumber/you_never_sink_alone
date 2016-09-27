@@ -11,18 +11,21 @@ public class MoveChar : MonoBehaviour {
     public bool isContactCannonRight;
     public bool isContactCannonLeft;
     public bool isContactToolbox;
+    public bool isContactDynamite;
 
     Animator anim;
     bool isCollideWheel;
     bool isCollideCannonLeft;
     bool isCollideCannonRight;
     bool isCollideToolbox;
+    bool isCollideDynamite;
 
     //for outlining of stations
     public GameObject Wheel;
     public GameObject CannonLeft;
     public GameObject CannonRight;
     public GameObject Toolbox;
+    public GameObject Dynamite;
     public GameObject Ship;
 
     void Start () {
@@ -38,7 +41,7 @@ public class MoveChar : MonoBehaviour {
         anim.SetFloat("SpeedY", inputY);
 
         //player movement when not stationed
-        if (!isContactWheel && !isContactCannonLeft && !isContactCannonRight && !isContactToolbox)
+        if (!isContactWheel && !isContactCannonLeft && !isContactCannonRight && !isContactToolbox && !isContactDynamite)
         {
 
             Vector3 movement = new Vector3(inputX, inputY, 0f);
@@ -53,12 +56,15 @@ public class MoveChar : MonoBehaviour {
                 isContactCannonLeft = false;
                 isContactCannonRight = false;
                 isContactToolbox = false;
+                isContactDynamite = false;
+				Dynamite.GetComponent<DynamiteActions>().activation[playerNo] = false;
                 transform.parent = Ship.transform;
                 transform.localRotation = Quaternion.Euler(0f,0f,0f);
                 Wheel.GetComponent<SpriteOutlineGreen>().enabled = false;
                 CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = false;
                 CannonRight.GetComponent<SpriteOutlineGreen>().enabled = false;
                 Toolbox.GetComponent<SpriteOutlineGreen>().enabled = false;
+                Dynamite.GetComponent<SpriteOutlineGreen>().enabled = false;
 
             //lock character in place when stationed
         } else if (isContactCannonLeft)
@@ -95,7 +101,14 @@ public class MoveChar : MonoBehaviour {
                 transform.localPosition = new Vector3(0.06f, 2.04f, 0.0f);
                 Toolbox.GetComponent<SpriteOutlineWhite>().enabled = false;
                 Toolbox.GetComponent<SpriteOutlineGreen>().enabled = true;
-            }
+        } else if (isContactDynamite)
+            {
+                anim.SetBool("walking", false);
+                anim.SetFloat("LastMoveX", 0f);
+                anim.SetFloat("LastMoveY", 1f);
+                Dynamite.GetComponent<SpriteOutlineWhite>().enabled = false;
+                Dynamite.GetComponent<SpriteOutlineGreen>().enabled = true;
+        }
 
         if (isCollideWheel)
         {
@@ -117,7 +130,11 @@ public class MoveChar : MonoBehaviour {
             if (Input.GetAxis("Interact" + playerNo) > 0.5)
                 isContactToolbox = true;
         }
-
+        if (isCollideDynamite)
+        {
+            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+                isContactDynamite = true;
+        }
 
     }
 
@@ -187,6 +204,11 @@ void OnTriggerEnter2D (Collider2D col)
             isCollideToolbox = true;
             Toolbox.GetComponent<SpriteOutlineWhite>().enabled = true;
         }
+        if (col.gameObject == Dynamite)
+        {
+            isCollideDynamite = true;
+            Dynamite.GetComponent<SpriteOutlineWhite>().enabled = true;
+        }
     }
 
     void OnTriggerExit2D (Collider2D col)
@@ -212,6 +234,11 @@ void OnTriggerEnter2D (Collider2D col)
         {
             isCollideToolbox = false;
             Toolbox.GetComponent<SpriteOutlineWhite>().enabled = false;
+        }
+        if (col.gameObject == Dynamite)
+        {
+            isCollideDynamite = false;
+            Dynamite.GetComponent<SpriteOutlineWhite>().enabled = false;
         }
     }
 }

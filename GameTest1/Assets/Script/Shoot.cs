@@ -21,10 +21,13 @@ public class Shoot : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+		if (GetComponent<Rigidbody2D> ().velocity.magnitude < 0.1f) {
+			Destroy (this.gameObject);
+		}
     }
 
     void OnBecameInvisible() {
-        Destroy(this.gameObject);
+//        Destroy(this.gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D coll) {

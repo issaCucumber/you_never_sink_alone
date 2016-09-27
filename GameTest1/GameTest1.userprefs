@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/MoveShip.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/SuperAttackActions.cs">
     <Files>
-      <File FileName="Assets/Script/MoveChar.cs" Line="45" Column="49" />
-      <File FileName="Assets/Script/MoveShip.cs" Line="31" Column="18" />
+      <File FileName="Assets/Script/WheelActions.cs" Line="83" Column="18" />
+      <File FileName="Assets/Script/MoveChar.cs" Line="61" Column="51" />
+      <File FileName="Assets/Script/DynamiteActions.cs" Line="74" Column="14" />
+      <File FileName="Assets/Script/Shoot.cs" Line="35" Column="57" />
+      <File FileName="Assets/Script/SuperAttackActions.cs" Line="27" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

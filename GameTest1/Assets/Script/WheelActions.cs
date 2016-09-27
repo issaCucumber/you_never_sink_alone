@@ -62,7 +62,7 @@ public class WheelActions : MonoBehaviour
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 //move up
-                if (Input.GetAxis("Interact" + i) > 0.0f)
+                if (Input.GetAxis("Vertical" + i) > 0.0f)
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed);
 
@@ -72,7 +72,7 @@ public class WheelActions : MonoBehaviour
                     }
                 }
                 else
-                if ((Input.GetAxis("Interact" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
+                if ((Input.GetAxis("Vertical" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed * -0.5f);
 
@@ -81,33 +81,6 @@ public class WheelActions : MonoBehaviour
                         rb.velocity = rb.velocity.normalized * 0.1f;
                     }
                 }
-                else
-                if (rb.velocity.magnitude > 0.0f)
-                {
-                    rb.velocity = rb.velocity * (1.0f - (1.5f * Time.deltaTime));
-                }
-
-                //rotation
-               /* if (Input.GetButton("Horizontal" + i))
-                {
-                    //rb.AddTorque(Input.GetAxis("Horizontal" + i) *-5 * rb.velocity.magnitude);
-                    rb.angularVelocity = Input.GetAxis("Horizontal" + i) * -20.0f * rb.velocity.magnitude;
-                    //charArray[0].GetComponent<Rigidbody2D>().angularVelocity = rb.angularVelocity;
-                    //Debug.Log("char1 AV = " + charArray[0].GetComponent<Rigidbody2D>().angularVelocity);
-                }
-                else
-                {
-                    if (rb.angularVelocity > 0.0f)
-                    {
-                        rb.angularVelocity -= 1.0f;
-                    }
-                    else
-                    if (rb.angularVelocity < 0.0f)
-                    {
-                        rb.angularVelocity += 1.0f;
-                    }
-                }
-                */
 
                 if (Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
                     Ship.transform.Rotate(Vector3.forward * 10 * Time.deltaTime);
