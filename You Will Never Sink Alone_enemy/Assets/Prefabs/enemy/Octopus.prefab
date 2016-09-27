@@ -27,6 +27,7 @@ GameObject:
   - 50: {fileID: 50000013627578788}
   - 58: {fileID: 58000013192531416}
   - 114: {fileID: 114000011063736416}
+  - 114: {fileID: 114000012215559404}
   m_Layer: 0
   m_Name: Octopus
   m_TagString: Untagged
@@ -138,6 +139,18 @@ MonoBehaviour:
   explode: {fileID: 1000011761048572, guid: bad2f265d11f877429ffea16181df2c6, type: 2}
   clashShipDie: 1
   health: 8
+--- !u!114 &114000012215559404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014130467266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fff029f4676407c91e6db927b47be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfDestructTime: 10
 --- !u!114 &114000013412829354
 MonoBehaviour:
   m_ObjectHideFlags: 1

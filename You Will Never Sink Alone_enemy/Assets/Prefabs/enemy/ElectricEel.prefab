@@ -26,6 +26,7 @@ GameObject:
   - 114: {fileID: 114000013434499228}
   - 50: {fileID: 50000014004229356}
   - 58: {fileID: 58000013012122968}
+  - 114: {fileID: 114000011581261846}
   m_Layer: 0
   m_Name: ElectricEel
   m_TagString: Untagged
@@ -94,6 +95,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000011581261846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010747334158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fff029f4676407c91e6db927b47be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfDestructTime: 10
 --- !u!114 &114000013339847036
 MonoBehaviour:
   m_ObjectHideFlags: 1

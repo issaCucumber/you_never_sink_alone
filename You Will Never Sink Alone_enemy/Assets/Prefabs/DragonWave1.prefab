@@ -22,8 +22,8 @@ GameObject:
   - 212: {fileID: 212000010743689110}
   - 114: {fileID: 114000013900830816}
   - 60: {fileID: 60000012619592236}
-  - 50: {fileID: 50000010508765238}
   - 114: {fileID: 114000011101186302}
+  - 58: {fileID: 58000010117541932}
   m_Layer: 0
   m_Name: DragonWave1
   m_TagString: Untagged
@@ -39,28 +39,25 @@ Transform:
   m_GameObject: {fileID: 1000012897230684}
   m_LocalRotation: {x: -0, y: -0, z: -0.33054832, w: 0.9437891}
   m_LocalPosition: {x: 0.48, y: 0.06, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -38.872}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &50000010508765238
-Rigidbody2D:
-  serializedVersion: 2
+--- !u!58 &58000010117541932
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012897230684}
-  m_UseAutoMass: 1
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 50.902054
 --- !u!60 &60000012619592236
 PolygonCollider2D:
   m_ObjectHideFlags: 1

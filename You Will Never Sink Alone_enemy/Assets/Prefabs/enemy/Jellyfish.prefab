@@ -23,9 +23,10 @@ GameObject:
   - 95: {fileID: 95000011422539220}
   - 114: {fileID: 114000010297974622}
   - 114: {fileID: 114000012289144144}
-  - 114: {fileID: 114000012617564116}
   - 50: {fileID: 50000011496378650}
   - 58: {fileID: 58000013748391608}
+  - 114: {fileID: 114000013008860996}
+  - 114: {fileID: 114000013729947180}
   m_Layer: 0
   m_Name: Jellyfish
   m_TagString: Untagged
@@ -119,7 +120,7 @@ MonoBehaviour:
   explode: {fileID: 1000011527714648, guid: e0ebef36ca6c5ab458b329a5a6cbc16c, type: 2}
   clashShipDie: 1
   health: 6
---- !u!114 &114000012617564116
+--- !u!114 &114000013008860996
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -127,10 +128,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013420064248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc0260151fdb324f905377ad55296fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c4822793ba1e42b8a20f2c9f9f26571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1
+  maxSpeed: 2
+--- !u!114 &114000013729947180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013420064248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fff029f4676407c91e6db927b47be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfDestructTime: 10
 --- !u!212 &212000012537067540
 SpriteRenderer:
   m_ObjectHideFlags: 1

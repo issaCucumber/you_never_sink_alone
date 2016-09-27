@@ -27,6 +27,7 @@ GameObject:
   - 50: {fileID: 50000011179542706}
   - 58: {fileID: 58000012292129556}
   - 114: {fileID: 114000012888689616}
+  - 114: {fileID: 114000013901330054}
   m_Layer: 0
   m_Name: FlyingFish
   m_TagString: Untagged
@@ -132,6 +133,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2d8db7df3007041b8fe96134cbacfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000013901330054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011129050684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fff029f4676407c91e6db927b47be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfDestructTime: 10
 --- !u!114 &114000013967736036
 MonoBehaviour:
   m_ObjectHideFlags: 1
