@@ -9,8 +9,8 @@ public class DynamiteActions : MonoBehaviour {
     public int dynamitelevel = 1;
     public float percent = 100.0f;
     public Transform superattack;
+    public float lastfiretime = -300;
     private int cooldown = 300; // 300 secs
-    private float lastfiretime = -300;
 
     // Use this for initialization
     void Start () {
