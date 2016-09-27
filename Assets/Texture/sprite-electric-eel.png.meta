@@ -1,0 +1,260 @@
+fileFormatVersion: 2
+guid: 03a554e20e0052d428a587f95403b2ab
+timeCreated: 1473671190
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: sprite-electric-eel_0
+    21300002: sprite-electric-eel_1
+    21300004: sprite-electric-eel_2
+    21300006: sprite-electric-eel_3
+    21300008: sprite-electric-eel_4
+    21300010: sprite-electric-eel_5
+    21300012: sprite-electric-eel_6
+    21300014: sprite-electric-eel_7
+    21300016: sprite-electric-eel_8
+    21300018: sprite-electric-eel_9
+    21300020: sprite-electric-eel_10
+    21300022: sprite-electric-eel_11
+    21300024: sprite-electric-eel_12
+    21300026: sprite-electric-eel_13
+    21300028: sprite-electric-eel_14
+    21300030: sprite-electric-eel_15
+    21300032: sprite-electric-eel_16
+    21300034: sprite-electric-eel_17
+    21300036: sprite-electric-eel_18
+    21300038: sprite-electric-eel_19
+    21300040: sprite-electric-eel_20
+    21300042: sprite-electric-eel_21
+    21300044: sprite-electric-eel_22
+    21300046: sprite-electric-eel_23
+    21300048: sprite-electric-eel_24
+    21300050: sprite-electric-eel_25
+    21300052: sprite-electric-eel_26
+    21300054: sprite-electric-eel_27
+    21300056: sprite-electric-eel_28
+    21300058: sprite-electric-eel_29
+    21300060: sprite-electric-eel_30
+    21300062: sprite-electric-eel_31
+    21300064: sprite-electric-eel_32
+    21300066: sprite-electric-eel_33
+    21300068: sprite-electric-eel_34
+    21300070: sprite-electric-eel_35
+    21300072: sprite-electric-eel_36
+    21300074: sprite-electric-eel_37
+    21300076: sprite-electric-eel_38
+    21300078: sprite-electric-eel_39
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -3
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sprite-electric-eel_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 186
+        width: 59
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 194
+        width: 13
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_2
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 122
+        width: 43
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_3
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 149
+        width: 56
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_4
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 63
+        width: 43
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_5
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 86
+        width: 55
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8
+        width: 59
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_7
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 13
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 9
+        width: 59
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_9
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 62
+        width: 43
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_10
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 126
+        width: 43
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sprite-electric-eel_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 198
+        width: 59
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
