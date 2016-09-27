@@ -27,11 +27,11 @@ public class Shoot : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-    void OnCollisionEnter2D(Collision2D coll) {
+    void OnTriggerEnter2D(Collider2D coll) {
 //        if (coll.gameObject.tag == "Enemy")
 //            coll.gameObject.SendMessage("ApplyDamage", 10);
-        Destroy(this.gameObject);
-        Transform myexplosion = (Transform)Instantiate(explosion, coll.contacts[0].point, transform.rotation);
+        Transform myexplosion = (Transform)Instantiate(explosion, transform.position, transform.rotation);
         myexplosion.GetComponent<Explosion>().level = level;
+        Destroy(this.gameObject);
     }
 }
