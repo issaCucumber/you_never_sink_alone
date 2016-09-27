@@ -131,10 +131,12 @@ public class GUIManager : MonoBehaviour {
 
     public void SetMusicVolume(float value)
     {
+        //audioSource.volume = value;
     }
 
     public void SetSfxVolume(float value)
     {
-
+        audioSource.volume = value;
+        //save it to playerPrefs
     }
 }

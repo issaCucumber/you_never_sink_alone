@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -8,6 +9,9 @@ public class Player : MonoBehaviour {
 
     [SerializeField]
     private Stat energy;
+
+    [SerializeField]
+    private Prestige prestige;
 
     private float startTime;
 
@@ -18,6 +22,7 @@ public class Player : MonoBehaviour {
     {
         health.Initialize();
         energy.Initialize();
+        prestige.Initialize();
 	}
 	
 	// Update is called once per frame
@@ -39,7 +44,7 @@ public class Player : MonoBehaviour {
             {
                 Debug.Log("Enter here");
                 startTime = Time.time;
-                energy.CurrentVal -= 10;
+                energy.CurrentVal = 0;
             }
         }
         else
@@ -49,6 +54,16 @@ public class Player : MonoBehaviour {
             float t = Time.time - startTime;    //amt of seconds has past since trigger
             energy.CurrentVal = (t / rechargeTiming) * energy.MaxVal;
             Debug.Log("Current val: " + energy.CurrentVal );
+        }
+
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            prestige.PrestigeVal += 50;
+        }
+
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            prestige.PrestigeVal -= 20;
         }
 
     }

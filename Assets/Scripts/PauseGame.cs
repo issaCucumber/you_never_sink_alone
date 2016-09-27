@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class PauseGame : MonoBehaviour {
+
+    public EventSystem ES;
+    private GameObject storeSelected;
 
     public Transform canvas;
     public Transform playerObj;
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+        storeSelected = ES.firstSelectedGameObject;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,7 +22,19 @@ public class PauseGame : MonoBehaviour {
         {
             Pause();
         }
-	}
+
+        if (ES.currentSelectedGameObject != storeSelected)
+        {
+            if (ES.currentSelectedGameObject == null)
+            {
+                ES.SetSelectedGameObject(storeSelected);
+            }
+            else
+            {
+                storeSelected = ES.currentSelectedGameObject;
+            }
+        }
+    }
 
     private void Pause()
     {
