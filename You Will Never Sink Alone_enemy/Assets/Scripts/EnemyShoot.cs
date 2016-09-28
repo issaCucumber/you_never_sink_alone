@@ -18,6 +18,7 @@ public class EnemyShoot : MonoBehaviour {
 		if (readyToShoot && withinAttackDistance ()) {
 			
 			Instantiate (bullet, transform.position + getBulletOffset (), transform.rotation);
+
 			readyToShoot = false;
 
 			if (stopAfterShoot) {
