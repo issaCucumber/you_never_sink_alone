@@ -16,16 +16,16 @@ public class EnemyDamageHandler : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("other name is "+other.name);
+		//Debug.Log ("other name is "+other.name);
 		if (other.name == "Ship") {
 			if (clashShipDie) {
 				health = 0;
 			}
 		} else if (other.name.StartsWith("Rock")) {
 			health = 0;
-			Debug.Log("hit Rock health is "+health);
+			//Debug.Log("hit Rock health is "+health);
 		} else if (other.name.StartsWith("Cannonball")) {
-			Debug.Log("hit Cannonball");
+			//Debug.Log("hit Cannonball");
 			Shoot bullet = other.GetComponent<Shoot>();
 			if (bullet.level == 1) {
 				health -= 2;
@@ -51,7 +51,7 @@ public class EnemyDamageHandler : MonoBehaviour {
 				exploded = true;
 			}
 
-			Debug.Log ("health="+health);
+			//Debug.Log ("health="+health);
 			Die();
 		}
 
@@ -63,7 +63,7 @@ public class EnemyDamageHandler : MonoBehaviour {
 	}
 
 	void Die() {
-		Debug.Log ("I Die");
+		//Debug.Log ("I Die");
 		Destroy (gameObject);
 	}
 

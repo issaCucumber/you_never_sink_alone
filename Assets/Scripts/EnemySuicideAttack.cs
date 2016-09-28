@@ -36,13 +36,13 @@ public class EnemySuicideAttack : MonoBehaviour {
 			emf.maxSpeed = attackSpeed;
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
 			attackDelay = delay;
-			Debug.Log ("Start Attack");
+			//Debug.Log ("Start Attack");
 		} else if (emf.maxSpeed.Equals (originalSpeed)) {
 			//do nothing
 		} else if (emf.maxSpeed.Equals (attackSpeed)) {
 			emf.maxSpeed = originalSpeed;
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.white;
-			Debug.Log ("Restore");
+			//Debug.Log ("Restore");
 		}
 
 	}
