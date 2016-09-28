@@ -19,7 +19,7 @@ public class EnemyFaceShip : MonoBehaviour {
 		if (other.name.StartsWith ("Academy")
 		    || other.name.StartsWith ("island")
 		    || other.name.StartsWith ("Island")) {//TODO to add other island names
-			Debug.Log ("hit island!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			//Debug.Log ("hit island!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			hitIsland = true;
 		}
 
@@ -30,20 +30,20 @@ public class EnemyFaceShip : MonoBehaviour {
 
 		//moving on opp dir for 3 seconds on hitting island
 		if (hitIsland) {
-			Debug.Log ("hitIsland");
+			//Debug.Log ("hitIsland");
 			changeDir = true;
 			movingOppTimer = 3f;
 			movingOpp = true;
 		}else if (!movingOpp && !hitIsland) {
-			Debug.Log ("!movingOpp && !hitIsland");
+			//Debug.Log ("!movingOpp && !hitIsland");
 			movingOpp = false;
 		} else if (movingOpp && movingOppTimer > 0 && !hitIsland) {
-			Debug.Log ("movingOpp && movingOppTimer > 0 && !hitIsland");
+			//Debug.Log ("movingOpp && movingOppTimer > 0 && !hitIsland");
 			changeDir = true;
 			movingOppTimer -= Time.deltaTime;
 			movingOpp = true;
 		} else if (movingOpp && movingOppTimer <= 0 && !hitIsland) {
-			Debug.Log ("movingOpp && movingOppTimer <= 0 && !hitIsland");
+			//Debug.Log ("movingOpp && movingOppTimer <= 0 && !hitIsland");
 			changeDir = false;
 			movingOpp = false;
 		}
