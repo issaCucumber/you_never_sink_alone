@@ -25,8 +25,11 @@ public class EnemyDamageHandler : MonoBehaviour {
 			if (clashShipDie) {
 				health = 0;
 			}
-		} else if (isSameName(other.name, "CannonballPrefab")) {
-			Debug.Log("hit CannonballPrefab");
+		} else if (other.name.StartsWith("Rock")) {
+			health = 0;
+			Debug.Log("hit Rock health is "+health);
+		} else if (other.name.StartsWith("Cannonball")) {
+			Debug.Log("hit Cannonball");
 			Shoot bullet = other.GetComponent<Shoot>();
 			if (bullet.level == 1) {
 				health -= 2;
@@ -42,7 +45,7 @@ public class EnemyDamageHandler : MonoBehaviour {
 			invulnTimer = 1f;
 			gameObject.layer = 10;
 
-		}else if (isSameName(other.name,"SuperAttack")) {
+		}else if (other.name.StartsWith("SuperAttack")) {
 			health = 0;
 		}
 
@@ -73,15 +76,4 @@ public class EnemyDamageHandler : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
-
-	bool isSameName(string name1, string name2) {
-
-		int bracketIndex1 = name1.IndexOf ("(");
-		int bracketIndex2 = name2.IndexOf ("(");
-
-		string n1 = name1.Substring (0, bracketIndex1 > 0 ? bracketIndex1 : name1.Length);
-		string n2 = name2.Substring (0, bracketIndex2 > 0 ? bracketIndex2 : name2.Length);
-
-		return n1.Equals (n2);
-	}
 }
