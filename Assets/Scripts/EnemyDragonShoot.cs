@@ -43,8 +43,6 @@ public class EnemyDragonShoot : MonoBehaviour {
 
 	bool inAttackDistance(Vector3 position) {
 
-		Debug.Log("inAttackDistance");
-
 		if (ship == null) {
 
 			GameObject target = GameObject.Find ("Ship");
