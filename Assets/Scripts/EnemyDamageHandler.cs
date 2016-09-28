@@ -11,13 +11,10 @@ public class EnemyDamageHandler : MonoBehaviour {
 
 	float invulnTimer = 0;
 
-	float deathDelay = 0;
-
 	bool exploded = false;
 
 	int correctLayer;
 
-	// Use this for initialization
 	void Start () {
 		correctLayer = gameObject.layer;
 	}
@@ -28,8 +25,8 @@ public class EnemyDamageHandler : MonoBehaviour {
 			if (clashShipDie) {
 				health = 0;
 			}
-		} else if (other.name.StartsWith ("CannonballPrefab")) {
-			Debug.Log("hitttttt");
+		} else if (isSameName(other.name, "CannonballPrefab")) {
+			Debug.Log("hit CannonballPrefab");
 			Shoot bullet = other.GetComponent<Shoot>();
 			if (bullet.level == 1) {
 				health -= 2;
@@ -42,38 +39,32 @@ public class EnemyDamageHandler : MonoBehaviour {
 			} else if (bullet.level == 5) {
 				health -= 10;
 			} 
+			invulnTimer = 1f;
+			gameObject.layer = 10;
 
-		}else if (isSameName(other.name,"Dynamite")) {
+		}else if (isSameName(other.name,"SuperAttack")) {
 			health = 0;
 		}
 
-		invulnTimer = 2f;
-		deathDelay = 1f;
-		gameObject.layer = 10;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		
 		invulnTimer -= Time.deltaTime;
-		deathDelay -= Time.deltaTime;
 
 		if(invulnTimer <= 0) {
 			gameObject.layer = correctLayer;
 		}
 
 		if (health <= 0 ) {
-			Debug.Log ("health = "+health);
 			if (!exploded && explode != null) {
 				Instantiate (explode, transform.position, transform.rotation);
 				exploded = true;
 			}
 
-			if(deathDelay <= 0) {
-				Debug.Log ("health="+health);
-				Debug.Log ("deathDelay="+deathDelay);
-				Die();
-			}
+			Debug.Log ("health="+health);
+			Die();
 		}
 	}
 
