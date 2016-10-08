@@ -11,16 +11,20 @@ public class StarboardCannonActions : MonoBehaviour {
     public GameObject myCannonBall;
     float rotspeed = 100;
     float lastfiretime = 0;
-    GameObject cannonInstance;
+	GameObject cannonInstance;
+	bool hypnotized = false;
+	Transform ship;
 
     // Use this for initialization
-    void Start () {
+	void Start () {
+		ship = GameObject.Find ("Ship").transform;
         // Read previous powerlevel;
         // Display sprites according to upgradelevel;
     }
 
     // Update is called once per frame
-    void Update () {
+	void Update () {
+		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
         // Change sprites according to powerlevel if necessary;
         switch (starboardcannonpowerlevel)
         {
@@ -69,7 +73,7 @@ public class StarboardCannonActions : MonoBehaviour {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-                transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+				transform.Rotate(0, 0, (hypnotized == true ? -1 : 1) * Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z < 140)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 140);
@@ -79,7 +83,7 @@ public class StarboardCannonActions : MonoBehaviour {
                     transform.localRotation = Quaternion.Euler(0, 0, 230);
                 }
 
-                if (Input.GetButtonDown("Interact" + i))
+				if (Input.GetButtonDown("Interact" + i))
                 {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= firerate)

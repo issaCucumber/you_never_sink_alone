@@ -26,16 +26,22 @@ public class MoveChar : MonoBehaviour {
     public GameObject CannonRight;
     public GameObject Toolbox;
     public GameObject Dynamite;
-    public GameObject Ship;
+	public GameObject Ship;
+
+	bool hypnotized = false;
+	Transform ship;
 
     void Start () {
+
+		ship = GameObject.Find ("Ship").transform;
         anim = GetComponent<Animator>();
     }
 	
 	void Update () {
+		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
 
-        float inputX = Input.GetAxisRaw("Horizontal" + playerNo);
-        float inputY = Input.GetAxisRaw("Vertical" + playerNo);
+		float inputX = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Horizontal" + playerNo);
+		float inputY = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Vertical" + playerNo);
 
         anim.SetFloat("SpeedX", inputX);
         anim.SetFloat("SpeedY", inputY);
@@ -139,9 +145,10 @@ public class MoveChar : MonoBehaviour {
     }
 
     void FixedUpdate()
-    {
-        float lastInputX = Input.GetAxisRaw("Horizontal" + playerNo);
-        float lastInputY = Input.GetAxisRaw("Vertical" + playerNo);
+	{
+		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
+		float lastInputX = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Horizontal" + playerNo);
+		float lastInputY = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Vertical" + playerNo);
 
             //get last input to display static animation
             if (lastInputX != 0 || lastInputY != 0)

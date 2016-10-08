@@ -13,13 +13,18 @@ public class PortCannonActions : MonoBehaviour {
     float lastfiretime = 0;
 
     GameObject cannonInstance;
+
+	bool hypnotized = false;
+	Transform ship;
     // Use this for initialization
-    void Start () {
+	void Start () {
+		ship = GameObject.Find ("Ship").transform;
         // Read previous powerlevel;
         // Display sprites according to upgradelevel;
     }
 
-    void Update () {
+	void Update () {
+		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
         // Change sprites according to powerlevel if necessary;
         switch (portcannonpowerlevel)
         {
@@ -68,7 +73,7 @@ public class PortCannonActions : MonoBehaviour {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-                transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+				transform.Rotate(0, 0, (hypnotized == true ? -1 : 1) * Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z > 40 && transform.localEulerAngles.z < 90)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 40);
@@ -78,7 +83,7 @@ public class PortCannonActions : MonoBehaviour {
                     transform.localRotation = Quaternion.Euler(0, 0, 300);
                 }
 
-                if (Input.GetButtonDown("Interact" + i))
+				if (Input.GetButtonDown("Interact" + i))
                 {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= firerate)

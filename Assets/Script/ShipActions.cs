@@ -10,6 +10,8 @@ public class ShipActions : MonoBehaviour {
 	private Prestige prestige;
 
 	private float startTime;
+	public bool shock;//TODO set shock to false after 5s
+	public bool hypnotize;//TODO set shock to false after 5s
 
 
  	public int hullmax = 100;
@@ -31,7 +33,7 @@ public class ShipActions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
     }
 
     void OnCollisionEnter2D(Collision2D coll)
