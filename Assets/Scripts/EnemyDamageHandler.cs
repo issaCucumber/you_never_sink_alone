@@ -45,6 +45,11 @@ public class EnemyDamageHandler : MonoBehaviour {
 			health = 0;
 		}
 
+	}
+
+	// Update is called once per frame
+	void Update () {
+
 		if (health <= 0 ) {
 			if (!exploded && explode != null) {
 				Instantiate (explode, transform.position, transform.rotation);
@@ -54,11 +59,6 @@ public class EnemyDamageHandler : MonoBehaviour {
 			//Debug.Log ("health="+health);
 			Die();
 		}
-
-	}
-
-	// Update is called once per frame
-	void Update () {
 		
 	}
 
