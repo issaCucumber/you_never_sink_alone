@@ -41,8 +41,9 @@ public class EnemyElectricShock : MonoBehaviour {
 			attacked = true;
 			dieDelay = delay;
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
-
-			Instantiate (bullet, transform.position + getBulletOffset (), transform.rotation);
+			if (bullet != null) {
+				Instantiate (bullet, transform.position + getBulletOffset (), transform.rotation);
+			}
 			//readyToShock = false;
 
 			if (stopAfterShock) {
