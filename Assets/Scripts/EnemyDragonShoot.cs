@@ -15,30 +15,37 @@ public class EnemyDragonShoot : MonoBehaviour {
 	bool isFireAttack = true;
 
 	public float shootDelay = 15f;
+	public float attackEffectDelay = 0.3f;
 
-	float cooldownTimer = 5f;
+	float cooldownTimer;
+
 	// Use this for initialization
 	void Start () {
-
+		cooldownTimer = shootDelay;
 	}
 
 	// Update is called once per frame
 	void Update () {
 
 		cooldownTimer -= Time.deltaTime;
-
+		if (cooldownTimer < shootDelay - attackEffectDelay) {
+			transform.gameObject.GetComponent<Renderer> ().material.color = Color.white;
+		}
 		if (cooldownTimer <= 0 && inAttackDistance(transform.position)) {
 
 			cooldownTimer = shootDelay;
 
 			if (isFireAttack) {
 				Instantiate (fire, transform.position + getBulletOffset (), transform.rotation);
+				transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
 			} else {
 				Instantiate (wave, transform.position + getBulletOffset (), transform.rotation);
+				transform.gameObject.GetComponent<Renderer> ().material.color = Color.magenta;
 			}
 			cooldownTimer = shootDelay;
 			isFireAttack = !isFireAttack;
 		}
+
 	}
 
 	bool inAttackDistance(Vector3 position) {
@@ -54,7 +61,6 @@ public class EnemyDragonShoot : MonoBehaviour {
 		}
 
 		if (ship != null && Vector3.Distance(position, ship.position) < attackDistance) {
-			Debug.Log("inAttackDistance return true");
 			return true;
 		}
 
