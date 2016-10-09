@@ -34,6 +34,7 @@ public class EnemyElectricShock : MonoBehaviour {
 		if (!attacked && withinAttackDistance () && sa != null) {
 
 			sa.shocknow = true;
+			sa.hullcurrent -= getEnemyDamageValue();
 			attacked = true;
 			dieDelay = delay;
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.cyan;
@@ -103,5 +104,14 @@ public class EnemyElectricShock : MonoBehaviour {
 
 		return false;
 
+	}
+
+
+
+	int getEnemyDamageValue() {
+		if (gameObject.name.StartsWith ("ElectricEel")) {
+			return 5;
+		}
+		return  0;
 	}
 }

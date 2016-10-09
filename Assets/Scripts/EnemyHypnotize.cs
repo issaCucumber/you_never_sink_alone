@@ -42,6 +42,9 @@ public class EnemyHypnotize : MonoBehaviour {
 		if (!attacked && hit && sa != null) {
 
 			sa.hypnotizenow = true;
+
+			sa.hullcurrent -= getEnemyDamageValue();
+
 			attacked = true;
 			dieDelay = delay;
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.blue;
@@ -52,7 +55,6 @@ public class EnemyHypnotize : MonoBehaviour {
 
 			if (stopAfterShock) {
 				EnermyRandomMove erm = transform.GetComponent<EnermyRandomMove>();
-				//erm.stop = true;	//TODO
 			}
 		}
 
@@ -61,4 +63,10 @@ public class EnemyHypnotize : MonoBehaviour {
 		}
 	}
 
+	int getEnemyDamageValue() {
+		if (gameObject.name.StartsWith ("Jellyfish")) {
+			return 5;
+		}
+		return  0;
+	}
 }

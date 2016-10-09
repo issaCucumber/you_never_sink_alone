@@ -24,7 +24,7 @@ public class StarboardCannonActions : MonoBehaviour {
 
     // Update is called once per frame
 	void Update () {
-		hypnotized = ship.GetComponent<ShipActions> ().isHynotized;
+		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
         // Change sprites according to powerlevel if necessary;
         switch (starboardcannonpowerlevel)
         {

@@ -54,6 +54,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 
 			GameObject target = GameObject.Find ("Ship");
 
+
 			if (target != null) {
 				
 				ship = target.transform;

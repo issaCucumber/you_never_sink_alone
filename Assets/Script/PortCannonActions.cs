@@ -24,7 +24,7 @@ public class PortCannonActions : MonoBehaviour {
     }
 
 	void Update () {
-		hypnotized = ship.GetComponent<ShipActions> ().isHynotized;
+		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
         // Change sprites according to powerlevel if necessary;
         switch (portcannonpowerlevel)
         {

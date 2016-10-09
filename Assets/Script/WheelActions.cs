@@ -26,7 +26,7 @@ public class WheelActions : MonoBehaviour
     // Update is called once per frame
     void Update()
 	{
-		hypnotized = ship.GetComponent<ShipActions> ().isHynotized;
+		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
 
         // Change sprites according to wheellevel if necessary;
         switch (wheellevel)

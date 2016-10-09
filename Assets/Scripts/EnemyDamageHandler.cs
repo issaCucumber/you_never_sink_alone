@@ -11,14 +11,19 @@ public class EnemyDamageHandler : MonoBehaviour {
 
 	bool exploded = false;
 
+	float deathDelay = 0;
+
+	ShipActions sa;	
+
 	void Start () {
-		
+		sa = GameObject.Find ("Ship").transform.GetComponent<ShipActions>();
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		//Debug.Log ("other name is "+other.name);
 		if (other.name == "Ship") {
 			if (clashShipDie) {
+				sa.hullcurrent -= getEnemyDamageValue ("clash");
 				health = 0;
 			}
 		} else if (other.name.StartsWith("Rock")) {
@@ -45,10 +50,13 @@ public class EnemyDamageHandler : MonoBehaviour {
 			health = 0;
 		}
 
+		float deathDelay = 0;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
+		deathDelay -= Time.deltaTime;
 
 		if (health <= 0 ) {
 			if (!exploded && explode != null) {
@@ -56,10 +64,40 @@ public class EnemyDamageHandler : MonoBehaviour {
 				exploded = true;
 			}
 
-			//Debug.Log ("health="+health);
-			Die();
+			if(deathDelay <= 0) {
+				Debug.Log ("health="+health);
+				Debug.Log ("deathDelay="+deathDelay);
+				sa.prestigevalue = getEnemyPrestigeValue();
+				Die();
+			}
 		}
 		
+	}
+
+	int getEnemyDamageValue(string attack) {
+		if (attack.Equals("clash")) {
+			if (gameObject.name.StartsWith ("FlyingFish")) {
+				return 5;
+			} else if (gameObject.name.StartsWith ("Octopus")) {
+				return 10;
+			}
+		}
+		return  0;
+	}
+
+	int getEnemyPrestigeValue() {
+		if (gameObject.name.StartsWith ("Dragon")) {
+			return 50;
+		} else if (gameObject.name.StartsWith ("ElectricEel")) {
+			return 10;
+		} else if (gameObject.name.StartsWith ("FlyingFish")) {
+			return 5;
+		} else if (gameObject.name.StartsWith ("JellyFish")) {
+			return 15;
+		} else if (gameObject.name.StartsWith ("Octopus")) {
+			return 20;
+		}
+		return  0;
 	}
 
 	void Die() {

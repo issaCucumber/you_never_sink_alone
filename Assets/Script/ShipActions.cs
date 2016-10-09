@@ -10,19 +10,18 @@ public class ShipActions : MonoBehaviour {
 	private Prestige prestige;
 
 	private float startTime;
-	//public bool shocknow;//TODO set shock to false after 5s
-	public bool hypnotizenow;//TODO set shock to false after 5s
 
 
  	public int hullmax = 100;
     public int hullcurrent = 100;
-    //public int prestige = 0;
+	public int prestigevalue = 0; // for enemies
     public int hulllevel = 1;
     public bool shocknow = false;
     public bool isShocked = false;
     private float shockstarttime;
-	public bool isHynotized = false;
-	private float hynotizestarttime;
+	public bool hypnotizenow = false;
+	public bool isHypnotized = false;
+	private float hypnotizestarttime;
     public GameObject shipshock;
 
 	private void Awake ()
@@ -39,27 +38,7 @@ public class ShipActions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (hypnotizenow) {
-//			transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
-			hypnotizenow = false;
-			hynotizestarttime = Time.time;
-			if (isHynotized == false)
-			{
-				isHynotized = true;
-				// Show ship_shock animation
-//				shipshock.SetActive(true);
-			}
-
-		}
-
-		if (Time.time - hynotizestarttime >= 5) // 5 secs since hypnotized
-		{
-			isHynotized = false;
-			// Hide ship_shock animation
-//			shipshock.SetActive(false);
-		}
-
-		if (shocknow == true) // shock started
+        if (shocknow == true) // shock started
         {
             shocknow = false;
             shockstarttime = Time.time;
@@ -77,6 +56,28 @@ public class ShipActions : MonoBehaviour {
             // Hide ship_shock animation
             shipshock.SetActive(false);
         }
+
+		if (hypnotizenow == true) // hynotize started
+		{
+			hypnotizenow = false;
+			hypnotizestarttime = Time.time;
+			if (isHypnotized == false)
+			{
+				isHypnotized = true;
+			}
+		}
+
+		if (Time.time - hypnotizestarttime >= 5) // 5 secs since hypnotized
+		{
+			isHypnotized = false;
+		}
+
+        health.MaxVal = hullmax;
+        health.CurrentVal = hullcurrent;
+
+        // Increase prestige from enemies.
+        prestige.PrestigeVal += prestigevalue;
+        prestigevalue = 0;
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -84,6 +85,10 @@ public class ShipActions : MonoBehaviour {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         //        if (coll.gameObject.tag == "Enemy")
         //            coll.gameObject.SendMessage("ApplyDamage", 10);
-        hullcurrent -= Mathf.CeilToInt(rb.velocity.magnitude);
+
+        if (coll.gameObject.tag == "rock")
+        {
+            hullcurrent -= Mathf.CeilToInt(rb.velocity.magnitude);
+        }
     }
 }
