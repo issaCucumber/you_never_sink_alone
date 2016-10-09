@@ -24,7 +24,7 @@ public class StarboardCannonActions : MonoBehaviour {
 
     // Update is called once per frame
 	void Update () {
-		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
+		hypnotized = ship.GetComponent<ShipActions> ().isHynotized;
         // Change sprites according to powerlevel if necessary;
         switch (starboardcannonpowerlevel)
         {
@@ -44,7 +44,13 @@ public class StarboardCannonActions : MonoBehaviour {
                 GetComponent<SpriteRenderer>().sprite = Resources.Load("Cannon_lvl5", typeof(Sprite)) as Sprite;
                 break;
         }
-        
+
+        // Do nothing when ship is shocked
+        if (ship.gameObject.GetComponent<ShipActions>().isShocked == true)
+        {
+            return;
+        }
+
         // Determine fire rate according to cannon fire rate level
         float firerate = 0;
         switch (starboardcannonfireratelevel)

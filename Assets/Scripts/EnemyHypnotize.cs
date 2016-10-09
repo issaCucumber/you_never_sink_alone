@@ -4,7 +4,6 @@ using System.Collections;
 public class EnemyHypnotize : MonoBehaviour {
 
 	public GameObject bullet;
-	public float bulletOffset = 0f;
 	const float  delay = 0.5f;
 	float dieDelay = 0;
 	Transform ship;
@@ -42,7 +41,7 @@ public class EnemyHypnotize : MonoBehaviour {
 
 		if (!attacked && hit && sa != null) {
 
-			sa.hypnotize = true;
+			sa.hypnotizenow = true;
 			attacked = true;
 			dieDelay = delay;
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.blue;

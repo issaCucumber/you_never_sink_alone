@@ -24,7 +24,7 @@ public class PortCannonActions : MonoBehaviour {
     }
 
 	void Update () {
-		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
+		hypnotized = ship.GetComponent<ShipActions> ().isHynotized;
         // Change sprites according to powerlevel if necessary;
         switch (portcannonpowerlevel)
         {
@@ -43,6 +43,12 @@ public class PortCannonActions : MonoBehaviour {
             case 5:
                 GetComponent<SpriteRenderer>().sprite = Resources.Load("Cannon_lvl5", typeof(Sprite)) as Sprite;
                 break;
+        }
+
+        // Do nothing when ship is shocked
+        if (ship.gameObject.GetComponent<ShipActions>().isShocked == true)
+        {
+            return;
         }
 
         // Determine fire rate according to cannon fire rate level

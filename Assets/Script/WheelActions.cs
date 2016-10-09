@@ -13,18 +13,20 @@ public class WheelActions : MonoBehaviour
 	public GameObject Ship;
 	bool hypnotized = false;
 	Transform ship;
+    public GameObject waves;
+    private Vector3 originalscale;
 
     // Use this for initialization
     void Start()
     {
-
+ 		originalscale = waves.transform.localScale;
 		ship = GameObject.Find ("Ship").transform;
     }
 
     // Update is called once per frame
     void Update()
 	{
-		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
+		hypnotized = ship.GetComponent<ShipActions> ().isHynotized;
 
         // Change sprites according to wheellevel if necessary;
         switch (wheellevel)
@@ -52,6 +54,27 @@ public class WheelActions : MonoBehaviour
         }
 
         Rigidbody2D rb = Ship.GetComponent<Rigidbody2D>();
+
+        if (rb.velocity.magnitude > 0.3)
+        {
+            // show waves animation
+            Vector3 scale = originalscale;
+            scale.y += (rb.velocity.magnitude / 5.0f);
+            waves.transform.localScale = scale;
+            waves.SetActive(true);
+        }
+        else
+        {
+            // hide waves animation
+            waves.transform.localScale = originalscale;
+            waves.SetActive(false);
+        }
+
+        // Do nothing when ship is shocked
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
+        {
+            return;
+        }
 
         for (int k = 0; k < charArray.Length; k++)
         {

@@ -42,11 +42,17 @@ public class ToolboxActions : MonoBehaviour {
                 break;
         }
 
+        // Do nothing when ship is shocked
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
+        {
+            return;
+        }
+
         // Repair hull
         for (int k = 0; k < charArray.Length; k++)
         {
 
-            if (charArray[k].GetComponent<MoveChar>().isContactWheel)
+            if (charArray[k].GetComponent<MoveChar>().isContactToolbox)
             {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;

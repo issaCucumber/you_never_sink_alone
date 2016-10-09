@@ -38,7 +38,7 @@ public class MoveChar : MonoBehaviour {
     }
 	
 	void Update () {
-		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
+		hypnotized = ship.GetComponent<ShipActions> ().isHynotized;
 
 		float inputX = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Horizontal" + playerNo);
 		float inputY = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Vertical" + playerNo);
@@ -146,7 +146,7 @@ public class MoveChar : MonoBehaviour {
 
     void FixedUpdate()
 	{
-		hypnotized = ship.GetComponent<ShipActions> ().hypnotize;
+		hypnotized = ship.GetComponent<ShipActions> ().hypnotizenow;
 		float lastInputX = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Horizontal" + playerNo);
 		float lastInputY = (hypnotized == true ? -1 : 1) * Input.GetAxisRaw("Vertical" + playerNo);
 

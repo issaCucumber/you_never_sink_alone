@@ -33,7 +33,7 @@ public class EnemyElectricShock : MonoBehaviour {
 
 		if (!attacked && withinAttackDistance () && sa != null) {
 
-			sa.shock = true;
+			sa.shocknow = true;
 			attacked = true;
 			dieDelay = delay;
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.cyan;
@@ -95,7 +95,7 @@ public class EnemyElectricShock : MonoBehaviour {
 
 		Vector3 dir = ship.position - transform.position;
 
-		if (dir.magnitude - shipHeight - enemyHeight < shipHeight * 0.5) {
+		if (dir.magnitude - shipHeight - enemyHeight < shipHeight * 0.01) {
 
 			return true;
 
