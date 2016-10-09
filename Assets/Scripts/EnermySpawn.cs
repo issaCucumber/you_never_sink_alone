@@ -30,15 +30,16 @@ public class EnermySpawn : MonoBehaviour {
 			startSpawn = true;
 		} else {
 		}
-
 	}
 
 	void OnTriggerExit2D(Collider2D obj){
 		if (obj.name == "Ship") {//need to unify name
-			Debug.Log ("leave trigger");
-			startSpawn = false;
-			//generate enermy at least once
-			SpawnEnermy ();
+			if (enermyInstance == null) {
+				Debug.Log ("leave trigger");
+				startSpawn = false;
+				//generate enermy at least once
+				SpawnEnermy ();
+			}
 		} else {
 		}
 	}
@@ -47,7 +48,7 @@ public class EnermySpawn : MonoBehaviour {
 		enermyInstance = (GameObject)Instantiate (enermyPrefab, transform.position, Quaternion.identity);
 		Debug.Log ("enermy borned");
 		timer = 0;
-		i+=1;
+		i += 1;
 	}
 
 }
