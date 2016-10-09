@@ -15,7 +15,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 	bool isFireAttack = true;
 
 	public float shootDelay = 15f;
-	public float attackEffectDelay = 0.3f;
+	float attackEffectDelay = 0.3f;
 
 	float cooldownTimer;
 
