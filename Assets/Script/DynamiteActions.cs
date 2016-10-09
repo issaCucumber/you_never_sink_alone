@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class DynamiteActions : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class DynamiteActions : MonoBehaviour
                 //get character no
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-				if (Input.GetAxis ("Interact" + i) > 0.0f) {
+				if (InputManager.GetAxis ("Interact" + i) > 0.0f) {
 					activation [i] = true;
 				} 
             }

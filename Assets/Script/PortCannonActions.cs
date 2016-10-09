@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class PortCannonActions : MonoBehaviour {
 
@@ -78,7 +79,7 @@ public class PortCannonActions : MonoBehaviour {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-                transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+                transform.Rotate(0, 0, InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z > 40 && transform.localEulerAngles.z < 90)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 40);
@@ -88,7 +89,7 @@ public class PortCannonActions : MonoBehaviour {
                     transform.localRotation = Quaternion.Euler(0, 0, 300);
                 }
 
-                if (Input.GetButtonDown("Interact" + i))
+                if (InputManager.GetButtonDown("Interact" + i))
                 {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= firerate)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class StarboardCannonActions : MonoBehaviour {
 
@@ -79,7 +80,7 @@ public class StarboardCannonActions : MonoBehaviour {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-                transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+                transform.Rotate(0, 0, InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z < 140)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 140);
@@ -89,7 +90,7 @@ public class StarboardCannonActions : MonoBehaviour {
                     transform.localRotation = Quaternion.Euler(0, 0, 230);
                 }
 
-                if (Input.GetButtonDown("Interact" + i))
+                if (InputManager.GetButtonDown("Interact" + i))
                 {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= firerate)

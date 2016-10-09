@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class MoveCannonRight : MonoBehaviour
 {
@@ -29,13 +30,13 @@ public class MoveCannonRight : MonoBehaviour
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-                if (Input.GetAxisRaw("Horizontal" + i) < -0.5f)
+				if (InputManager.GetAxisRaw("Horizontal" + i) < -0.5f)
                     RotateLeft();
 
-                if (Input.GetAxisRaw("Horizontal" + i) > 0.5f)
+				if (InputManager.GetAxisRaw("Horizontal" + i) > 0.5f)
                     RotateRight();
 
-                if ((Input.GetAxisRaw("Interact" + i) > 0.5f) && (Time.time > nextFire))
+				if ((InputManager.GetAxisRaw("Interact" + i) > 0.5f) && (Time.time > nextFire))
                 {
                     nextFire = Time.time + fireRate;
                     cannonInstance = Instantiate(cannon, cannonSpawn.position, cannonSpawn.rotation) as GameObject;

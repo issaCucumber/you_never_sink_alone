@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class MoveShip : MonoBehaviour {
 
@@ -21,14 +22,14 @@ public class MoveShip : MonoBehaviour {
                 charArray[0].GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
                 charArray[1].GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity;
 
-                if (Input.GetAxisRaw("Interact" + i) > 0.5f)
+                if (InputManager.GetAxisRaw("Interact" + i) > 0.5f)
                 {
                     GetComponent<Rigidbody2D>().AddForce(transform.up * maxSpeed);
                 }
-                if (Input.GetAxisRaw("Horizontal" + i) < -0.5f)
+				if (InputManager.GetAxisRaw("Horizontal" + i) < -0.5f)
                     RotateLeft();
 
-                if (Input.GetAxisRaw("Horizontal" + i) > 0.5f)
+				if (InputManager.GetAxisRaw("Horizontal" + i) > 0.5f)
                     RotateRight();
 
             }
