@@ -17,6 +17,8 @@ public class ToolboxActions : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        toolboxlevel = Ship.GetComponent<ShipActions>().toolboxlevel;
+
         // Change sprites according to toolboxlevel if necessary;
         switch (toolboxlevel)
         {

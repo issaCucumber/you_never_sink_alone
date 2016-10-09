@@ -15,7 +15,6 @@ public class ShipActions : MonoBehaviour {
  	public int hullmax = 100;
     public int hullcurrent = 100;
 	public int prestigevalue = 0; // for enemies
-    public int hulllevel = 1;
     public bool shocknow = false;
     public bool isShocked = false;
     private float shockstarttime;
@@ -24,7 +23,16 @@ public class ShipActions : MonoBehaviour {
 	private float hypnotizestarttime;
     public GameObject shipshock;
 
-	private void Awake ()
+    public int hulllevel = 1;
+    public int portcannonpowerlevel = 1;
+    public int portcannonfireratelevel = 1;
+    public int starboardcannonpowerlevel = 1;
+    public int starboardcannonfireratelevel = 1;
+    public int wheellevel = 1;
+    public int toolboxlevel = 1;
+    public int dynamitelevel = 1;
+
+    private void Awake ()
 	{
 		health.MaxVal = hullmax;
 		health.CurrentVal = hullcurrent;
@@ -38,6 +46,25 @@ public class ShipActions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        switch (hulllevel)
+        {
+            case 1:
+                hullmax = 100;
+                break;
+            case 2:
+                hullmax = 125;
+                break;
+            case 3:
+                hullmax = 150;
+                break;
+            case 4:
+                hullmax = 175;
+                break;
+            case 5:
+                hullmax = 200;
+                break;
+        }
+
         if (shocknow == true) // shock started
         {
             shocknow = false;

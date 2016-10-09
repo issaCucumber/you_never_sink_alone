@@ -11,20 +11,20 @@ public class StarboardCannonActions : MonoBehaviour {
     public GameObject myCannonBall;
     float rotspeed = 100;
     float lastfiretime = 0;
-	GameObject cannonInstance;
-	bool hypnotized = false;
-	Transform ship;
+    GameObject cannonInstance;
+    public GameObject Ship;
 
     // Use this for initialization
-	void Start () {
-		ship = GameObject.Find ("Ship").transform;
+    void Start () {
         // Read previous powerlevel;
         // Display sprites according to upgradelevel;
     }
 
     // Update is called once per frame
-	void Update () {
-		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
+    void Update () {
+        starboardcannonpowerlevel = Ship.GetComponent<ShipActions>().starboardcannonpowerlevel;
+        starboardcannonfireratelevel = Ship.GetComponent<ShipActions>().starboardcannonfireratelevel;
+
         // Change sprites according to powerlevel if necessary;
         switch (starboardcannonpowerlevel)
         {
@@ -46,7 +46,7 @@ public class StarboardCannonActions : MonoBehaviour {
         }
 
         // Do nothing when ship is shocked
-        if (ship.gameObject.GetComponent<ShipActions>().isShocked == true)
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
         {
             return;
         }
@@ -79,7 +79,7 @@ public class StarboardCannonActions : MonoBehaviour {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-				transform.Rotate(0, 0, (hypnotized == true ? -1 : 1) * Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+                transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z < 140)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 140);
@@ -89,7 +89,7 @@ public class StarboardCannonActions : MonoBehaviour {
                     transform.localRotation = Quaternion.Euler(0, 0, 230);
                 }
 
-				if (Input.GetButtonDown("Interact" + i))
+                if (Input.GetButtonDown("Interact" + i))
                 {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= firerate)

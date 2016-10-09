@@ -38,7 +38,12 @@ public class Shoot : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D coll) {
 //        if (coll.gameObject.tag == "Enemy")
 //            coll.gameObject.SendMessage("ApplyDamage", 10);
-		if (coll.name.StartsWith("Jellyfish") || coll.name.StartsWith("Octopus")) {
+		if (coll.name.StartsWith("Jellyfish") 
+			|| coll.name.StartsWith("Octopus")
+			|| coll.name.StartsWith("ElectricEel")
+			|| coll.name.StartsWith("FlyingFish")
+			|| coll.name.StartsWith("Dragon")
+			|| coll.name.StartsWith("Rock")) {
 			Destroy (this.gameObject);
 			Transform myexplosion = (Transform)Instantiate (explosion, coll.transform.position, transform.rotation);
 			myexplosion.GetComponent<Explosion> ().level = level;

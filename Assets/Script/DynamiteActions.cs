@@ -26,6 +26,8 @@ public class DynamiteActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dynamitelevel = Ship.GetComponent<ShipActions>().dynamitelevel;
+
         // Change sprites according to dynamitelevel if necessary;
         switch (dynamitelevel)
         {

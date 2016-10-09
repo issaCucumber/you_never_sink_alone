@@ -10,23 +10,20 @@ public class WheelActions : MonoBehaviour
     float maxspeed = 2;
 
     public GameObject[] charArray;
-	public GameObject Ship;
-	bool hypnotized = false;
-	Transform ship;
+    public GameObject Ship;
     public GameObject waves;
     private Vector3 originalscale;
 
     // Use this for initialization
     void Start()
     {
- 		originalscale = waves.transform.localScale;
-		ship = GameObject.Find ("Ship").transform;
+        originalscale = waves.transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
-	{
-		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
+    {
+        wheellevel = Ship.GetComponent<ShipActions>().wheellevel;
 
         // Change sprites according to wheellevel if necessary;
         switch (wheellevel)
@@ -52,6 +49,7 @@ public class WheelActions : MonoBehaviour
                 maxspeed = 10;
                 break;
         }
+
 
         Rigidbody2D rb = Ship.GetComponent<Rigidbody2D>();
 
@@ -89,17 +87,17 @@ public class WheelActions : MonoBehaviour
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 //move up
-				if ( (hypnotized == true ? -1 : 1) * Input.GetAxis("Vertical" + i) > 0.0f)
+                if (Input.GetAxis("Vertical" + i) > 0.0f)
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed);
 
                     if (rb.velocity.magnitude > maxspeed)
                     {
-                        rb.velocity = rb.velocity.normalized * maxspeed;
+                         rb.velocity = rb.velocity.normalized * maxspeed;
                     }
                 }
                 else
-				if ( ((hypnotized == true ? -1 : 1) *Input.GetAxis("Vertical" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
+                if ((Input.GetAxis("Vertical" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed * -0.5f);
 
@@ -109,10 +107,10 @@ public class WheelActions : MonoBehaviour
                     }
                 }
 
-				if ( (hypnotized == true ? -1 : 1) * Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
+                if (Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
                     Ship.transform.Rotate(Vector3.forward * 10 * Time.deltaTime);
 
-				if ( (hypnotized == true ? -1 : 1) * Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
+                if (Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
                     Ship.transform.Rotate(Vector3.forward * -10 * Time.deltaTime);
                 
 

@@ -11,20 +11,19 @@ public class PortCannonActions : MonoBehaviour {
     public GameObject myCannonBall;
     float rotspeed = 100;
     float lastfiretime = 0;
-
     GameObject cannonInstance;
+    public GameObject Ship;
 
-	bool hypnotized = false;
-	Transform ship;
     // Use this for initialization
-	void Start () {
-		ship = GameObject.Find ("Ship").transform;
+    void Start () {
         // Read previous powerlevel;
         // Display sprites according to upgradelevel;
     }
 
-	void Update () {
-		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
+    void Update () {
+        portcannonpowerlevel = Ship.GetComponent<ShipActions>().portcannonpowerlevel;
+        portcannonfireratelevel = Ship.GetComponent<ShipActions>().portcannonfireratelevel;
+
         // Change sprites according to powerlevel if necessary;
         switch (portcannonpowerlevel)
         {
@@ -46,7 +45,7 @@ public class PortCannonActions : MonoBehaviour {
         }
 
         // Do nothing when ship is shocked
-        if (ship.gameObject.GetComponent<ShipActions>().isShocked == true)
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
         {
             return;
         }
@@ -79,7 +78,7 @@ public class PortCannonActions : MonoBehaviour {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-				transform.Rotate(0, 0, (hypnotized == true ? -1 : 1) * Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+                transform.Rotate(0, 0, Input.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z > 40 && transform.localEulerAngles.z < 90)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 40);
@@ -89,7 +88,7 @@ public class PortCannonActions : MonoBehaviour {
                     transform.localRotation = Quaternion.Euler(0, 0, 300);
                 }
 
-				if (Input.GetButtonDown("Interact" + i))
+                if (Input.GetButtonDown("Interact" + i))
                 {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= firerate)
