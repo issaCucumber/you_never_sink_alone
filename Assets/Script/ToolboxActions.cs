@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class ToolboxActions : MonoBehaviour {
 
@@ -50,7 +51,7 @@ public class ToolboxActions : MonoBehaviour {
             {
 
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
-                if (Input.GetButtonDown("Interact" + i))
+                if (InputManager.GetButtonDown("Interact" + i))
                 {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= 1.0f)

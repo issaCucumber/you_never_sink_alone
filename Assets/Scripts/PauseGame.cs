@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using TeamUtility.IO;
 
 public class PauseGame : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class PauseGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-	    if(Input.GetKeyDown(KeyCode.Escape))
+	    if(InputManager.GetButtonDown("Pause"))
         {
             Pause();
         }

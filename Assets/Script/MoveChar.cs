@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class MoveChar : MonoBehaviour {
 
@@ -34,8 +35,8 @@ public class MoveChar : MonoBehaviour {
 	
 	void Update () {
 
-        float inputX = Input.GetAxisRaw("Horizontal" + playerNo);
-        float inputY = Input.GetAxisRaw("Vertical" + playerNo);
+        float inputX = InputManager.GetAxisRaw("Horizontal" + playerNo);
+        float inputY = InputManager.GetAxisRaw("Vertical" + playerNo);
 
         anim.SetFloat("SpeedX", inputX);
         anim.SetFloat("SpeedY", inputY);
@@ -50,7 +51,8 @@ public class MoveChar : MonoBehaviour {
 
 
             //reset state when disengaged
-        } else if (Input.GetAxisRaw("Interact" + playerNo) < -0.5f)
+		//} else if (InputManager.GetAxisRaw("Interact" + playerNo) < -0.5f)
+		} else if (InputManager.GetButtonDown("Disengage" + playerNo))	
             {
                 isContactWheel = false;
                 isContactCannonLeft = false;
@@ -112,27 +114,28 @@ public class MoveChar : MonoBehaviour {
 
         if (isCollideWheel)
         {
-            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+            //if (Input.GetAxis("Interact" + playerNo) > 0.5)
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactWheel = true;
         }
         if (isCollideCannonLeft)
         {
-            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactCannonLeft = true;
          }
         if(isCollideCannonRight)
         {
-            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactCannonRight = true;
         }
         if (isCollideToolbox)
         {
-            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactToolbox = true;
         }
         if (isCollideDynamite)
         {
-            if (Input.GetAxis("Interact" + playerNo) > 0.5)
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactDynamite = true;
         }
 
@@ -140,8 +143,8 @@ public class MoveChar : MonoBehaviour {
 
     void FixedUpdate()
     {
-        float lastInputX = Input.GetAxisRaw("Horizontal" + playerNo);
-        float lastInputY = Input.GetAxisRaw("Vertical" + playerNo);
+		float lastInputX = InputManager.GetAxisRaw("Horizontal" + playerNo);
+        float lastInputY = InputManager.GetAxisRaw("Vertical" + playerNo);
 
             //get last input to display static animation
             if (lastInputX != 0 || lastInputY != 0)

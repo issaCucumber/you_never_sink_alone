@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeamUtility.IO;
 
 public class WheelActions : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class WheelActions : MonoBehaviour
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 //move up
-                if (Input.GetAxis("Vertical" + i) > 0.0f)
+                if (InputManager.GetAxis("Vertical" + i) > 0.0f)
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed);
 
@@ -72,7 +73,7 @@ public class WheelActions : MonoBehaviour
                     }
                 }
                 else
-                if ((Input.GetAxis("Vertical" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
+                if ((InputManager.GetAxis("Vertical" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed * -0.5f);
 
@@ -82,10 +83,10 @@ public class WheelActions : MonoBehaviour
                     }
                 }
 
-                if (Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
+                if (InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
                     Ship.transform.Rotate(Vector3.forward * 10 * Time.deltaTime);
 
-                if (Input.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
+                if (InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
                     Ship.transform.Rotate(Vector3.forward * -10 * Time.deltaTime);
                 
 
