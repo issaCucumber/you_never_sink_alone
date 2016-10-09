@@ -14,6 +14,7 @@ public class WheelActions : MonoBehaviour
     public GameObject Ship;
     public GameObject waves;
     private Vector3 originalscale;
+	public bool wheelUsed = false;
 
     // Use this for initialization
     void Start()
@@ -84,6 +85,7 @@ public class WheelActions : MonoBehaviour
 
             if (charArray[k].GetComponent<MoveChar>().isContactWheel)
             {
+				wheelUsed = true;
                 //get character no
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 

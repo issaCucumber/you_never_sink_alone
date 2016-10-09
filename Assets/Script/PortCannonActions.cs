@@ -14,6 +14,7 @@ public class PortCannonActions : MonoBehaviour {
     float lastfiretime = 0;
     GameObject cannonInstance;
     public GameObject Ship;
+	public bool cannonUsed = false;
 
     // Use this for initialization
     void Start () {
@@ -76,7 +77,7 @@ public class PortCannonActions : MonoBehaviour {
         {
             if (charArray[k].GetComponent<MoveChar>().isContactCannonLeft)
             {
-
+				cannonUsed = true;
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 transform.Rotate(0, 0, InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);

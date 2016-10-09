@@ -60,19 +60,30 @@ public class MoveChar : MonoBehaviour {
 		//} else if (InputManager.GetAxisRaw("Interact" + playerNo) < -0.5f)
 		} else if (InputManager.GetButtonDown("Disengage" + playerNo))	
             {
-                isContactWheel = false;
-                isContactCannonLeft = false;
-                isContactCannonRight = false;
-                isContactToolbox = false;
-                isContactDynamite = false;
-				Dynamite.GetComponent<DynamiteActions>().activation[playerNo] = false;
-                transform.parent = Ship.transform;
-                transform.localRotation = Quaternion.Euler(0f,0f,0f);
-                Wheel.GetComponent<SpriteOutlineGreen>().enabled = false;
-                CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = false;
-                CannonRight.GetComponent<SpriteOutlineGreen>().enabled = false;
-                Toolbox.GetComponent<SpriteOutlineGreen>().enabled = false;
-                Dynamite.GetComponent<SpriteOutlineGreen>().enabled = false;
+			//local state reset
+			isContactWheel = false;
+			isContactCannonLeft = false;
+			isContactCannonRight = false;
+			isContactToolbox = false;
+			isContactDynamite = false;
+
+			//public state reset
+			Wheel.GetComponent<WheelActions>().wheelUsed = false;
+			CannonLeft.GetComponent<PortCannonActions>().cannonUsed = false;
+			CannonRight.GetComponent<StarboardCannonActions>().cannonUsed = false;
+			Toolbox.GetComponent<ToolboxActions>().toolboxUsed = false;
+			Dynamite.GetComponent<DynamiteActions>().activation[playerNo] = false;
+
+			//reset char location and transform
+			transform.parent = Ship.transform;
+			transform.localRotation = Quaternion.Euler(0f,0f,0f);
+
+			//remove outlines
+			Wheel.GetComponent<SpriteOutlineGreen>().enabled = false;
+			CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = false;
+			CannonRight.GetComponent<SpriteOutlineGreen>().enabled = false;
+			Toolbox.GetComponent<SpriteOutlineGreen>().enabled = false;
+			Dynamite.GetComponent<SpriteOutlineGreen>().enabled = false;
 
             //lock character in place when stationed
         } else if (isContactCannonLeft)
@@ -192,33 +203,40 @@ public class MoveChar : MonoBehaviour {
 
 void OnTriggerEnter2D (Collider2D col)
     {
-        if (col.gameObject == Wheel)
-        {
-            isCollideWheel = true;
-            Wheel.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
+		if (col.gameObject == Wheel)
+		{
+			if (Wheel.GetComponent<WheelActions> ().wheelUsed == false) {
+				isCollideWheel = true;
+				Wheel.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
 
-        if (col.gameObject == CannonLeft)
-        {
-            isCollideCannonLeft = true;
-            CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
+		if (col.gameObject == CannonLeft)
+		{
+			if (CannonLeft.GetComponent<PortCannonActions> ().cannonUsed == false) {
+				isCollideCannonLeft = true;
+				CannonLeft.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
 
-        if (col.gameObject == CannonRight)
-        {
-            isCollideCannonRight = true;
-            CannonRight.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
-        if (col.gameObject == Toolbox)
-        {
-            isCollideToolbox = true;
-            Toolbox.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
-        if (col.gameObject == Dynamite)
-        {
-            isCollideDynamite = true;
-            Dynamite.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
+		if (col.gameObject == CannonRight)
+		{
+			if (CannonRight.GetComponent<StarboardCannonActions> ().cannonUsed == false) {
+				isCollideCannonRight = true;
+				CannonRight.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
+		if (col.gameObject == Toolbox) {
+			if (Toolbox.GetComponent<ToolboxActions> ().toolboxUsed == false) {
+				isCollideToolbox = true;
+				Toolbox.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
+		if (col.gameObject == Dynamite)
+		{
+			isCollideDynamite = true;
+			Dynamite.GetComponent<SpriteOutlineWhite>().enabled = true;
+		}
     }
 
     void OnTriggerExit2D (Collider2D col)

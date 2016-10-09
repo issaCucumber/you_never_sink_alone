@@ -10,6 +10,7 @@ public class ToolboxActions : MonoBehaviour {
     private int repairrate = 2;
     private float lastfiretime = 0;
     public GameObject Ship;
+	public bool toolboxUsed = false;
 
     // Use this for initialization
     void Start () {
@@ -58,7 +59,7 @@ public class ToolboxActions : MonoBehaviour {
 
             if (charArray[k].GetComponent<MoveChar>().isContactToolbox)
             {
-
+				toolboxUsed = true;
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
                 if (InputManager.GetButtonDown("Interact" + i))
                 {
