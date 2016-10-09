@@ -35,7 +35,7 @@ public class PrestigeScript : MonoBehaviour {
             prevValue--;
         }
 
-        valueText.text = "Prestige: " + prevValue.ToString();
+        valueText.text = prevValue.ToString();
 
 	}
 }

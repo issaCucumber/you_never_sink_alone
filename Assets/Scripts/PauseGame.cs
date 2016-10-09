@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using TeamUtility.IO;
 
 public class PauseGame : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class PauseGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-	    if(Input.GetKeyDown(KeyCode.Escape))
+	    if(InputManager.GetButtonDown("Pause"))
         {
             Pause();
         }
@@ -42,13 +43,13 @@ public class PauseGame : MonoBehaviour {
         {
             canvas.gameObject.SetActive(true);
             Time.timeScale = 0;
-            playerObj.GetComponent<Player>().enabled = false;
+			playerObj.GetComponent<Timer>().enabled = false;
         }
         else
         {
             canvas.gameObject.SetActive(false);
             Time.timeScale = 1;
-            playerObj.GetComponent<Player>().enabled = true;
+			playerObj.GetComponent<Timer>().enabled = true;
         }
     }
 }

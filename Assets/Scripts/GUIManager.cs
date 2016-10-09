@@ -15,21 +15,34 @@ public class GUIManager : MonoBehaviour {
     public GameObject firstSelectedInOptions;
     public GameObject firstSelectedInCredits;
 
-    public AudioSource audioSource;
-    public AudioClip buttonEnterSound;
-    public AudioClip buttonClickSound;
+    public GameObject continueGameBtn;
 
-    public Button continueGameBtn;
-
-    public enum MenuStates { Main , Options, Credits };
+    public enum MenuStates { Main , Options, Credits, Audios, Controls};
     public MenuStates currentState;
 
     //menu objects
     public GameObject mainMenu;
     public GameObject optionsMenu;
     public GameObject creditsMenu;
+    
+    public GameObject audioOptionMenu;
 
-    public Slider[] volumeSliders;
+    public GameObject controlOptionMenu;
+
+    public GameObject keyboard1Radio;
+    public GameObject controller1Radio;
+    public GameObject keyboard2Radio;
+    public GameObject controller2Radio;
+    public GameObject keyboard1Control;
+    public GameObject controller1Control;
+    public GameObject keyboard2Control;
+    public GameObject controller2Control;
+
+    public Sprite normalRadio;
+    public Sprite selectedRadio;
+
+    private int player1Control;
+    private int player2Control;
 
 
 	// Use this for initialization
@@ -38,11 +51,60 @@ public class GUIManager : MonoBehaviour {
         currentState = MenuStates.Main;
         storeSelected = ES.firstSelectedGameObject;
 
-        continueGameBtn.enabled = false;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        //continueGameBtn.enabled = false;
+        
+        continueGameBtn.GetComponent<Button>().interactable = false;
+
+        player1Control = PlayerPrefs.GetInt("Player1", 1);  //1 is keyboard1, 2 is keyboard2, 3 is controller1, 4 is controller2
+        player2Control = PlayerPrefs.GetInt("Player2", 2);
+
+        SetPlayer1Radio(player1Control);
+        SetPlayer2Radio(player2Control);
+        //SpriteState spriteState = new SpriteState();
+        //spriteState = continueGameBtn.GetComponent<Button>().spriteState;
+        //spriteState.disabledSprite = testImage;
+        //continueGameBtn.GetComponent<Button>().spriteState = spriteState;
+    }
+
+    private void SetPlayer1Radio(int player1Control)
+    {
+        if(player1Control == 1)
+        {
+            keyboard1Radio.GetComponent<Image>().sprite = selectedRadio;
+            controller1Radio.GetComponent<Image>().sprite = normalRadio;
+            keyboard1Control.SetActive(true);
+            controller1Control.SetActive(false);
+
+        }
+        else if (player1Control == 3)
+        {
+            keyboard1Radio.GetComponent<Image>().sprite = normalRadio;
+            controller1Radio.GetComponent<Image>().sprite = selectedRadio;
+            keyboard1Control.SetActive(false);
+            controller1Control.SetActive(true);
+        }
+    }
+
+    private void SetPlayer2Radio(int player2Control)
+    {
+        if (player2Control == 2)
+        {
+            keyboard2Radio.GetComponent<Image>().sprite = selectedRadio;
+            controller2Radio.GetComponent<Image>().sprite = normalRadio;
+            keyboard2Control.SetActive(true);
+            controller2Control.SetActive(false);
+        }
+        else if (player2Control == 4)
+        {
+            keyboard2Radio.GetComponent<Image>().sprite = normalRadio;
+            controller2Radio.GetComponent<Image>().sprite = selectedRadio;
+            keyboard2Control.SetActive(false);
+            controller2Control.SetActive(true);
+        }
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         if (ES.currentSelectedGameObject != storeSelected)
         {
@@ -59,8 +121,7 @@ public class GUIManager : MonoBehaviour {
 
         switch(currentState)
         {
-            case MenuStates.Main :
-                                    
+            case MenuStates.Main :                                    
                                     mainMenu.SetActive(true);
                                     optionsMenu.SetActive(false);
                                     creditsMenu.SetActive(false);
@@ -69,6 +130,20 @@ public class GUIManager : MonoBehaviour {
                                     mainMenu.SetActive(false);
                                     optionsMenu.SetActive(true);
                                     creditsMenu.SetActive(false);
+                                    audioOptionMenu.SetActive(false);
+                                    controlOptionMenu.SetActive(false);
+                break;
+            case MenuStates.Audios:
+                                    optionsMenu.SetActive(false);
+                                    audioOptionMenu.SetActive(true);
+                                    controlOptionMenu.SetActive(false);
+                break;
+            case MenuStates.Controls:
+                                    controlOptionMenu.SetActive(true);
+                                    optionsMenu.SetActive(false);
+                                    audioOptionMenu.SetActive(false);
+                                    SetPlayer1Radio(player1Control);
+                                    SetPlayer2Radio(player2Control);
                 break;
             case MenuStates.Credits:
                                     mainMenu.SetActive(false);
@@ -82,7 +157,7 @@ public class GUIManager : MonoBehaviour {
     public void OnClickPlay()
     {
         Debug.Log("Play button is pressed");
-        SceneManager.LoadScene("Main Game");
+        SceneManager.LoadScene("CutScene");
         //EditorSceneManager.LoadScene("Main Game");
     }
 
@@ -95,6 +170,11 @@ public class GUIManager : MonoBehaviour {
     {
         currentState = MenuStates.Options;
         ES.SetSelectedGameObject(firstSelectedInOptions);
+    }
+
+    public void OnClickControls()
+    {
+        currentState = MenuStates.Controls;
     }
 
     public void OnClickCredits()
@@ -117,26 +197,67 @@ public class GUIManager : MonoBehaviour {
         ES.SetSelectedGameObject(firstSelectedInMenu);
     }
 
+    public void OnClickBackToOptions()
+    {
+        currentState = MenuStates.Options;
+    }
+
+    public void OnClickKeyboard1Radio()
+    {
+        PlayerPrefs.SetInt("Player1", 1);
+        player1Control = 1;
+    }
+
+    public void OnClickController1Radio()
+    {
+        PlayerPrefs.SetInt("Player1", 3);
+        player1Control = 3;
+    }
+
+    public void OnClickKeyboard2Radio()
+    {
+        PlayerPrefs.SetInt("Player2", 2);
+        player2Control = 2;
+    }
+
+    public void OnClickController2Radio()
+    {
+        PlayerPrefs.SetInt("Player2", 4);
+        player2Control = 4;
+    }
+
+    public void OnClickAudio()
+    {
+        currentState = MenuStates.Audios;
+    }
+
     public void PlayOnEnter()
     {
         //buttonEnterSound
         //audioSource.clip = buttonEnterSound;
-        audioSource.PlayOneShot(buttonEnterSound);
+        //audioSource.PlayOneShot(buttonEnterSound);
+        AudioManager.instance.PlaySound2D("shift");
     }
 
     public void PlayOnClick()
     {
-        audioSource.PlayOneShot(buttonClickSound);
+        //audioSource.PlayOneShot(buttonClickSound);
+        Debug.Log("Click button is pressed");
+        AudioManager.instance.PlaySound2D("select");
+    }
+
+    public void SetMasterVolume(float value)
+    {
+        AudioManager.instance.SetVolume(value, AudioManager.AudioChannel.Master);
     }
 
     public void SetMusicVolume(float value)
     {
-        //audioSource.volume = value;
+        AudioManager.instance.SetVolume(value, AudioManager.AudioChannel.Music);
     }
 
     public void SetSfxVolume(float value)
     {
-        audioSource.volume = value;
-        //save it to playerPrefs
+        AudioManager.instance.SetVolume(value, AudioManager.AudioChannel.Sfx);
     }
 }
