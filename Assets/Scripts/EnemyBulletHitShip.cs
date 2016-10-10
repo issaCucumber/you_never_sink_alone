@@ -6,6 +6,7 @@ public class EnemyBulletHitShip : MonoBehaviour {
 	// Use this for initialization
 	bool hitship = false;
 	Transform ship;
+	public GameObject hitEffect;
 	void Start () {
 	
 	}
@@ -13,6 +14,7 @@ public class EnemyBulletHitShip : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (hitship) {
+			Instantiate (hitEffect, ship.position, ship.rotation);
 			ship.gameObject.GetComponent<ShipActions> ().hullcurrent -= getEnemyDamageValue();
 			hitship = false;
 		}
