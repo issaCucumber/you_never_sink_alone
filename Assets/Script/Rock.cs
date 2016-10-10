@@ -11,7 +11,6 @@ public class Rock : MonoBehaviour {
 
 		int rock_index = Mathf.RoundToInt (Random.Range (1.0f, 4.0f));
 		string rock_image = string.Concat ("rocks", rock_index.ToString ());
-		Debug.Log (rock_image);
 		GetComponent<SpriteRenderer> ().sprite = Resources.Load(rock_image, typeof(Sprite)) as Sprite;
 
 	}
