@@ -47,7 +47,7 @@ public class EnemyDamageHandler : MonoBehaviour {
 			//gameObject.layer = 10;
 
 		}else if (other.name.StartsWith("SuperAttack")) {
-			health = 0;
+			health -= 20;
 		}
 
 		float deathDelay = 0;
