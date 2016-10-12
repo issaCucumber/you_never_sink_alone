@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class ShipActions : MonoBehaviour {
@@ -11,9 +12,10 @@ public class ShipActions : MonoBehaviour {
 
 	private float startTime;
 
-
  	public int hullmax = 100;
     public int hullcurrent = 100;
+	public int crewtosave = 20;
+	public int crewsaved = 0;
 	public int prestigevalue = 0; // for enemies
     public bool shocknow = false;
     public bool isShocked = false;
@@ -32,6 +34,8 @@ public class ShipActions : MonoBehaviour {
     public int toolboxlevel = 1;
     public int dynamitelevel = 1;
 
+	public bool isGodMode = false;
+
     private void Awake ()
 	{
 		health.MaxVal = hullmax;
@@ -46,7 +50,12 @@ public class ShipActions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        switch (hulllevel)
+		if (isGodMode == true)
+		{
+			hullcurrent = hullmax;
+		}
+
+		switch (hulllevel)
         {
             case 1:
                 hullmax = 100;
@@ -105,7 +114,29 @@ public class ShipActions : MonoBehaviour {
         // Increase prestige from enemies.
         prestige.PrestigeVal += prestigevalue;
         prestigevalue = 0;
-    }
+        
+		if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.G))
+		{
+			// CTRL + G = God Mode
+			isGodMode = !isGodMode;
+		}
+
+		if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.T))
+		{
+			// CTRL + T = Teleport
+			if (SceneManager.GetActiveScene ().name == "Training")
+			{
+				Vector3 newposition = new Vector3 (58.46f, 31.45f, 0f);
+				transform.position = newposition;
+			}
+			else
+			if (SceneManager.GetActiveScene ().name == "Level_1")
+			{
+				Vector3 newposition = new Vector3 (10.00f, 10.00f, 0f);
+				transform.position = newposition;
+			}
+		}
+	}
 
     public int GetCurrentPrestige()
     {

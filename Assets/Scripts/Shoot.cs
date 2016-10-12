@@ -45,7 +45,9 @@ public class Shoot : MonoBehaviour {
 			|| coll.name.StartsWith("Dragon")
 			|| coll.name.StartsWith("Rock")) {
 			Destroy (this.gameObject);
-			Transform myexplosion = (Transform)Instantiate (explosion, coll.transform.position, transform.rotation);
+			RaycastHit hit;
+			Physics.Raycast (transform.position, transform.forward, out hit);
+			Transform myexplosion = (Transform)Instantiate (explosion, hit.point, transform.rotation);
 			myexplosion.GetComponent<Explosion> ().level = level;
 		}
     }

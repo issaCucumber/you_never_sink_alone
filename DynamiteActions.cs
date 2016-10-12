@@ -79,7 +79,7 @@ public class DynamiteActions : MonoBehaviour
                 //get character no
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-				if (InputManager.GetAxis ("Interact" + i) > 0.0f) {
+				if (InputManager.GetButtonDown ("Interact" + i)) {
 					activation [i] = true;
 				} 
             }
