@@ -26,10 +26,10 @@ public class MoveShip : MonoBehaviour {
                 {
                     GetComponent<Rigidbody2D>().AddForce(transform.up * maxSpeed);
                 }
-                if (InputManager.GetAxisRaw("Horizontal" + i) < -0.5f)
+				if (InputManager.GetAxisRaw("Horizontal" + i) < -0.5f)
                     RotateLeft();
 
-                if (InputManager.GetAxisRaw("Horizontal" + i) > 0.5f)
+				if (InputManager.GetAxisRaw("Horizontal" + i) > 0.5f)
                     RotateRight();
 
             }

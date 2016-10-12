@@ -27,26 +27,22 @@ public class MoveChar : MonoBehaviour {
     public GameObject CannonRight;
     public GameObject Toolbox;
     public GameObject Dynamite;
-    public GameObject Ship;
+	public GameObject Ship;
+
+	bool hypnotized = false;
+	Transform ship;
 
     void Start () {
+
+		ship = GameObject.Find ("Ship").transform;
         anim = GetComponent<Animator>();
     }
 	
 	void Update () {
+		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
 
-        if (InputManager.GetAxis("Interact" + playerNo) > 0.5)
-        {
-            Debug.Log("Interact" + playerNo + " is pressed");
-        }
-
-        if (InputManager.GetButtonDown("Interact" + playerNo))
-        {
-            Debug.Log("button down Interact" + playerNo + " is pressed");
-        }
-
-        float inputX = InputManager.GetAxisRaw("Horizontal" + playerNo);
-        float inputY = InputManager.GetAxisRaw("Vertical" + playerNo);
+		float inputX = (hypnotized == true ? -1 : 1) * InputManager.GetAxisRaw("Horizontal" + playerNo);
+		float inputY = (hypnotized == true ? -1 : 1) * InputManager.GetAxisRaw("Vertical" + playerNo);
 
         anim.SetFloat("SpeedX", inputX);
         anim.SetFloat("SpeedY", inputY);
@@ -61,22 +57,33 @@ public class MoveChar : MonoBehaviour {
 
 
             //reset state when disengaged
-        //} else if (InputManager.GetAxisRaw("Interact" + playerNo) < -0.5f)
-       } else if (InputManager.GetButtonDown("Disengage" + playerNo))
+		//} else if (InputManager.GetAxisRaw("Interact" + playerNo) < -0.5f)
+		} else if (InputManager.GetButtonDown("Disengage" + playerNo))	
             {
-                isContactWheel = false;
-                isContactCannonLeft = false;
-                isContactCannonRight = false;
-                isContactToolbox = false;
-                isContactDynamite = false;
-				Dynamite.GetComponent<DynamiteActions>().activation[playerNo] = false;
-                transform.parent = Ship.transform;
-                transform.localRotation = Quaternion.Euler(0f,0f,0f);
-                Wheel.GetComponent<SpriteOutlineGreen>().enabled = false;
-                CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = false;
-                CannonRight.GetComponent<SpriteOutlineGreen>().enabled = false;
-                Toolbox.GetComponent<SpriteOutlineGreen>().enabled = false;
-                Dynamite.GetComponent<SpriteOutlineGreen>().enabled = false;
+			//local state reset
+			isContactWheel = false;
+			isContactCannonLeft = false;
+			isContactCannonRight = false;
+			isContactToolbox = false;
+			isContactDynamite = false;
+
+			//public state reset
+			Wheel.GetComponent<WheelActions>().wheelUsed = false;
+			CannonLeft.GetComponent<PortCannonActions>().cannonUsed = false;
+			CannonRight.GetComponent<StarboardCannonActions>().cannonUsed = false;
+			Toolbox.GetComponent<ToolboxActions>().toolboxUsed = false;
+			Dynamite.GetComponent<DynamiteActions>().activation[playerNo] = false;
+
+			//reset char location and transform
+			transform.parent = Ship.transform;
+			transform.localRotation = Quaternion.Euler(0f,0f,0f);
+
+			//remove outlines
+			Wheel.GetComponent<SpriteOutlineGreen>().enabled = false;
+			CannonLeft.GetComponent<SpriteOutlineGreen>().enabled = false;
+			CannonRight.GetComponent<SpriteOutlineGreen>().enabled = false;
+			Toolbox.GetComponent<SpriteOutlineGreen>().enabled = false;
+			Dynamite.GetComponent<SpriteOutlineGreen>().enabled = false;
 
             //lock character in place when stationed
         } else if (isContactCannonLeft)
@@ -124,42 +131,39 @@ public class MoveChar : MonoBehaviour {
 
         if (isCollideWheel)
         {
-            //if (InputManager.GetAxis("Interact" + playerNo) > 0.5)
-              if (InputManager.GetButtonDown("Interact" + playerNo))
+            //if (Input.GetAxis("Interact" + playerNo) > 0.5)
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactWheel = true;
         }
         if (isCollideCannonLeft)
         {
-            //if (InputManager.GetAxis("Interact" + playerNo) > 0.5)
-            if (InputManager.GetButtonDown("Interact" + playerNo))
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactCannonLeft = true;
          }
         if(isCollideCannonRight)
         {
-            //if (InputManager.GetAxis("Interact" + playerNo) > 0.5)
-            if (InputManager.GetButtonDown("Interact" + playerNo))
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactCannonRight = true;
         }
         if (isCollideToolbox)
         {
-            //if (InputManager.GetAxis("Interact" + playerNo) > 0.5)
-            if (InputManager.GetButtonDown("Interact" + playerNo))
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactToolbox = true;
         }
         if (isCollideDynamite)
         {
-            //if (InputManager.GetAxis("Interact" + playerNo) > 0.5)
-            if (InputManager.GetButtonDown("Interact" + playerNo))
+			if (InputManager.GetButtonDown("Interact" + playerNo))
                 isContactDynamite = true;
         }
 
     }
 
     void FixedUpdate()
-    {
-        float lastInputX = InputManager.GetAxisRaw("Horizontal" + playerNo);
-        float lastInputY = InputManager.GetAxisRaw("Vertical" + playerNo);
-
+	{
+		hypnotized = ship.GetComponent<ShipActions> ().hypnotizenow;
+		float lastInputX = (hypnotized == true ? -1 : 1) * InputManager.GetAxisRaw("Horizontal" + playerNo);
+		float lastInputY = (hypnotized == true ? -1 : 1) * InputManager.GetAxisRaw("Vertical" + playerNo);
+    
             //get last input to display static animation
             if (lastInputX != 0 || lastInputY != 0)
             {
@@ -199,33 +203,40 @@ public class MoveChar : MonoBehaviour {
 
 void OnTriggerEnter2D (Collider2D col)
     {
-        if (col.gameObject == Wheel)
-        {
-            isCollideWheel = true;
-            Wheel.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
+		if (col.gameObject == Wheel)
+		{
+			if (Wheel.GetComponent<WheelActions> ().wheelUsed == false) {
+				isCollideWheel = true;
+				Wheel.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
 
-        if (col.gameObject == CannonLeft)
-        {
-            isCollideCannonLeft = true;
-            CannonLeft.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
+		if (col.gameObject == CannonLeft)
+		{
+			if (CannonLeft.GetComponent<PortCannonActions> ().cannonUsed == false) {
+				isCollideCannonLeft = true;
+				CannonLeft.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
 
-        if (col.gameObject == CannonRight)
-        {
-            isCollideCannonRight = true;
-            CannonRight.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
-        if (col.gameObject == Toolbox)
-        {
-            isCollideToolbox = true;
-            Toolbox.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
-        if (col.gameObject == Dynamite)
-        {
-            isCollideDynamite = true;
-            Dynamite.GetComponent<SpriteOutlineWhite>().enabled = true;
-        }
+		if (col.gameObject == CannonRight)
+		{
+			if (CannonRight.GetComponent<StarboardCannonActions> ().cannonUsed == false) {
+				isCollideCannonRight = true;
+				CannonRight.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
+		if (col.gameObject == Toolbox) {
+			if (Toolbox.GetComponent<ToolboxActions> ().toolboxUsed == false) {
+				isCollideToolbox = true;
+				Toolbox.GetComponent<SpriteOutlineWhite> ().enabled = true;
+			}
+		}
+		if (col.gameObject == Dynamite)
+		{
+			isCollideDynamite = true;
+			Dynamite.GetComponent<SpriteOutlineWhite>().enabled = true;
+		}
     }
 
     void OnTriggerExit2D (Collider2D col)

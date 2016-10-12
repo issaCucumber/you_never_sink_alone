@@ -9,9 +9,12 @@ public class Timer : MonoBehaviour {
     public int timerInMins;
 
     private float startTime;
+    private float timeLeft;
+    private string timeString; 
 
 	// Use this for initialization
 	void Start () {
+        timeLeft = timerInMins * 60;
         startTime = Time.time;
 	}
 	
@@ -20,6 +23,7 @@ public class Timer : MonoBehaviour {
         
         float t = (timerInMins * 60);
         t = t - (Time.time - startTime);
+        timeLeft = t;
         string minutes = ((int)t / 60).ToString();
 
         float seconds = t % 60;
@@ -31,6 +35,17 @@ public class Timer : MonoBehaviour {
 
         secondsString += seconds.ToString("f0");
 
-        timerText.text = minutes + ":" + secondsString;
+        timeString = minutes + ":" + secondsString;
+        timerText.text = timeString;
 	}
+
+    public float GetTimeLeft()
+    {
+        return timeLeft;
+    }
+
+    public string GetTimeString()
+    {
+        return timeString;
+    }
 }

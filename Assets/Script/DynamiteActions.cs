@@ -16,6 +16,7 @@ public class DynamiteActions : MonoBehaviour
     public GameObject[] charArray;
     public GameObject Dynamite;
     public bool[] activation;
+    public GameObject Ship;
 
     // Use this for initialization
     void Start()
@@ -26,6 +27,8 @@ public class DynamiteActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dynamitelevel = Ship.GetComponent<ShipActions>().dynamitelevel;
+
         // Change sprites according to dynamitelevel if necessary;
         switch (dynamitelevel)
         {
@@ -59,6 +62,12 @@ public class DynamiteActions : MonoBehaviour
 
         float currenttime = Time.time;
         if ((currenttime - lastfiretime) < cooldown)
+        {
+            return;
+        }
+
+        // Do nothing when ship is shocked
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
         {
             return;
         }

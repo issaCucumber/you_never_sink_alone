@@ -13,6 +13,8 @@ public class StarboardCannonActions : MonoBehaviour {
     float rotspeed = 100;
     float lastfiretime = 0;
     GameObject cannonInstance;
+    public GameObject Ship;
+	public bool cannonUsed = false;
 
     // Use this for initialization
     void Start () {
@@ -22,6 +24,9 @@ public class StarboardCannonActions : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        starboardcannonpowerlevel = Ship.GetComponent<ShipActions>().starboardcannonpowerlevel;
+        starboardcannonfireratelevel = Ship.GetComponent<ShipActions>().starboardcannonfireratelevel;
+
         // Change sprites according to powerlevel if necessary;
         switch (starboardcannonpowerlevel)
         {
@@ -41,7 +46,13 @@ public class StarboardCannonActions : MonoBehaviour {
                 GetComponent<SpriteRenderer>().sprite = Resources.Load("Cannon_lvl5", typeof(Sprite)) as Sprite;
                 break;
         }
-        
+
+        // Do nothing when ship is shocked
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
+        {
+            return;
+        }
+
         // Determine fire rate according to cannon fire rate level
         float firerate = 0;
         switch (starboardcannonfireratelevel)
@@ -67,7 +78,7 @@ public class StarboardCannonActions : MonoBehaviour {
         {
             if (charArray[k].GetComponent<MoveChar>().isContactCannonRight)
             {
-
+				cannonUsed = true;
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 transform.Rotate(0, 0, InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);

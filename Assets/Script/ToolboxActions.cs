@@ -1,3 +1,4 @@
+
 ﻿using UnityEngine;
 using System.Collections;
 using TeamUtility.IO;
@@ -9,6 +10,7 @@ public class ToolboxActions : MonoBehaviour {
     private int repairrate = 2;
     private float lastfiretime = 0;
     public GameObject Ship;
+	public bool toolboxUsed = false;
 
     // Use this for initialization
     void Start () {
@@ -18,6 +20,8 @@ public class ToolboxActions : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        toolboxlevel = Ship.GetComponent<ShipActions>().toolboxlevel;
+
         // Change sprites according to toolboxlevel if necessary;
         switch (toolboxlevel)
         {
@@ -43,13 +47,19 @@ public class ToolboxActions : MonoBehaviour {
                 break;
         }
 
+        // Do nothing when ship is shocked
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
+        {
+            return;
+        }
+
         // Repair hull
         for (int k = 0; k < charArray.Length; k++)
         {
 
-            if (charArray[k].GetComponent<MoveChar>().isContactWheel)
+            if (charArray[k].GetComponent<MoveChar>().isContactToolbox)
             {
-
+				toolboxUsed = true;
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
                 if (InputManager.GetButtonDown("Interact" + i))
                 {

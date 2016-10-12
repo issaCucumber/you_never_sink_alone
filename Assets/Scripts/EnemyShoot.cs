@@ -10,14 +10,21 @@ public class EnemyShoot : MonoBehaviour {
 	bool readyToShoot = true;
 	public bool dieAfterShoot = false;
 	public bool stopAfterShoot = false;
+	ShipActions sa;	
+
+	void Start () {
+		sa = GameObject.Find ("Ship").transform.GetComponent<ShipActions>();
+	}
 
 	// Update is called once per frame
 	void Update () {
 		
 
 		if (readyToShoot && withinAttackDistance ()) {
-			
+
+			sa.hullcurrent -= getEnemyDamageValue();
 			Instantiate (bullet, transform.position + getBulletOffset (), transform.rotation);
+
 			readyToShoot = false;
 
 			if (stopAfterShoot) {
@@ -114,4 +121,14 @@ public class EnemyShoot : MonoBehaviour {
 		return false;
 
 	}
+
+
+	int getEnemyDamageValue() {
+		if (gameObject.name.StartsWith ("Octopus")) {
+				return 5;
+		}
+		return  0;
+	}
+
+
 }

@@ -12,16 +12,20 @@ public class WheelActions : MonoBehaviour
 
     public GameObject[] charArray;
     public GameObject Ship;
+    public GameObject waves;
+    private Vector3 originalscale;
+	public bool wheelUsed = false;
 
     // Use this for initialization
     void Start()
     {
-
+        originalscale = waves.transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        wheellevel = Ship.GetComponent<ShipActions>().wheellevel;
 
         // Change sprites according to wheellevel if necessary;
         switch (wheellevel)
@@ -48,7 +52,29 @@ public class WheelActions : MonoBehaviour
                 break;
         }
 
+
         Rigidbody2D rb = Ship.GetComponent<Rigidbody2D>();
+
+        if (rb.velocity.magnitude > 0.3)
+        {
+            // show waves animation
+            Vector3 scale = originalscale;
+            scale.y += (rb.velocity.magnitude / 5.0f);
+            waves.transform.localScale = scale;
+            waves.SetActive(true);
+        }
+        else
+        {
+            // hide waves animation
+            waves.transform.localScale = originalscale;
+            waves.SetActive(false);
+        }
+
+        // Do nothing when ship is shocked
+        if (Ship.GetComponent<ShipActions>().isShocked == true)
+        {
+            return;
+        }
 
         for (int k = 0; k < charArray.Length; k++)
         {
@@ -59,6 +85,7 @@ public class WheelActions : MonoBehaviour
 
             if (charArray[k].GetComponent<MoveChar>().isContactWheel)
             {
+				wheelUsed = true;
                 //get character no
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
@@ -69,7 +96,7 @@ public class WheelActions : MonoBehaviour
 
                     if (rb.velocity.magnitude > maxspeed)
                     {
-                        rb.velocity = rb.velocity.normalized * maxspeed;
+                         rb.velocity = rb.velocity.normalized * maxspeed;
                     }
                 }
                 else

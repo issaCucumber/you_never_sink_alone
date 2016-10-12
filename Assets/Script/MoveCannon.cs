@@ -33,10 +33,10 @@ public class MoveCannon : MonoBehaviour
                 if (InputManager.GetAxisRaw("Horizontal" + i) < -0.5f)
                     RotateLeft();
 
-                if (InputManager.GetAxisRaw("Horizontal" + i) > 0.5f)
+				if (InputManager.GetAxisRaw("Horizontal" + i) > 0.5f)
                     RotateRight();
 
-                if ((InputManager.GetAxisRaw("Interact" + i) > 0.5f) && (Time.time > nextFire))
+				if ((InputManager.GetAxisRaw("Interact" + i) > 0.5f) && (Time.time > nextFire))
                 {
                     nextFire = Time.time + fireRate;
                     cannonInstance = Instantiate(cannon, cannonSpawn.position, cannonSpawn.rotation) as GameObject;
