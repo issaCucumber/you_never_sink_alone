@@ -107,6 +107,16 @@ public class ShipActions : MonoBehaviour {
         prestigevalue = 0;
     }
 
+    public int GetCurrentPrestige()
+    {
+        return prestige.PrestigeVal;
+    }
+
+    public void SetCurrentPrestige(int value)
+    {
+        prestige.PrestigeVal = value;
+    }
+
     void OnCollisionEnter2D(Collision2D coll)
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
