@@ -13,8 +13,10 @@ public class InstructionsManager : MonoBehaviour {
 
 	private List<string> accomplished_triggers = new List<string>();
 
+	public TutorialDialogueEntity[] tutorialDialogueEntity;
 	private Dictionary<string, string> instructions = new Dictionary<string, string>(){
-		{"TriggerArea0", "Sharpie and Painty, let's see if you still remember how to navigate the Ship\n" +
+		{"TriggerArea0", 
+			"Sharpie and Painty, let's see if you still remember how to navigate the Ship\n" +
 			"One of you has to go to the wheel station.\n" +
 			"Press ENTER to engage Sharpie / LEFTSHFIT to engage Painty to the wheel station\n" +
 			"Forward - up for Sharpie, w for Painty\n" +
@@ -92,6 +94,85 @@ public class InstructionsManager : MonoBehaviour {
 
 			}
 
+		}
+	}
+}
+
+[Serializable]
+public class TutorialDialogueEntity
+{
+	[SerializeField]
+	private string entityType;
+	[SerializeField]
+	private string characterName;
+	[SerializeField]
+	private string dialogue;
+	[SerializeField]
+	private int spritePosition;
+	[SerializeField]
+	private int spriteImage;
+
+	public string EntityType{
+		get
+		{
+			return entityType;
+		}
+
+		set
+		{
+			entityType = value;
+		}
+	}
+
+	public string CharacterName
+	{
+		get
+		{
+			return characterName;
+		}
+
+		set
+		{
+			characterName = value;
+		}
+	}
+
+	public string Dialogue
+	{
+		get
+		{
+			return dialogue;
+		}
+
+		set
+		{
+			dialogue = value;
+		}
+	}
+
+	public int SpritePosition
+	{
+		get
+		{
+			return spritePosition;
+		}
+
+		set
+		{
+			spritePosition = value;
+		}
+	}
+
+	public int SpriteImage
+	{
+		get
+		{
+			return spriteImage;
+		}
+
+		set
+		{
+			spriteImage = value;
 		}
 	}
 }
