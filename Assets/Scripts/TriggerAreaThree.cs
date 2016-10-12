@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TriggerAreaOne : MonoBehaviour {
+public class TriggerAreaThree : MonoBehaviour {
 
-	public GameObject canvas;
+	public Transform canvas;
 	private bool triggered = false;
 
 	void OnTriggerEnter2D(Collider2D other){
 
 		if (other.name == "Ship" && !triggered) {
-			//trigger two tutorial
+			//trigger three tutorial
 			canvas.GetComponent<InstructionsManager>().current_trigger = this.gameObject;
 			canvas.gameObject.SetActive (true);
 			triggered = true;
@@ -17,4 +17,5 @@ public class TriggerAreaOne : MonoBehaviour {
 		}
 
 	}
+
 }

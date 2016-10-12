@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TriggerAreaOne : MonoBehaviour {
+public class TriggerAreaZero : MonoBehaviour {
 
 	public GameObject canvas;
 	private bool triggered = false;
@@ -9,7 +9,7 @@ public class TriggerAreaOne : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 
 		if (other.name == "Ship" && !triggered) {
-			//trigger two tutorial
+			//trigger zero tutorial
 			canvas.GetComponent<InstructionsManager>().current_trigger = this.gameObject;
 			canvas.gameObject.SetActive (true);
 			triggered = true;

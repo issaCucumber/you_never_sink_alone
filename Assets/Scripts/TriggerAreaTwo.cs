@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TriggerAreaOne : MonoBehaviour {
+public class TriggerAreaTwo : MonoBehaviour {
 
-	public GameObject canvas;
+	public Transform canvas;
 	private bool triggered = false;
 
 	void OnTriggerEnter2D(Collider2D other){
