@@ -14,8 +14,9 @@ public class EnemyBulletHitShip : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (hitship) {
-			Instantiate (hitEffect, ship.position, ship.rotation);
+			GameObject go = (GameObject)Instantiate (hitEffect, ship.position, ship.rotation);
 			ship.gameObject.GetComponent<ShipActions> ().hullcurrent -= getEnemyDamageValue();
+			go.transform.parent = ship;
 			hitship = false;
 		}
 	}

@@ -7,7 +7,7 @@ public class WheelActions : MonoBehaviour
 
     //public bool isContactWheel = false;
     public int wheellevel = 1;
-    float speed = 1000;
+    public float speed = 1000;
     float maxspeed = 2;
 
     public GameObject[] charArray;
