@@ -72,6 +72,7 @@ public class MoveChar : MonoBehaviour {
 			CannonLeft.GetComponent<PortCannonActions>().cannonUsed = false;
 			CannonRight.GetComponent<StarboardCannonActions>().cannonUsed = false;
 			Toolbox.GetComponent<ToolboxActions>().toolboxUsed = false;
+
 			Dynamite.GetComponent<DynamiteActions>().activation[playerNo] = false;
 
 			//reset char location and transform
