@@ -40,7 +40,7 @@ public class MoveChar : MonoBehaviour {
 	
 	void Update () {
 		hypnotized = ship.GetComponent<ShipActions> ().isHypnotized;
-
+		//Debug.Log (hypnotized == true ? -1 : 1);
 		float inputX = (hypnotized == true ? -1 : 1) * InputManager.GetAxisRaw("Horizontal" + playerNo);
 		float inputY = (hypnotized == true ? -1 : 1) * InputManager.GetAxisRaw("Vertical" + playerNo);
 

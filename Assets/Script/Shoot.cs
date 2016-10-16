@@ -43,8 +43,10 @@ public class Shoot : MonoBehaviour {
 			|| coll.name.StartsWith("ElectricEel")
 			|| coll.name.StartsWith("FlyingFish")
 			|| coll.name.StartsWith("Dragon")
-			|| coll.name.StartsWith("Rock")) {
+			|| coll.name.StartsWith("Rock")
+			) {
 			Destroy (this.gameObject);
+			Debug.Log (coll.name);
 			Transform myexplosion = (Transform)Instantiate (explosion, coll.transform.position, transform.rotation);
 			myexplosion.GetComponent<Explosion> ().level = level;
 		}
