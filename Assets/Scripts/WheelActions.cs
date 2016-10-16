@@ -111,10 +111,10 @@ public class WheelActions : MonoBehaviour
                 }
 
                 if (InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
-                    Ship.transform.Rotate(Vector3.forward * 10 * Time.deltaTime);
+                    Ship.transform.Rotate(Vector3.forward * 35 * Time.deltaTime);
 
                 if (InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
-                    Ship.transform.Rotate(Vector3.forward * -10 * Time.deltaTime);
+                    Ship.transform.Rotate(Vector3.forward * -35 * Time.deltaTime);
                 
 
             }
