@@ -33,6 +33,7 @@ public class EnemyElectricShock : MonoBehaviour {
 
 		if (!attacked && withinAttackDistance () && sa != null) {
 
+			//TODO Sound: EnemyElectricSHock.wav
 			sa.shocknow = true;
 			sa.hullcurrent -= getEnemyDamageValue();
 			attacked = true;

@@ -24,7 +24,7 @@ public class EnemyShoot : MonoBehaviour {
 
 			sa.hullcurrent -= getEnemyDamageValue();
 			Instantiate (bullet, transform.position + getBulletOffset (), transform.rotation);
-
+			//TODO Sound: OctopusInk.wav
 			readyToShoot = false;
 
 			if (stopAfterShoot) {
