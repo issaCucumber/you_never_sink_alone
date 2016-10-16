@@ -133,6 +133,8 @@ public class TriggerAreaOne : MonoBehaviour {
 	}
 
 	private void disableGame(){
+		Time.timeScale = 0;
+		ship.GetComponent<Rigidbody2D> ().velocity = new Vector2(0,0);
 		ship.GetComponent<ShipActions> ().enabled = false;
 
 		Transform wheel = ship.transform.FindChild ("Wheel");
@@ -140,6 +142,7 @@ public class TriggerAreaOne : MonoBehaviour {
 	}
 
 	private void continueGame(){
+		Time.timeScale = 1;
 		ship.GetComponent<ShipActions> ().enabled = true;
 
 		Transform wheel = ship.transform.FindChild ("Wheel");

@@ -83,12 +83,18 @@ public class TriggerAreaThree : MonoBehaviour {
 
 		if (triggered) {
 
+			ship.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
+//			if (canvas.activeInHierarchy) {
+//				ship.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
+//			}
+
 			if(currentFrame < 2 && (portCannon.GetComponent<PortCannonActions> ().cannonUsed || 
 				starCannon.GetComponent<StarboardCannonActions> ().cannonUsed)) {
 				instruction.SetActive (false);
 			}
 
 			if (fishOne == null && !triggeredFishOne) {
+				
 				dialogueText.text = "";
 				dialogue = "";
 				currChar = 0;
@@ -193,15 +199,17 @@ public class TriggerAreaThree : MonoBehaviour {
 	private void disableGame(){
 
 		Time.timeScale = 0;
-		ship.GetComponent<Timer> ().enabled = false;
-		wheel.GetComponent<WheelActions> ().enabled = false;
+//		ship.GetComponent<Rigidbody2D> ().velocity = new Vector2(0,0);
+//		ship.GetComponent<Timer> ().enabled = false;
+//		wheel.GetComponent<WheelActions> ().enabled = false;
 	}
 
 	private void continueGame(){
 		pauseInstructions = true;
 
 		Time.timeScale = 1;
-		ship.GetComponent<Timer> ().enabled = true;
+//		ship.GetComponent<Timer> ().enabled = true;
+//		wheel.GetComponent<WheelActions> ().enabled = false;
 
 		canvas.gameObject.SetActive (false);
 	}
@@ -243,7 +251,6 @@ public class TriggerAreaThree : MonoBehaviour {
 
 	private void playTutorial(){
 
-		Debug.Log ("============ CURRENT FRAME ============ " + currentFrame);
 
 		switch (currentFrame) {
 		case 0: //let the player kill the flying fish
