@@ -36,9 +36,11 @@ public class EnemyDragonShoot : MonoBehaviour {
 			cooldownTimer = shootDelay;
 
 			if (isFireAttack) {
+				//TODO Sound: DragonFire.wav
 				Instantiate (fire, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
 			} else {
+				//TODO Sound: DragonWave.wav
 				Instantiate (wave, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.magenta;
 			}
