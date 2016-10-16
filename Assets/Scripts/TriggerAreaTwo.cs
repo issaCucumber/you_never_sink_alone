@@ -9,13 +9,13 @@ public class TriggerAreaTwo : MonoBehaviour {
 	public TutorialDialogueEntity[] tutorials;
 	public Text nameText;
 	public Text dialogueText;
-	private float textSpeed = 0.2f;
 	public GameObject ship;
 	public GameObject avatar;
 	public GameObject avatarPanel;
 	public GameObject canvas;
 	public GameObject instruction;
 
+	private float textSpeed = 0.2f;
 	private char[] charArray;
 	private int charArrayLength;
 	private int currChar = 0;
@@ -47,7 +47,10 @@ public class TriggerAreaTwo : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D other){
 		if (other.name == "Ship") {
+			instruction.SetActive (false);
 			tutorialDone = true;
+			this.gameObject.SetActive (false);
+			triggered = false;
 		}
 	}
 
@@ -85,8 +88,12 @@ public class TriggerAreaTwo : MonoBehaviour {
 				}
 			}
 
-			if (InputManager.GetButtonDown ("Submit") && !tutorialDone) {
+			if (InputManager.GetButtonDown ("Submit") && 
+				!tutorialDone && 
+				currentFrame == 0) {
 				continueGame ();
+				instruction.GetComponentInChildren<Text> ().text = "Advance and Avoid the rocks!";
+				instruction.SetActive (true);
 			}
 		}
 	}
@@ -115,10 +122,6 @@ public class TriggerAreaTwo : MonoBehaviour {
 	}
 
 	private void disableGame(){
-
-		Time.timeScale = 0;
-		ship.GetComponent<Timer> ().enabled = false;
-
 		ship.GetComponent<ShipActions> ().enabled = false;
 
 		Transform wheel = ship.transform.FindChild ("Wheel");
@@ -126,9 +129,6 @@ public class TriggerAreaTwo : MonoBehaviour {
 	}
 
 	private void continueGame(){
-		Time.timeScale = 1;
-
-		ship.GetComponent<Timer> ().enabled = true;
 		ship.GetComponent<ShipActions> ().enabled = true;
 
 		Transform wheel = ship.transform.FindChild ("Wheel");

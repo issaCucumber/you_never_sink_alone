@@ -56,8 +56,13 @@ public class TriggerAreaOne : MonoBehaviour {
 		if (triggered) {
 
 			if (wheel.GetComponent<WheelActions> ().wheelUsed) {
+				instruction.GetComponentInChildren<Text> ().text = "Move the Ship Forward";
+			}
+
+			if (ship.GetComponent<Rigidbody2D>().velocity.magnitude > 0){
 				instruction.SetActive (false);
 				tutorialDone = true;
+				this.gameObject.SetActive (false);
 			}
 
 			if (currentFrame < tutorials.Length) {
@@ -93,11 +98,8 @@ public class TriggerAreaOne : MonoBehaviour {
 
 				if (currentFrame == 0) {
 					ship.transform.FindChild ("Wheel").gameObject.SetActive (true);
-					dialogue = "";
-					dialogueText.text = "";
-					currChar = 0;
-				} else {
-					instruction.GetComponentInChildren<Text> ().text = "Engage to the wheel";
+					canvas.SetActive (false);
+					instruction.GetComponentInChildren<Text> ().text = "Interact with the Wheel station";
 					instruction.SetActive (true);
 					continueGame ();
 				}
@@ -131,10 +133,6 @@ public class TriggerAreaOne : MonoBehaviour {
 	}
 
 	private void disableGame(){
-
-		Time.timeScale = 0;
-		ship.GetComponent<Timer> ().enabled = false;
-
 		ship.GetComponent<ShipActions> ().enabled = false;
 
 		Transform wheel = ship.transform.FindChild ("Wheel");
@@ -142,9 +140,6 @@ public class TriggerAreaOne : MonoBehaviour {
 	}
 
 	private void continueGame(){
-		Time.timeScale = 1;
-
-		ship.GetComponent<Timer> ().enabled = true;
 		ship.GetComponent<ShipActions> ().enabled = true;
 
 		Transform wheel = ship.transform.FindChild ("Wheel");

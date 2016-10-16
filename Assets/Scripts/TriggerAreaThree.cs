@@ -15,6 +15,7 @@ public class TriggerAreaThree : MonoBehaviour {
 	public GameObject avatarPanel;
 	public GameObject canvas;
 	public GameObject instruction;
+	public GameObject flyingfishes;
 
 	private GameObject wheel;
 	private GameObject portCannon;
@@ -75,11 +76,6 @@ public class TriggerAreaThree : MonoBehaviour {
 			tutorialDone = true;
 		}
 	}
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -96,9 +92,18 @@ public class TriggerAreaThree : MonoBehaviour {
 				dialogueText.text = "";
 				dialogue = "";
 				currChar = 0;
+
 				triggeredFishOne = true;
 
-				fishTwo.SetActive (true);
+				currentFrame++;
+				instruction.SetActive (false);
+				canvas.SetActive (true);
+
+				pauseInstructions = false;
+
+				Debug.Log ("Kill Fish One");
+
+				//fishTwo.SetActive (true);
 			}
 
 			if (triggeredFishOne && fishTwo == null && !triggeredFishTwo) {
@@ -115,17 +120,21 @@ public class TriggerAreaThree : MonoBehaviour {
 			if (triggeredFishOne && triggeredFishTwo && 
 				toolBox.GetComponent<ToolboxActions> ().toolboxUsed && !triggeredToolBox) {
 
-				fishGroup.SetActive (true);
-				currentFrame++;
-				dialogueText.text = "";
-				dialogue = "";
-				currChar = 0;
-				triggeredToolBox = true;
+				if (ship.GetComponent<ShipActions> ().hullcurrent != 100) {
+					instruction.GetComponentInChildren<Text> ().text = "Engage the Toolbox to repair to 100";
+					instruction.SetActive (true);
+				} else {
+					fishGroup.SetActive (true);
+					currentFrame++;
+					dialogueText.text = "";
+					dialogue = "";
+					currChar = 0;
+					triggeredToolBox = true;
 
-				canvas.SetActive (true);
-				instruction.SetActive (false);
-				pauseInstructions = false;
-
+					canvas.SetActive (true);
+					instruction.SetActive (false);
+					pauseInstructions = false;
+				}
 			}
 
 			if (triggeredFishOne && triggeredFishTwo && triggeredToolBox &&
@@ -150,9 +159,11 @@ public class TriggerAreaThree : MonoBehaviour {
 
 			playInstruction ();
 
-			if (InputManager.GetButtonDown ("Submit") && !tutorialDone && canvas.active) {
+			if (InputManager.GetButtonDown ("Submit") && !tutorialDone) {
+				Debug.Log ("===================== ENTER KEY PRESSED ===================" + currentFrame);
 				playTutorial ();
 			}
+
 		}
 	}
 
@@ -231,65 +242,59 @@ public class TriggerAreaThree : MonoBehaviour {
 	}
 
 	private void playTutorial(){
+
+		Debug.Log ("============ CURRENT FRAME ============ " + currentFrame);
+
 		switch (currentFrame) {
-		case 0:
-			currentFrame++;
+		case 0: //let the player kill the flying fish
 			fishOne.SetActive (true);
 			portCannon.SetActive (true);
 			starCannon.SetActive (true);
 
-			dialogueText.text = "";
-			dialogue = "";
-			currChar = 0;
-			break;
-		case 1: //let the player kill the flying fish
-			continueGame ();
-
-			instruction.GetComponentInChildren<Text> ().text = "Interact with the cannon";
+			instruction.GetComponentInChildren<Text> ().text = "Interact with the cannon and Kill the Flying Fish!";
 			instruction.SetActive (true);
+			canvas.SetActive (false);
+			pauseInstructions = true;
+
+			continueGame ();
 			break;
-		case 2: //continue dialogue
-			currentFrame++;
-			dialogueText.text = "";
-			dialogue = "";
-			currChar = 0;
+		case 1: //2nd fish attack!
+			fishTwo.SetActive (true);
+
+			canvas.SetActive (false);
+			pauseInstructions = true;
+
+			continueGame ();
 			break;
-		case 3:
+		case 2: //After darn it, we got hit!
+			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station and Interact with the Toolbox";
+			instruction.SetActive (true);
+
+			canvas.SetActive (false);
+			pauseInstructions = true;
+
 			continueGame ();
 			toolBox.SetActive (true);
-
-			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station";
-			instruction.SetActive (true);
 			break;
-
+		case 3:
+			currentFrame++;
+			dialogueText.text = "";
+			dialogue = "";
+			currChar = 0;
+			break;
 		case 4:
-			currentFrame++;
-			dialogueText.text = "";
-			dialogue = "";
-			currChar = 0;
-			break;
-
-		case 5:
-			currentFrame++;
-			dialogueText.text = "";
-			dialogue = "";
-			currChar = 0;
-			break;
-
-		case 6: //Dynamite
 			continueGame ();
 			dynamite.SetActive (true);
-			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station";
+			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station and Interact with the Dynamite";
 			instruction.SetActive (true);
 			break;
-
-		case 7: //Dynamite
+		case 5:
 			continueGame ();
-			break;
-
-		case 9:
-			triggered = false;
 			tutorialDone = true;
+			this.gameObject.SetActive (false);
+			flyingfishes.SetActive (true);
+			instruction.GetComponentInChildren<Text> ().text = "Reach the Destination Island. Fight any enemies along the way.";
+			instruction.SetActive (true);
 			break;
 		}
 			
