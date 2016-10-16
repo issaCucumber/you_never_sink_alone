@@ -5,6 +5,7 @@ using TeamUtility.IO;
 public class MoveChar : MonoBehaviour {
 
 	public float moveSpeed;
+	public int controlNo;
 	public int playerNo;
 
 	//public character states
@@ -31,6 +32,8 @@ public class MoveChar : MonoBehaviour {
 	public GameObject Dynamite;
 	public GameObject Ship;
 
+
+
 	Animator anim;
 
 	void Start () {
@@ -41,11 +44,21 @@ public class MoveChar : MonoBehaviour {
 
 	void Update () {
 
+		if (controlNo == 4) {
+			if (PlayerPrefs.GetInt ("Player2", 2) == 4) {
+				if (PlayerPrefs.GetInt ("Player1", 1) == 1) {
+					playerNo = 3;
+				} else if (PlayerPrefs.GetInt ("Player1", 1) == 3) {
+					playerNo = 4;
+				}
+			}
+		}
+
 		hypnotized = Ship.GetComponent<ShipActions> ().isHypnotized;
 		rayColArr = gameObject.GetComponent<collisionDetection>().rayColArr;
 
-		float inputX = (hypnotized == true ? -1 : 1) * modInputX (rayColArr, InputManager.GetAxisRaw("Horizontal" + playerNo));
-		float inputY = (hypnotized == true ? -1 : 1) * modInputY(rayColArr, InputManager.GetAxisRaw("Vertical" + playerNo));
+		float inputX = (hypnotized == true ? -1 : 1) * modInputX (rayColArr, InputManager.GetAxis("Horizontal" + playerNo));
+		float inputY = (hypnotized == true ? -1 : 1) * modInputY(rayColArr, InputManager.GetAxis("Vertical" + playerNo));
 
 		anim.SetFloat("SpeedX", inputX);
 		anim.SetFloat("SpeedY", inputY);
@@ -162,8 +175,8 @@ public class MoveChar : MonoBehaviour {
 	void FixedUpdate()
 	{
 		hypnotized = Ship.GetComponent<ShipActions> ().hypnotizenow;
-		float lastInputX = (hypnotized == true ? -1 : 1) * modInputX (rayColArr, InputManager.GetAxisRaw("Horizontal" + playerNo));
-		float lastInputY = (hypnotized == true ? -1 : 1) * modInputY (rayColArr, InputManager.GetAxisRaw("Vertical" + playerNo));
+		float lastInputX = (hypnotized == true ? -1 : 1) * modInputX (rayColArr, InputManager.GetAxis("Horizontal" + playerNo));
+		float lastInputY = (hypnotized == true ? -1 : 1) * modInputY (rayColArr, InputManager.GetAxis("Vertical" + playerNo));
 
 		//get last input to display static animation
 		if (lastInputX != 0 || lastInputY != 0)

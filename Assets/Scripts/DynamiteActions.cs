@@ -6,7 +6,7 @@ public class DynamiteActions : MonoBehaviour
 {
 
     public int dynamitelevel = 1;
-    public float percent = 100.0f;
+    //public float percent = 100.0f;
     public Transform superattack;
     private int cooldown = 300; // 300 secs
     private float lastfiretime = -300;
@@ -17,11 +17,16 @@ public class DynamiteActions : MonoBehaviour
     public GameObject Dynamite;
     public bool[] activation;
     public GameObject Ship;
+    public GameObject glowBar;
+
+    private float timePast;
 
     // Use this for initialization
     void Start()
     {
 		energy.Initialize ();
+        //need to initialise cooldown here when loading game
+        timePast = cooldown;
     }
 
     // Update is called once per frame
@@ -53,15 +58,39 @@ public class DynamiteActions : MonoBehaviour
                 cooldown = 60;
                 break;
         }
+        timePast += Time.deltaTime;
+        //percent = (Time.time - lastfiretime) / cooldown * 100.0f;
+        //if (percent > 100.0f)
+        //{
+        //    percent = 100.0f;
+        //}
 
-        percent = (Time.time - lastfiretime) / cooldown * 100.0f;
-        if (percent > 100.0f)
+        //if (energy.CurrentVal != energy.MaxVal)
+        //{
+
+        //    //float t = Time.time - lastfiretime;    //amt of seconds has past since trigger
+
+        //    energy.CurrentVal = (timePast / cooldown) * energy.MaxVal;
+        //}
+
+        if(timePast >= cooldown)
         {
-            percent = 100.0f;
+            glowBar.SetActive(true);
+            energy.CurrentVal = energy.MaxVal;
+        }
+        else
+        {
+            glowBar.SetActive(false);
+            energy.CurrentVal = (timePast / cooldown) * energy.MaxVal;
         }
 
-        float currenttime = Time.time;
-        if ((currenttime - lastfiretime) < cooldown)
+        //float currenttime = Time.time;
+        //if ((currenttime - lastfiretime) < cooldown)
+        //{
+        //    return;
+        //}
+
+        if(timePast < cooldown)
         {
             return;
         }
@@ -93,13 +122,10 @@ public class DynamiteActions : MonoBehaviour
             deactivate(activation);
             lastfiretime = Time.time;
 			energy.CurrentVal = 0;
+            timePast = 0;
         }
 
-		if (energy.CurrentVal != energy.MaxVal) {
-
-			float t = Time.time - lastfiretime;    //amt of seconds has past since trigger
-			energy.CurrentVal = (t / cooldown) * energy.MaxVal;
-		}
+		
     }
 
 

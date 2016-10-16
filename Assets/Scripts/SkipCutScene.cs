@@ -12,6 +12,7 @@ public class SkipCutScene : MonoBehaviour {
 
     public GameObject pauseScreen;
     public string nextScene;
+    public int levelClear;
 
     // Use this for initialization
     void Start () {
@@ -55,6 +56,8 @@ public class SkipCutScene : MonoBehaviour {
     public void OnClickYes()
     {
         Time.timeScale = 1;
+        PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
+        Debug.Log("Level clear " + PlayerPrefs.GetInt(Constants.LEVELCLEARED));
         SceneManager.LoadScene(nextScene);
     }
 

@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UpgradeScreen : MonoBehaviour
 {
+    public EventSystem ES;
+    private GameObject storeSelected;
 
     public Transform upgradeScreen;
     public Transform playerObj;
@@ -22,9 +25,17 @@ public class UpgradeScreen : MonoBehaviour
 
     public Text prestigeLeftText;
 
-    public Button leftPurchasedButton;
-    public Button middlePurchasedButton;
-    public Button rightPurchasedButton;
+    public GameObject leftPurchasedButton;
+    public GameObject middlePurchasedButton;
+    public GameObject rightPurchasedButton;
+    public GameObject leaveButton;
+
+    public Sprite[] hullSprite;
+    public Sprite[] wheelSprite;
+    public Sprite[] portCannonSprite;
+    public Sprite[] starboardCannonSprite;
+    public Sprite[] toolboxSprite;
+    public Sprite[] dynamiteSprite;
 
     Dictionary<int, int> stationsAndLevel;
     int maxLevel = 5 ;
@@ -38,10 +49,25 @@ public class UpgradeScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int currentPrestige = ship.GetCurrentPrestige();
-        prestigeLeftText.text = System.Convert.ToString(currentPrestige);
+        if (upgradeScreen.gameObject.activeInHierarchy == true)
+        {
+            if (ES.currentSelectedGameObject != storeSelected)
+            {
+                if (ES.currentSelectedGameObject == null)
+                {
+                    ES.SetSelectedGameObject(storeSelected);
+                }
+                else
+                {
+                    storeSelected = ES.currentSelectedGameObject;
+                }
+            }
 
-        DisablePurchaseButton();
+            int currentPrestige = ship.GetCurrentPrestige();
+            prestigeLeftText.text = System.Convert.ToString(currentPrestige);
+
+            DisablePurchaseButton();
+        }
     }
     //possible upgrades
     
@@ -71,25 +97,28 @@ public class UpgradeScreen : MonoBehaviour
             Debug.Log("Middle pair :" + middlePair.Key + " is level " + middlePair.Value);
             Debug.Log("Right pair :" + rightPair.Key + " is level " + rightPair.Value);
 
-            leftPurchasedButton.interactable = true;
-            middlePurchasedButton.interactable = true;
-            rightPurchasedButton.interactable = true;
+            leftPurchasedButton.GetComponent<Button>().interactable = true;
+            middlePurchasedButton.GetComponent<Button>().interactable = true;
+            rightPurchasedButton.GetComponent<Button>().interactable = true;
 
             leftUpgradeText.text = GetUpgradeText(leftPair.Key);
             int leftLevel = leftPair.Value + 1;
+            ShowUpgradeImage(leftPair.Key, leftPair.Value, leftUpgradeImage);
             leftPrestigeText.text = System.Convert.ToString(200 * leftLevel);
 
             middleUpgradeText.text = GetUpgradeText(middlePair.Key);
             int middleLevel = middlePair.Value + 1;
+            ShowUpgradeImage(middlePair.Key, middlePair.Value, middleUpgradeImage);
             middlePrestigeText.text = System.Convert.ToString(200 * middleLevel);
 
             rightUpgradeText.text = GetUpgradeText(rightPair.Key);
             int rightLevel = rightPair.Value + 1;
+            ShowUpgradeImage(rightPair.Key, rightPair.Value, rightUpgradeImage);
             rightPrestigeText.text = System.Convert.ToString(200 * rightLevel);
 
             DisablePurchaseButton();
-
             upgradeScreen.gameObject.SetActive(true);
+            SetEventSelected();
             Time.timeScale = 0;
             playerObj.GetComponent<Timer>().enabled = false;
         }
@@ -102,19 +131,82 @@ public class UpgradeScreen : MonoBehaviour
         int leftPrestigeValue = System.Convert.ToInt32(leftPrestigeText.text);
         if(currentPrestige < leftPrestigeValue)
         {
-            leftPurchasedButton.interactable = false;
+            leftPurchasedButton.GetComponent<Button>().interactable = false;
         }
 
         int middlePrestigeValue = System.Convert.ToInt32(middlePrestigeText.text);
         if(currentPrestige < middlePrestigeValue)
         {
-            middlePurchasedButton.interactable = false;
+            middlePurchasedButton.GetComponent<Button>().interactable = false;
         }
 
         int rightPrestigeValue = System.Convert.ToInt32(rightPrestigeText.text);
         if(currentPrestige < rightPrestigeValue)
         {
-            rightPurchasedButton.interactable = false;
+            rightPurchasedButton.GetComponent<Button>().interactable = false;
+        }
+    }
+
+    private void SetEventSelected()
+    {
+        if(leftPurchasedButton.GetComponent<Button>().IsInteractable())
+        {
+            storeSelected = leftPurchasedButton;
+        }
+        else
+        {
+            if(middlePurchasedButton.GetComponent<Button>().IsInteractable())
+            {
+                storeSelected = middlePurchasedButton;
+            }
+            else
+            {
+                if(rightPurchasedButton.GetComponent<Button>().IsInteractable())
+                {
+                    storeSelected = rightPurchasedButton;
+                }
+                else
+                {
+                    storeSelected = leaveButton;
+                }
+            }
+        }
+        ES.SetSelectedGameObject(storeSelected);
+    }
+
+    private void ShowUpgradeImage(int item, int level, Image image)
+    {
+        if (item == 0)
+        {
+            image.sprite = hullSprite[level];
+        }
+        else if (item == 1)
+        {
+            image.sprite = toolboxSprite[level];
+        }
+        else if (item == 2)
+        {
+            image.sprite = starboardCannonSprite[level];
+        }
+        else if (item == 3)
+        {
+            image.sprite = starboardCannonSprite[level];
+        }
+        else if (item == 4)
+        {
+            image.sprite = wheelSprite[level];
+        }
+        else if (item == 5)
+        {
+            image.sprite = dynamiteSprite[level];
+        }
+        else if (item == 6)
+        {
+            image.sprite = portCannonSprite[level];
+        }
+        else if (item == 7)
+        {
+            image.sprite = portCannonSprite[level];
         }
     }
 

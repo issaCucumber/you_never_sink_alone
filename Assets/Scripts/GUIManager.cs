@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 
 public class GUIManager : MonoBehaviour {
 
@@ -13,6 +12,8 @@ public class GUIManager : MonoBehaviour {
 
     public GameObject firstSelectedInMenu;
     public GameObject firstSelectedInOptions;
+    public GameObject firstSelectedInAudios;
+    public GameObject firstSelectedInControls;
     public GameObject firstSelectedInCredits;
 
     public GameObject continueGameBtn;
@@ -44,16 +45,31 @@ public class GUIManager : MonoBehaviour {
     private int player1Control;
     private int player2Control;
 
+    float masterVolumePercent = 1f;
+    float sfxVolumePercent = 1f;
+    float musicVolumePercent = 1f;
 
-	// Use this for initialization
-	void Start ()
+    public GameObject masterSlider;
+    public GameObject musicSlider;
+    public GameObject fxSlider;
+
+    // Use this for initialization
+    void Start ()
     {
         currentState = MenuStates.Main;
         storeSelected = ES.firstSelectedGameObject;
 
         //continueGameBtn.enabled = false;
-        
-        continueGameBtn.GetComponent<Button>().interactable = false;
+        if (PlayerPrefs.GetInt(Constants.LEVELCLEARED, 0) == 0)
+        {
+            Debug.Log("Disable continue btn " + PlayerPrefs.GetInt(Constants.LEVELCLEARED));
+            continueGameBtn.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            Debug.Log("Enable continue btn");
+            continueGameBtn.GetComponent<Button>().interactable = true; 
+        }
 
         player1Control = PlayerPrefs.GetInt("Player1", 1);  //1 is keyboard1, 2 is keyboard2, 3 is controller1, 4 is controller2
         player2Control = PlayerPrefs.GetInt("Player2", 2);
@@ -64,6 +80,14 @@ public class GUIManager : MonoBehaviour {
         //spriteState = continueGameBtn.GetComponent<Button>().spriteState;
         //spriteState.disabledSprite = testImage;
         //continueGameBtn.GetComponent<Button>().spriteState = spriteState;
+
+        masterVolumePercent = PlayerPrefs.GetFloat("master vol", masterVolumePercent);
+        sfxVolumePercent = PlayerPrefs.GetFloat("sfx vol", sfxVolumePercent);
+        musicVolumePercent = PlayerPrefs.GetFloat("music vol", musicVolumePercent);
+
+        masterSlider.GetComponent<Slider>().value = masterVolumePercent;
+        musicSlider.GetComponent<Slider>().value = musicVolumePercent;
+        fxSlider.GetComponent<Slider>().value = sfxVolumePercent;
     }
 
     private void SetPlayer1Radio(int player1Control)
@@ -106,6 +130,7 @@ public class GUIManager : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+       // Debug.Log("Store Selected " + storeSelected);
         if (ES.currentSelectedGameObject != storeSelected)
         {
             if (ES.currentSelectedGameObject == null)
@@ -157,30 +182,58 @@ public class GUIManager : MonoBehaviour {
     public void OnClickPlay()
     {
         Debug.Log("Play button is pressed");
+        ResetPlayerPrefData();
         SceneManager.LoadScene("CutScene");
-        //EditorSceneManager.LoadScene("Main Game");
+    }
+
+    private void ResetPlayerPrefData()
+    {
+        PlayerPrefs.SetInt(Constants.HULL, 1);
+        PlayerPrefs.SetInt(Constants.TOOLBOX, 1);
+        PlayerPrefs.SetInt(Constants.STARBOARDPOWER, 1);
+        PlayerPrefs.SetInt(Constants.STARBOARDFIRERATE, 1);
+        PlayerPrefs.SetInt(Constants.WHEEL, 1);
+        PlayerPrefs.SetInt(Constants.DYNAMITE, 1);
+        PlayerPrefs.SetInt(Constants.PORTPOWER, 1);
+        PlayerPrefs.SetInt(Constants.PORTFIRERATE, 1);
+        PlayerPrefs.SetInt(Constants.FLYINGFISHSEEN, 0);
+        PlayerPrefs.SetInt(Constants.ELECTRICEELSEEN, 0);
+        PlayerPrefs.SetInt(Constants.JELLYFISHSEEN, 0);
+        PlayerPrefs.SetInt(Constants.OCTUPUSSEEN, 0);
+        PlayerPrefs.SetInt(Constants.DRAGONSEEN, 0);
+        PlayerPrefs.SetInt(Constants.LEVELCLEARED, 0);
+        PlayerPrefs.SetInt(Constants.PRESTIGEEARN, 0);
     }
 
     public void OnClickContinue()
     {
         Debug.Log("Cont button is pressed");
+		SceneManager.LoadScene ("Level Select");
     }
 
     public void OnClickOptions()
     {
         currentState = MenuStates.Options;
+        //ES.SetSelectedGameObject(firstSelectedInOptions);
+        storeSelected = firstSelectedInOptions;
         ES.SetSelectedGameObject(firstSelectedInOptions);
+
     }
 
     public void OnClickControls()
     {
         currentState = MenuStates.Controls;
+        storeSelected = firstSelectedInControls;
+        ES.SetSelectedGameObject(firstSelectedInControls);
     }
 
     public void OnClickCredits()
     {
         currentState = MenuStates.Credits;
-        ES.SetSelectedGameObject(firstSelectedInCredits);  
+        //ES.SetSelectedGameObject(firstSelectedInCredits);  
+        storeSelected = firstSelectedInCredits;
+        ES.SetSelectedGameObject(firstSelectedInCredits);
+
     }
 
     public void OnClickExit()
@@ -194,12 +247,18 @@ public class GUIManager : MonoBehaviour {
     {
         //back to main menu
         currentState = MenuStates.Main;
+        //ES.SetSelectedGameObject(firstSelectedInMenu);
+        storeSelected = firstSelectedInMenu;
         ES.SetSelectedGameObject(firstSelectedInMenu);
+
     }
 
     public void OnClickBackToOptions()
     {
         currentState = MenuStates.Options;
+        storeSelected = firstSelectedInOptions;
+        ES.SetSelectedGameObject(firstSelectedInOptions);
+
     }
 
     public void OnClickKeyboard1Radio()
@@ -228,7 +287,18 @@ public class GUIManager : MonoBehaviour {
 
     public void OnClickAudio()
     {
+        masterVolumePercent = PlayerPrefs.GetFloat("master vol", masterVolumePercent);
+        sfxVolumePercent = PlayerPrefs.GetFloat("sfx vol", sfxVolumePercent);
+        musicVolumePercent = PlayerPrefs.GetFloat("music vol", musicVolumePercent);
+
+        masterSlider.GetComponent<Slider>().value = masterVolumePercent;
+        musicSlider.GetComponent<Slider>().value = musicVolumePercent;
+        fxSlider.GetComponent<Slider>().value = sfxVolumePercent;
         currentState = MenuStates.Audios;
+
+        storeSelected = firstSelectedInAudios;
+        ES.SetSelectedGameObject(firstSelectedInAudios);
+
     }
 
     public void PlayOnEnter()
