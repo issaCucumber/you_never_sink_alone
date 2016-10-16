@@ -15,6 +15,7 @@ public class StarboardCannonActions : MonoBehaviour {
     GameObject cannonInstance;
     public GameObject Ship;
 	public bool cannonUsed = false;
+	bool hypnotized = false;
 
     // Use this for initialization
     void Start () {
@@ -23,7 +24,8 @@ public class StarboardCannonActions : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+	void Update () {
+		hypnotized = Ship.transform.GetComponent<ShipActions> ().isHypnotized;
         starboardcannonpowerlevel = Ship.GetComponent<ShipActions>().starboardcannonpowerlevel;
         starboardcannonfireratelevel = Ship.GetComponent<ShipActions>().starboardcannonfireratelevel;
 
@@ -81,7 +83,7 @@ public class StarboardCannonActions : MonoBehaviour {
 				cannonUsed = true;
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-                transform.Rotate(0, 0, InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+				transform.Rotate(0, 0, (hypnotized == true ? -1 : 1) * InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z < 140)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 140);
