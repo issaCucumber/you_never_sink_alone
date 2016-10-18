@@ -11,8 +11,10 @@ public class EnemyShoot : MonoBehaviour {
 	public bool dieAfterShoot = false;
 	public bool stopAfterShoot = false;
 	ShipActions sa;	
+	AudioSource audio;
 
 	void Start () {
+		audio = GetComponent<AudioSource> ();
 		sa = GameObject.Find ("Ship").transform.GetComponent<ShipActions>();
 	}
 
@@ -24,7 +26,7 @@ public class EnemyShoot : MonoBehaviour {
 
 			sa.hullcurrent -= getEnemyDamageValue();
 			Instantiate (bullet, transform.position + getBulletOffset (), transform.rotation);
-
+			audio.Play();
 			readyToShoot = false;
 
 			if (stopAfterShoot) {

@@ -23,7 +23,6 @@ public class EnemyDamageHandler : MonoBehaviour {
 		//Debug.Log ("other name is "+other.name);
 		if (other.name == "Ship") {
 			if (clashShipDie) {
-				//TODO Sound: EnemyCollideShip.wav
 				sa.hullcurrent -= getEnemyDamageValue ("clash");
 				health = 0;
 			}
