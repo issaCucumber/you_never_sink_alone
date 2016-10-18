@@ -15,7 +15,7 @@ public class WheelActions : MonoBehaviour
     public GameObject waves;
     private Vector3 originalscale;
 	public bool wheelUsed = false;
-	bool hypnotized = false;
+    bool hypnotized = false;
 
     // Use this for initialization
     void Start()
@@ -25,8 +25,8 @@ public class WheelActions : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-	{
-		hypnotized = Ship.transform.GetComponent<ShipActions> ().isHypnotized;
+    {
+        hypnotized = Ship.transform.GetComponent<ShipActions> ().isHypnotized;
         wheellevel = Ship.GetComponent<ShipActions>().wheellevel;
 
         // Change sprites according to wheellevel if necessary;
@@ -92,7 +92,7 @@ public class WheelActions : MonoBehaviour
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
                 //move up
-				if ((hypnotized == true ? -1 : 1) * InputManager.GetAxis("Vertical" + i) > 0.0f)
+                if ((hypnotized == true ? -1 : 1) * InputManager.GetAxis("Vertical" + i) > 0.0f)
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed);
 
@@ -102,7 +102,7 @@ public class WheelActions : MonoBehaviour
                     }
                 }
                 else
-					if (((hypnotized == true ? -1 : 1) * InputManager.GetAxis("Vertical" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
+					if ( ((hypnotized == true ? -1 : 1) *InputManager.GetAxis("Vertical" + i) < 0.0f) && (rb.velocity.magnitude < 0.1f))
                 {
                     rb.AddForce(transform.up * Time.deltaTime * speed * -0.5f);
 
@@ -112,10 +112,10 @@ public class WheelActions : MonoBehaviour
                     }
                 }
 
-				if ((hypnotized == true ? -1 : 1) * InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
+                if ((hypnotized == true ? -1 : 1) * InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude < -0.5f)
                     Ship.transform.Rotate(Vector3.forward * 35 * Time.deltaTime);
 
-				if ((hypnotized == true ? -1 : 1) * InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
+                if ((hypnotized == true ? -1 : 1) * InputManager.GetAxis("Horizontal" + i) * rb.velocity.magnitude > 0.5f)
                     Ship.transform.Rotate(Vector3.forward * -35 * Time.deltaTime);
                 
 

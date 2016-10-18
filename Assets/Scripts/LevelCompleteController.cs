@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class LevelCompleteController : MonoBehaviour {
+
+    public EventSystem ES;
+    private GameObject storeSelected;
+    public GameObject continueButton;
 
     public GameObject levelCompleteScreen;
     public Transform playerObj;
@@ -10,7 +16,7 @@ public class LevelCompleteController : MonoBehaviour {
     public Text timeLeftText;
     public Text prestigeText;
     public int speed;
-
+    public int levelClear;
 
     private Timer timer;
     private ShipActions ship;
@@ -31,7 +37,19 @@ public class LevelCompleteController : MonoBehaviour {
 
         if (levelCompleteScreen.activeInHierarchy == true)
         {
-            if(timeLeft > 0)
+            if (ES.currentSelectedGameObject != storeSelected)
+            {
+                if (ES.currentSelectedGameObject == null)
+                {
+                    ES.SetSelectedGameObject(storeSelected);
+                }
+                else
+                {
+                    storeSelected = ES.currentSelectedGameObject;
+                }
+            }
+
+            if (timeLeft > 0)
             {
                 timeLeft -= speed;
             }
@@ -83,16 +101,34 @@ public class LevelCompleteController : MonoBehaviour {
                 startTime = Time.time;
 
                 levelCompleteScreen.SetActive(true);
+
+                storeSelected = continueButton;
+                ES.SetSelectedGameObject(storeSelected);
+
                 Time.timeScale = 0;
                 Debug.Log("calling level complete");
             }
         }
     }
     
-    void OnClickContinue()
+    public void OnClickContinue()
     {
         Time.timeScale = 1;
-        //save the progress of current level
-        //to-do load level complete screen
+        Save();
+        SceneManager.LoadScene("Level Select");
+    }
+
+    void Save()
+    {
+        PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
+        PlayerPrefs.SetInt(Constants.HULL, ship.hulllevel);
+        PlayerPrefs.SetInt(Constants.TOOLBOX, ship.toolboxlevel);
+        PlayerPrefs.SetInt(Constants.STARBOARDPOWER, ship.starboardcannonpowerlevel);
+        PlayerPrefs.SetInt(Constants.STARBOARDFIRERATE, ship.starboardcannonfireratelevel);
+        PlayerPrefs.SetInt(Constants.WHEEL, ship.wheellevel);
+        PlayerPrefs.SetInt(Constants.DYNAMITE, ship.dynamitelevel);
+        PlayerPrefs.SetInt(Constants.PORTPOWER, ship.portcannonpowerlevel);
+        PlayerPrefs.SetInt(Constants.PORTFIRERATE, ship.portcannonfireratelevel);
+        PlayerPrefs.SetInt(Constants.PRESTIGEEARN, finalPrestige);
     }
 }

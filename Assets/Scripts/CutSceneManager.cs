@@ -11,6 +11,11 @@ public class CutSceneManager : MonoBehaviour {
     public Text dialogueText;
     public float textSpeed;
     public string nextScene;
+    public int levelClear;
+
+    public GameObject leftImage;
+    public GameObject middleImage;
+    public GameObject rightImage;
 
     public DialogueEntity[] dialogueEntity;
 
@@ -37,9 +42,30 @@ public class CutSceneManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        leftImage.SetActive(false);
+        middleImage.SetActive(false);
+        rightImage.SetActive(false);
+
         if (currDialogueEntityPointer < noOfDialogueInstance)
         {
             nameText.text = dialogueEntity[currDialogueEntityPointer].CharacterName;
+
+            if(dialogueEntity[currDialogueEntityPointer].SpritePosition == 0)
+            {
+                leftImage.SetActive(true);
+                leftImage.GetComponent<Image>().sprite = dialogueEntity[currDialogueEntityPointer].SpriteImage;
+            }
+            else if(dialogueEntity[currDialogueEntityPointer].SpritePosition == 1)
+            {
+                middleImage.SetActive(true);
+                middleImage.GetComponent<Image>().sprite = dialogueEntity[currDialogueEntityPointer].SpriteImage;
+            }
+            else if (dialogueEntity[currDialogueEntityPointer].SpritePosition == 2)
+            {
+                rightImage.SetActive(true);
+                rightImage.GetComponent<Image>().sprite = dialogueEntity[currDialogueEntityPointer].SpriteImage;
+            }
+
             if (currChar == 0)
             {
                 charArray = dialogueEntity[currDialogueEntityPointer].Dialogue.ToCharArray();
@@ -76,6 +102,7 @@ public class CutSceneManager : MonoBehaviour {
         {
             if (InputManager.GetButtonDown("Submit"))
             {
+                PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
                 SceneManager.LoadScene(nextScene);
             }
         }
@@ -93,7 +120,7 @@ public class DialogueEntity
     [SerializeField]
     private int spritePosition;
     [SerializeField]
-    private int spriteImage;
+    private Sprite spriteImage;
 
     public string CharacterName
     {
@@ -134,7 +161,7 @@ public class DialogueEntity
         }
     }
 
-    public int SpriteImage
+    public Sprite SpriteImage
     {
         get
         {

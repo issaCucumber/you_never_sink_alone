@@ -11,4 +11,16 @@ public class Constants{
     public const string DYNAMITE = "Dynamite";
     public const string PORTPOWER = "Port Cannon Power";
     public const string PORTFIRERATE = "Port Cannon Fire Rate";
+
+    //playerPref
+    public const string FLYINGFISHSEEN = "FlyingFishSeen";
+    public const string ELECTRICEELSEEN = "ElectricEelSeen";
+    public const string JELLYFISHSEEN = "JellyFishSeen";
+    public const string OCTUPUSSEEN = "OctupusSeen";
+    public const string DRAGONSEEN = "DragoonSeen";
+
+    public const string LEVELCLEARED = "LevelCleared";
+
+    public const string PRESTIGEEARN = "PrestigeEarn";
+
 }

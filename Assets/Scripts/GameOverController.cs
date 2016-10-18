@@ -2,8 +2,13 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameOverController : MonoBehaviour {
+
+    public EventSystem ES;
+    private GameObject storeSelected;
+    public GameObject retryBtn;
 
     public GameObject gameOverScreen;
     public Transform playerObj;
@@ -16,11 +21,25 @@ public class GameOverController : MonoBehaviour {
     void Start () {
         timer = playerObj.GetComponent<Timer>();
         shipAction = playerObj.GetComponent<ShipActions>();
+        storeSelected = retryBtn;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    if(gameOverScreen.activeInHierarchy == false)
+
+        if (ES.currentSelectedGameObject != storeSelected)
+        {
+            if (ES.currentSelectedGameObject == null)
+            {
+                ES.SetSelectedGameObject(storeSelected);
+            }
+            else
+            {
+                storeSelected = ES.currentSelectedGameObject;
+            }
+        }
+
+        if (gameOverScreen.activeInHierarchy == false)
         {
             if(timer.GetTimeLeft() <= 0)
             {

@@ -15,7 +15,7 @@ public class PortCannonActions : MonoBehaviour {
     GameObject cannonInstance;
     public GameObject Ship;
 	public bool cannonUsed = false;
-	bool hypnotized = false;
+    bool hypnotized = false;
 
     // Use this for initialization
     void Start () {
@@ -23,8 +23,8 @@ public class PortCannonActions : MonoBehaviour {
         // Display sprites according to upgradelevel;
     }
 
-	void Update () {
-		hypnotized = Ship.transform.GetComponent<ShipActions> ().isHypnotized;
+    void Update () {
+        hypnotized = Ship.transform.GetComponent<ShipActions> ().isHypnotized;
         portcannonpowerlevel = Ship.GetComponent<ShipActions>().portcannonpowerlevel;
         portcannonfireratelevel = Ship.GetComponent<ShipActions>().portcannonfireratelevel;
 
@@ -82,7 +82,7 @@ public class PortCannonActions : MonoBehaviour {
 				cannonUsed = true;
                 int i = charArray[k].GetComponent<MoveChar>().playerNo;
 
-				transform.Rotate(0, 0, (hypnotized == true ? -1 : 1) * InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
+                transform.Rotate(0, 0, (hypnotized == true ? -1 : 1) * InputManager.GetAxis("Horizontal" + i) * Time.deltaTime * rotspeed * -1);
                 if (transform.localEulerAngles.z > 40 && transform.localEulerAngles.z < 90)
                 {
                     transform.localRotation = Quaternion.Euler(0, 0, 40);

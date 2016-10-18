@@ -66,12 +66,17 @@ namespace TeamUtility.IO
 
         [SerializeField]
         private string m_HorizontalAxis = "MenuHorizontal";
+        [SerializeField]
+        private string m_HorizontalAxis_2 = "MenuHorizontal2";
 
         /// <summary>
         /// Name of the vertical axis for movement (if axis events are used).
         /// </summary>
         [SerializeField]
         private string m_VerticalAxis = "MenuVertical";
+        [SerializeField]
+        private string m_VerticalAxis_2 = "MenuVertical2";
+
 
         /// <summary>
         /// Name of the submit button.
@@ -129,6 +134,12 @@ namespace TeamUtility.IO
             set { m_HorizontalAxis = value; }
         }
 
+        public string horizontalAxis2
+        {
+            get { return m_HorizontalAxis_2; }
+            set { m_HorizontalAxis_2 = value; }
+        }
+
         /// <summary>
         /// Name of the vertical axis for movement (if axis events are used).
         /// </summary>
@@ -138,6 +149,12 @@ namespace TeamUtility.IO
             set { m_VerticalAxis = value; }
         }
 
+        public string verticalAxis2
+        {
+            get { return m_VerticalAxis_2; }
+            set { m_VerticalAxis_2 = value; }
+        }
+        
         public string submitButton
         {
             get { return m_SubmitButton; }
@@ -170,7 +187,9 @@ namespace TeamUtility.IO
             InputManager.GetButtonDown(m_SubmitButton);
             shouldActivate |= InputManager.GetButtonDown(m_CancelButton);
             shouldActivate |= !Mathf.Approximately(InputManager.GetAxisRaw(m_HorizontalAxis), 0.0f);
+            shouldActivate |= !Mathf.Approximately(InputManager.GetAxisRaw(m_HorizontalAxis_2), 0.0f);
             shouldActivate |= !Mathf.Approximately(InputManager.GetAxisRaw(m_VerticalAxis), 0.0f);
+            shouldActivate |= !Mathf.Approximately(InputManager.GetAxisRaw(m_VerticalAxis_2), 0.0f);
             shouldActivate |= (m_MousePosition - m_LastMousePosition).sqrMagnitude > 0.0f;
             shouldActivate |= InputManager.GetMouseButtonDown(0);
 
@@ -372,22 +391,27 @@ namespace TeamUtility.IO
         {
             Vector2 move = Vector2.zero;
             move.x = InputManager.GetAxisRaw(m_HorizontalAxis);
-            move.y = InputManager.GetAxisRaw(m_VerticalAxis);
+            move.x += InputManager.GetAxisRaw(m_HorizontalAxis_2);
 
-            if (InputManager.GetButtonDown(m_HorizontalAxis))
+            move.y = InputManager.GetAxisRaw(m_VerticalAxis);
+            move.y += InputManager.GetAxisRaw(m_VerticalAxis_2);
+
+
+            if (InputManager.GetButtonDown(m_HorizontalAxis) || InputManager.GetButtonDown(m_HorizontalAxis_2))
             {
                 if (move.x < 0)
                     move.x = -1f;
                 if (move.x > 0)
                     move.x = 1f;
             }
-            if (InputManager.GetButtonDown(m_VerticalAxis))
+            if (InputManager.GetButtonDown(m_VerticalAxis) || InputManager.GetButtonDown(m_VerticalAxis_2))
             {
                 if (move.y < 0)
                     move.y = -1f;
                 if (move.y > 0)
                     move.y = 1f;
             }
+
             return move;
         }
 
@@ -406,7 +430,7 @@ namespace TeamUtility.IO
             }
 
             // If user pressed key again, always allow event
-            bool allow = InputManager.GetButtonDown(m_HorizontalAxis) || InputManager.GetButtonDown(m_VerticalAxis);
+            bool allow = InputManager.GetButtonDown(m_HorizontalAxis) || InputManager.GetButtonDown(m_VerticalAxis) || InputManager.GetButtonDown(m_HorizontalAxis_2) || InputManager.GetButtonDown(m_VerticalAxis_2);
             bool similarDir = (Vector2.Dot(movement, m_LastMoveVector) > 0);
             if (!allow)
             {
