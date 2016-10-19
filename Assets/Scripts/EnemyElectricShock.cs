@@ -13,9 +13,11 @@ public class EnemyElectricShock : MonoBehaviour {
 
 	ShipActions sa;	
 	EnemyDamageHandler edh;
+	AudioSource audio;
 
 	void Start () {
 
+		audio = GetComponent<AudioSource> ();
 		edh = transform.GetComponent<EnemyDamageHandler> ();
 		
 	}
@@ -33,7 +35,8 @@ public class EnemyElectricShock : MonoBehaviour {
 
 		if (!attacked && withinAttackDistance () && sa != null) {
 
-			//TODO Sound: EnemyElectricSHock.wav
+			//EnemyElectricSHock.wav
+			audio.Play();
 			sa.shocknow = true;
 			sa.hullcurrent -= getEnemyDamageValue();
 			attacked = true;
@@ -97,7 +100,7 @@ public class EnemyElectricShock : MonoBehaviour {
 
 		Vector3 dir = ship.position - transform.position;
 
-		if (dir.magnitude  < shipHeight * 0.5 + enemyHeight) {
+		if (dir.magnitude  < shipHeight * 0.5 + enemyHeight + 0.5) {
 
 			return true;
 

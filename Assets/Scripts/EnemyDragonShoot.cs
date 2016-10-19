@@ -18,9 +18,12 @@ public class EnemyDragonShoot : MonoBehaviour {
 	float attackEffectDelay = 0.3f;
 
 	float cooldownTimer;
+	public AudioClip[] audioClip;
+	AudioSource audio;
 
 	// Use this for initialization
 	void Start () {
+		audio = GetComponent<AudioSource> ();
 		cooldownTimer = shootDelay;
 	}
 
@@ -36,11 +39,13 @@ public class EnemyDragonShoot : MonoBehaviour {
 			cooldownTimer = shootDelay;
 
 			if (isFireAttack) {
-				//TODO Sound: DragonFire.wav
+				//DragonFire.wav
+				audio.PlayOneShot(audioClip[0]);
 				Instantiate (fire, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
 			} else {
-				//TODO Sound: DragonWave.wav
+				//DragonWave.wav
+				audio.PlayOneShot(audioClip[1]);
 				Instantiate (wave, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.magenta;
 			}
