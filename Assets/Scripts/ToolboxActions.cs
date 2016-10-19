@@ -12,9 +12,11 @@ public class ToolboxActions : MonoBehaviour {
     public GameObject Ship;
 	public bool toolboxUsed = false;
 
+	private AudioSource toolboxsound;
+
     // Use this for initialization
     void Start () {
-	
+		toolboxsound = GetComponent<AudioSource> ();
 	}
 
     // Update is called once per frame
@@ -66,6 +68,7 @@ public class ToolboxActions : MonoBehaviour {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= 1.0f)
                     {
+						toolboxsound.Play ();
                         Ship.GetComponent<ShipActions>().hullcurrent += repairrate;
                         if (Ship.GetComponent<ShipActions>().hullcurrent > Ship.GetComponent<ShipActions>().hullmax)
                         {
