@@ -13,11 +13,10 @@ public class EnemyElectricShock : MonoBehaviour {
 
 	ShipActions sa;	
 	EnemyDamageHandler edh;
-
 	AudioSource audio;
 
 	void Start () {
-		
+
 		audio = GetComponent<AudioSource> ();
 		edh = transform.GetComponent<EnemyDamageHandler> ();
 		
@@ -38,7 +37,6 @@ public class EnemyElectricShock : MonoBehaviour {
 
 			//EnemyElectricSHock.wav
 			audio.Play();
-
 			sa.shocknow = true;
 			sa.hullcurrent -= getEnemyDamageValue();
 			attacked = true;
@@ -83,6 +81,7 @@ public class EnemyElectricShock : MonoBehaviour {
 	}
 
 	bool withinAttackDistance () {
+
 		GameObject target = GameObject.Find ("Ship");
 		if (ship == null) {
 

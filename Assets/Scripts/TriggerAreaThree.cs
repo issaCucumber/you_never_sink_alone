@@ -165,9 +165,10 @@ public class TriggerAreaThree : MonoBehaviour {
 
 			playInstruction ();
 
-			if (InputManager.GetButtonDown ("Submit") && !tutorialDone) {
-				Debug.Log ("===================== ENTER KEY PRESSED ===================" + currentFrame);
-				playTutorial ();
+			if (InputManager.GetButtonDown ("Next")) {
+				if (!tutorialDone) {
+					playTutorial ();
+				}
 			}
 
 		}

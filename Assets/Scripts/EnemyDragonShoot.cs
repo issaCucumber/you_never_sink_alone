@@ -18,7 +18,6 @@ public class EnemyDragonShoot : MonoBehaviour {
 	float attackEffectDelay = 0.3f;
 
 	float cooldownTimer;
-
 	public AudioClip[] audioClip;
 	AudioSource audio;
 

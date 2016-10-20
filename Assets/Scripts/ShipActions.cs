@@ -41,6 +41,8 @@ public class ShipActions : MonoBehaviour {
 	private GameObject[] damagearray;
 	private int damagearraysize = 0;
 
+	private AudioSource shipcollidesound;
+
 	private void Awake ()
 	{
 		health.MaxVal = hullmax;
@@ -52,7 +54,7 @@ public class ShipActions : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		shipcollidesound = GetComponent<AudioSource> ();
 	}
 
 	// Update is called once per frame
@@ -192,7 +194,7 @@ public class ShipActions : MonoBehaviour {
 			else
 				if (SceneManager.GetActiveScene ().name == "Level 1")
 				{
-					Vector3 newposition = new Vector3 (10.00f, 10.00f, 0f); // Put in actual values
+					Vector3 newposition = new Vector3 (220.00f, 122.00f, 0f); // Put in actual values
 					transform.position = newposition;
 				}
 		}
@@ -217,6 +219,8 @@ public class ShipActions : MonoBehaviour {
 		if (coll.gameObject.tag == "rock")
 		{
 			// Play ShipCollide.wav
+			shipcollidesound.Play();
+
 			hullcurrent -= Mathf.CeilToInt(rb.velocity.magnitude);
 		}
 	}

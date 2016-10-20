@@ -26,7 +26,9 @@ public class EnemyShoot : MonoBehaviour {
 
 			sa.hullcurrent -= getEnemyDamageValue();
 			Instantiate (bullet, transform.position + getBulletOffset (), transform.rotation);
+
 			audio.Play();
+			
 			readyToShoot = false;
 
 			if (stopAfterShoot) {

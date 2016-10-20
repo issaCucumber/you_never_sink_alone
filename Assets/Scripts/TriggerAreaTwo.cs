@@ -88,12 +88,16 @@ public class TriggerAreaTwo : MonoBehaviour {
 				}
 			}
 
-			if (InputManager.GetButtonDown ("Submit") && 
-				!tutorialDone && 
-				currentFrame == 0) {
-				continueGame ();
-				instruction.GetComponentInChildren<Text> ().text = "Advance and Avoid the rocks!";
-				instruction.SetActive (true);
+			if (InputManager.GetButtonDown ("Next")) {
+
+				if (!tutorialDone &&
+				   currentFrame == 0) {
+
+					continueGame ();
+					instruction.GetComponentInChildren<Text> ().text = "Advance and Avoid the rocks!";
+					instruction.SetActive (true);
+				}
+
 			}
 		}
 	}

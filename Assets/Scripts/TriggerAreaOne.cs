@@ -94,9 +94,9 @@ public class TriggerAreaOne : MonoBehaviour {
 				}
 			}
 
-			if (InputManager.GetButtonDown ("Submit") && !tutorialDone) {
+			if (InputManager.GetButtonDown ("Next")) {
 
-				if (currentFrame == 0) {
+				if (currentFrame == 0 && !tutorialDone) {
 					ship.transform.FindChild ("Wheel").gameObject.SetActive (true);
 					canvas.SetActive (false);
 					instruction.GetComponentInChildren<Text> ().text = "Interact with the Wheel station";
