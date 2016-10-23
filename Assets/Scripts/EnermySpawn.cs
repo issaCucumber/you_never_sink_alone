@@ -7,11 +7,10 @@ public class EnermySpawn : MonoBehaviour {
 	bool startSpawn = false;
 
 	int i;
-	public int maxNumOfEnermy = 6;
+	//public int maxNumOfEnermy = 6;
 	float timer = 5f;
-	float spawnTimeBetween = 3f;
-	float timerRecorder;
-	float radius;
+	float spawnTimeBetween = 5f;
+	//float timerRecorder;
 	//float leaveDelayTime = 15f;
 
 	// Use this for initialization
@@ -21,15 +20,15 @@ public class EnermySpawn : MonoBehaviour {
 		if (startSpawn) {
 			timer += Time.deltaTime;
 			if (timer >= spawnTimeBetween /*&& i < maxNumOfEnermy*/) {
-				SpawnEnermy ();
-				timerRecorder = timer;
+				SpawnEnermy (true,true);
+				//timerRecorder = timer;
 			}
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D obj){
 		if (!startSpawn && obj.name.Equals("Ship") ) {//need to unify name
-			startSpawn = true;
+			SpawnEnermy (true,false);
 		} else {
 		}
 
@@ -37,17 +36,20 @@ public class EnermySpawn : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D obj){
 		if (startSpawn && obj.name.Equals("Ship") && obj.transform.parent == null) {//need to unify name
-			startSpawn = false;
+			//startSpawn = false;
 			//generate enermy at least once
-			SpawnEnermy ();
+			SpawnEnermy (false, true);
 		} else {
 		}
 	}
 
-	void SpawnEnermy(){
-		enermyInstance = (GameObject)Instantiate (enermyPrefab, transform.position, Quaternion.identity);
-		timer = 0;
-		i+=1;
+	void SpawnEnermy(bool start,bool execute){
+		startSpawn = start;
+		if (execute) {
+			enermyInstance = (GameObject)Instantiate (enermyPrefab, transform.position, Quaternion.identity);
+			timer = 0;
+			i+=1;
+		}
 	}
 
 }
