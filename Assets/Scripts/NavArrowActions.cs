@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class NavArrowActions : MonoBehaviour {
 
 	public GameObject goTarget;
+	public Text text;
 
 	// Use this for initialization
 	void Start () {
@@ -34,5 +36,7 @@ public class NavArrowActions : MonoBehaviour {
 		v3Pos.y = 0.5f * Mathf.Cos(fAngle) + 0.5f;
 		v3Pos.z = Camera.main.nearClipPlane + 0.01f;
 		transform.position = Camera.main.ViewportToWorldPoint (v3Pos);
+
+		text.text = goTarget.name;
 	}
 }
