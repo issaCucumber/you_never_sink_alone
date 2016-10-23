@@ -68,6 +68,9 @@ public class ShipActions : MonoBehaviour {
 		hullcurrent = PlayerPrefs.GetInt(Constants.HULLCURRVALUE, hullmax);
 		SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
 		crewsaved = PlayerPrefs.GetInt (Constants.CURRCREWSAVED, 0);
+		if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON,0)==1) {
+			transform.position = new Vector3 (67, 28, 0);
+		}
 	}
 
 	// Update is called once per frame
@@ -156,7 +159,7 @@ public class ShipActions : MonoBehaviour {
 			if (damagearraysize < currentdamage)
 			{
 				Vector3 v = transform.position;
-				v.x += Random.Range (-0.9f, 0.9f);
+				v.x += Random.Range (-0.6f, 0.6f);
 				v.y += Random.Range (-1.5f, 1.5f);
 				if (damagearraysize > 9) {
 					damagearraysize = 9;
@@ -199,20 +202,21 @@ public class ShipActions : MonoBehaviour {
 			isGodMode = !isGodMode;
 		}
 
-		if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.T))
-		{
+		if ((Input.GetKey (KeyCode.RightControl) || Input.GetKey (KeyCode.LeftControl)) && Input.GetKeyDown (KeyCode.T)) {
 			// CTRL + T = Teleport
-			if (SceneManager.GetActiveScene ().name == "Training")
-			{
+			if (SceneManager.GetActiveScene ().name == "Training") {
 				Vector3 newposition = new Vector3 (58.46f, 31.45f, 0f);
 				transform.position = newposition;
+			} else if (SceneManager.GetActiveScene ().name == "Level 1") {
+				Vector3 newposition = new Vector3 (65.26f, 23.28f, 0f);
+				transform.position = newposition;
 			}
-			else
-				if (SceneManager.GetActiveScene ().name == "Level 1")
-				{
-					Vector3 newposition = new Vector3 (220.00f, 122.00f, 0f); // Put in actual values
-					transform.position = newposition;
-				}
+		}
+
+		if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.P))
+		{
+			// CTRL + P = 5000 prestige
+			SetCurrentPrestige(5000);
 		}
 	}
 
