@@ -188,7 +188,7 @@ public class GUIManager : MonoBehaviour {
 
     private void ResetPlayerPrefData()
     {
-        PlayerPrefs.SetInt(Constants.HULL, 1);
+		PlayerPrefs.SetInt(Constants.HULL, 1);
         PlayerPrefs.SetInt(Constants.TOOLBOX, 1);
         PlayerPrefs.SetInt(Constants.STARBOARDPOWER, 1);
         PlayerPrefs.SetInt(Constants.STARBOARDFIRERATE, 1);
@@ -202,7 +202,8 @@ public class GUIManager : MonoBehaviour {
         PlayerPrefs.SetInt(Constants.OCTUPUSSEEN, 0);
         PlayerPrefs.SetInt(Constants.DRAGONSEEN, 0);
         PlayerPrefs.SetInt(Constants.LEVELCLEARED, 0);
-        PlayerPrefs.SetInt(Constants.PRESTIGEEARN, 0);
+		PlayerPrefs.SetInt(Constants.PRESTIGEEARN, 0);
+		PlayerPrefs.SetInt(Constants.DEFEATDRAGON, 0);
     }
 
     public void OnClickContinue()

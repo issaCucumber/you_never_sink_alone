@@ -20,8 +20,8 @@ public class ReturnParentLevelTrigger : MonoBehaviour {
 			PlayerPrefs.SetInt(Constants.PRESTIGEEARN, ship.GetCurrentPrestige());
 			PlayerPrefs.SetFloat (Constants.TIMELEFT, timeClass.GetTimeLeft ());
 			PlayerPrefs.SetInt (Constants.CURRCREWSAVED, ship.crewsaved);
-			Debug.Log ("ReturnParentLevelTrigger is set from "+PlayerPrefs.GetInt (Constants.CURRCREWSAVED,0) + " to "+PlayerPrefs.GetInt (Constants.DEFEATDRAGON, 1));
-			PlayerPrefs.SetInt (Constants.DEFEATDRAGON, 1);
+			Debug.Log ("ReturnParentLevelTrigger is "+PlayerPrefs.GetInt (Constants.CURRCREWSAVED,0));
+			//PlayerPrefs.SetInt (Constants.DEFEATDRAGON, 1);
 
 			SceneManager.LoadScene("Level 1");
 		}

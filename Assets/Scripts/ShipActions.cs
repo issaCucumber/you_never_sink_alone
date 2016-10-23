@@ -33,7 +33,6 @@ public class ShipActions : MonoBehaviour {
 	public int wheellevel = 1;
 	public int toolboxlevel = 1;
 	public int dynamitelevel = 1;
-	public int defeatdragon = 0;
 
 	public bool isGodMode = false;
 
@@ -68,9 +67,6 @@ public class ShipActions : MonoBehaviour {
 		hullcurrent = PlayerPrefs.GetInt(Constants.HULLCURRVALUE, hullmax);
 		SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
 		crewsaved = PlayerPrefs.GetInt (Constants.CURRCREWSAVED, 0);
-		Debug.Log ("ShipActions:defeatdragon was to "+defeatdragon);
-		defeatdragon = PlayerPrefs.GetInt(Constants.DEFEATDRAGON, 0);
-		Debug.Log ("ShipActions:defeatdragon is set to "+defeatdragon);
 	}
 
 	// Update is called once per frame
