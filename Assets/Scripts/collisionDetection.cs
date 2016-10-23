@@ -16,7 +16,7 @@ public class collisionDetection : MonoBehaviour {
 
 		int noRay = 8;
 		float angle = 0;
-		Vector2 dir = Vector2.up* rayLength;
+		Vector2 dir = transform.parent.up* rayLength;
 		rayColArr = new bool[noRay];
 		Color[] rayColors = new Color[8] {Color.black,//Pos Y 
 			Color.blue,//Pos Y Neg X
