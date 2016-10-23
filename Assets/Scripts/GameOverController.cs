@@ -13,6 +13,7 @@ public class GameOverController : MonoBehaviour {
     public GameObject gameOverScreen;
     public Transform playerObj;
     public Text reasonText;
+	public string restartScene;
 
     private Timer timer;
     private ShipActions shipAction;
@@ -63,7 +64,8 @@ public class GameOverController : MonoBehaviour {
     public void OnClickRetry()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		SceneManager.LoadScene(restartScene);
     }
 
     public void OnClickExit()

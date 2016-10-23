@@ -165,7 +165,7 @@ public class TriggerAreaThree : MonoBehaviour {
 
 			playInstruction ();
 
-			if (InputManager.GetButtonDown ("Next")) {
+			if (InputManager.GetKeyDown(KeyCode.Space) || InputManager.GetKeyDown(KeyCode.Joystick1Button2)) {
 				if (!tutorialDone) {
 					playTutorial ();
 				}

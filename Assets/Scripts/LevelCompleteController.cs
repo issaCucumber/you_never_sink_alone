@@ -35,6 +35,13 @@ public class LevelCompleteController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (ship.crewsaved == ship.crewtosave) {
+			if (levelCompleteScreen.activeInHierarchy == false)
+			{
+				Pause ();
+			}
+		}
+
         if (levelCompleteScreen.activeInHierarchy == true)
         {
             if (ES.currentSelectedGameObject != storeSelected)
@@ -84,32 +91,36 @@ public class LevelCompleteController : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D obj)
-    {
-        if (obj.name.Equals("Ship"))
-        {
-            if (levelCompleteScreen.activeInHierarchy == false)
-            {
-                playerObj.GetComponent<Timer>().enabled = false;
-                timeLeftText.text = timer.GetTimeString();
-                originalPrestige = ship.GetCurrentPrestige();
-                prestigeText.text = System.Convert.ToString(ship.GetCurrentPrestige());
-                int bonusPrestige = System.Convert.ToInt32(timer.GetTimeLeft()) * 3;
-                finalPrestige = originalPrestige + bonusPrestige;
-                ship.SetCurrentPrestige(finalPrestige);
-                timeLeft = timer.GetTimeLeft();
-                startTime = Time.time;
+//    void OnTriggerEnter2D(Collider2D obj)
+//    {
+//        if (obj.name.Equals("Ship"))
+//        {
+//            if (levelCompleteScreen.activeInHierarchy == false)
+//            {
+//				Pause ();
+//            }
+//        }
+//    }
 
-                levelCompleteScreen.SetActive(true);
+	private void Pause(){
+		playerObj.GetComponent<Timer>().enabled = false;
+		timeLeftText.text = timer.GetTimeString();
+		originalPrestige = ship.GetCurrentPrestige();
+		prestigeText.text = System.Convert.ToString(ship.GetCurrentPrestige());
+		int bonusPrestige = System.Convert.ToInt32(timer.GetTimeLeft()) * 3;
+		finalPrestige = originalPrestige + bonusPrestige;
+		ship.SetCurrentPrestige(finalPrestige);
+		timeLeft = timer.GetTimeLeft();
+		startTime = Time.time;
 
-                storeSelected = continueButton;
-                ES.SetSelectedGameObject(storeSelected);
+		levelCompleteScreen.SetActive(true);
 
-                Time.timeScale = 0;
-                Debug.Log("calling level complete");
-            }
-        }
-    }
+		storeSelected = continueButton;
+		ES.SetSelectedGameObject(storeSelected);
+
+		Time.timeScale = 0;
+		Debug.Log("calling level complete");
+	}
     
     public void OnClickContinue()
     {

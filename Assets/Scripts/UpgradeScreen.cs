@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TeamUtility.IO;
 
 public class UpgradeScreen : MonoBehaviour
 {
@@ -13,6 +14,16 @@ public class UpgradeScreen : MonoBehaviour
     public Transform upgradeScreen;
     public Transform playerObj;
 
+    //common
+    public int islandNo;
+    public enum MenuStates { Main, Search, Shop};
+    public MenuStates currentState;
+
+    public GameObject mainIsland;
+    public GameObject searchIsland;
+    public GameObject upgradeMenu;
+
+    //upgrades
     public Text leftUpgradeText;
     public Image leftUpgradeImage;  //to change use leftUpgradeImage.sprite = myFirstImage;
     public Text leftPrestigeText;
@@ -24,6 +35,17 @@ public class UpgradeScreen : MonoBehaviour
     public Text rightPrestigeText;
 
     public Text prestigeLeftText;
+
+    //main
+    public GameObject shopButton;
+    public GameObject searchButton;
+
+    //search crew
+    public int totalNoOfCrewOnIsland;
+    public int currCrewSaveOnIsland;
+    public Text resultText;
+    public Text crewText;
+    public GameObject returnToIsland;
 
     public GameObject leftPurchasedButton;
     public GameObject middlePurchasedButton;
@@ -40,9 +62,19 @@ public class UpgradeScreen : MonoBehaviour
     Dictionary<int, int> stationsAndLevel;
     int maxLevel = 5 ;
     ShipActions ship;
+
+    private float player1Time;
+    private float player2Time;
+    private bool player1Pressed;
+    private bool player2Pressed;
+    private bool triggeredBackToIsland;
+    public float startTime;
+
     // Use this for initialization
     void Start()
     {
+        currCrewSaveOnIsland = 0;
+        SetMainSelected();
         ship = playerObj.GetComponent<ShipActions>();
     }
 
@@ -51,24 +83,106 @@ public class UpgradeScreen : MonoBehaviour
     {
         if (upgradeScreen.gameObject.activeInHierarchy == true)
         {
-            if (ES.currentSelectedGameObject != storeSelected)
-            {
-                if (ES.currentSelectedGameObject == null)
-                {
-                    ES.SetSelectedGameObject(storeSelected);
-                }
-                else
-                {
-                    storeSelected = ES.currentSelectedGameObject;
-                }
-            }
+			if (PlayerPrefs.GetInt (Constants.ISLAND, 0) == islandNo) {
+				if (ES.currentSelectedGameObject != storeSelected) {
+					if (ES.currentSelectedGameObject == null) {
+						ES.SetSelectedGameObject (storeSelected);
+					} else {
+						storeSelected = ES.currentSelectedGameObject;
+					}
+				}
 
-            int currentPrestige = ship.GetCurrentPrestige();
-            prestigeLeftText.text = System.Convert.ToString(currentPrestige);
+				int currentPrestige = ship.GetCurrentPrestige ();
+				prestigeLeftText.text = System.Convert.ToString (currentPrestige);
+				crewText.text = ship.crewsaved + "/" + ship.crewtosave;
+            
+				searchButton.GetComponent<Button> ().interactable = true;
+				if (currCrewSaveOnIsland >= totalNoOfCrewOnIsland) {   //reach max no of crew on island
+					searchButton.GetComponent<Button> ().interactable = false;
+				}
+				Debug.Log ("Current state " + currentState);
+				if (currentState == MenuStates.Main) {
+					mainIsland.SetActive (true);
+					searchIsland.SetActive (false);
+					upgradeMenu.SetActive (false);
+					triggeredBackToIsland = false;
+				} else if (currentState == MenuStates.Shop) {
+					mainIsland.SetActive (false);
+					searchIsland.SetActive (false);
+					upgradeMenu.SetActive (true);
+					triggeredBackToIsland = false;
 
-            DisablePurchaseButton();
+					DisablePurchaseButton ();
+				} else if (currentState == MenuStates.Search) {
+					mainIsland.SetActive (false);
+					searchIsland.SetActive (true);
+					upgradeMenu.SetActive (false);
+
+					int player1ControlNo = PlayerPrefs.GetInt ("Player1", 1);
+					int player2ControlNo = PlayerPrefs.GetInt ("Player2", 2);
+
+					if (player2ControlNo == 4) {
+						if (player1ControlNo != 3) {
+							player2ControlNo = 3;
+						}
+					}
+
+					if (!triggeredBackToIsland) {
+						returnToIsland.SetActive (false);
+						if (Time.realtimeSinceStartup - startTime > 1) {
+							if (InputManager.GetButtonDown ("Interact" + player1ControlNo) && !player1Pressed) {
+								player1Pressed = true;
+								player1Time = Time.realtimeSinceStartup;
+								Debug.Log ("Player 1 Time is " + player1Time);
+							}
+
+							if (InputManager.GetButtonDown ("Interact" + player2ControlNo) && !player2Pressed) {
+								player2Pressed = true;
+								player2Time = Time.realtimeSinceStartup;
+								Debug.Log ("Player 2 Time" + player2Time);
+							}
+						}
+
+						if (player1Pressed && player2Pressed) {
+							if (Mathf.Abs (player1Time - player2Time) < 0.1) {
+								//success
+								int number = totalNoOfCrewOnIsland - currCrewSaveOnIsland;
+								int i = Random.Range (1, number);
+								currCrewSaveOnIsland += i;
+								resultText.text = "You have found " + i + " crews";
+
+								ship.crewsaved += i;
+							} else {
+								if ((player1Time - player2Time) > 0) {
+									resultText.text = "Painty pressed too fast";
+								} else {
+									resultText.text = "Sharpie pressed too fast";
+								}
+							}
+
+							crewText.text = ship.crewsaved + "/" + ship.crewtosave;
+
+							player1Pressed = false;
+							player2Pressed = false;
+
+							triggeredBackToIsland = true;
+							startTime = Time.realtimeSinceStartup;
+						}
+					} else {
+						//trigger back to island
+						returnToIsland.SetActive (true);
+						if (Time.realtimeSinceStartup - startTime > 2) {
+							currentState = MenuStates.Main;
+							resultText.text = "";
+							ES.SetSelectedGameObject (shopButton);
+						}
+					}
+				}
+			}
         }
     }
+
+
     //possible upgrades
     
     //hull
@@ -118,7 +232,8 @@ public class UpgradeScreen : MonoBehaviour
 
             DisablePurchaseButton();
             upgradeScreen.gameObject.SetActive(true);
-            SetEventSelected();
+            ES.SetSelectedGameObject(shopButton);
+            //SetEventSelected();
             Time.timeScale = 0;
             playerObj.GetComponent<Timer>().enabled = false;
         }
@@ -147,7 +262,7 @@ public class UpgradeScreen : MonoBehaviour
         }
     }
 
-    private void SetEventSelected()
+    public void SetEventSelected()
     {
         if(leftPurchasedButton.GetComponent<Button>().IsInteractable())
         {
@@ -173,6 +288,22 @@ public class UpgradeScreen : MonoBehaviour
         }
         ES.SetSelectedGameObject(storeSelected);
     }
+
+    public void SetMainSelected()
+    {
+        ES.SetSelectedGameObject(shopButton);
+    }
+
+	public void SetState(int state)
+	{
+		if (state == 1) {
+			currentState = MenuStates.Main;
+		} else if (state == 2) {
+			currentState = MenuStates.Search;
+		} else if (state == 3) {
+			currentState = MenuStates.Shop;
+		}
+	}
 
     private void ShowUpgradeImage(int item, int level, Image image)
     {
@@ -319,12 +450,23 @@ public class UpgradeScreen : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D obj)
-    {
-        if (obj.name.Equals("Ship"))
-        {
-            stationsAndLevel = new Dictionary<int, int>();
-            Debug.Log("Calling upgrade screen");
-            Pause();
-        }
-    }
+	{
+		if (obj.name.Equals ("Ship")) {
+			if (islandNo == 4) {
+				if (PlayerPrefs.GetInt (Constants.DEFEATDRAGON, 0) == 1) {
+					PlayerPrefs.SetInt (Constants.ISLAND, islandNo);
+					stationsAndLevel = new Dictionary<int, int> ();
+					Debug.Log ("Calling upgrade screen");
+					Pause ();	
+				}
+			
+			} else {
+			
+				PlayerPrefs.SetInt (Constants.ISLAND, islandNo);
+				stationsAndLevel = new Dictionary<int, int> ();
+				Debug.Log ("Calling upgrade screen");
+				Pause ();
+			}
+		}
+	}
 }

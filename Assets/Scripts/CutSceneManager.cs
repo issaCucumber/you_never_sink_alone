@@ -16,6 +16,7 @@ public class CutSceneManager : MonoBehaviour {
     public GameObject leftImage;
     public GameObject middleImage;
     public GameObject rightImage;
+    public GameObject nextImage;
 
     public DialogueEntity[] dialogueEntity;
 
@@ -45,7 +46,7 @@ public class CutSceneManager : MonoBehaviour {
         leftImage.SetActive(false);
         middleImage.SetActive(false);
         rightImage.SetActive(false);
-
+        nextImage.SetActive(false);
         if (currDialogueEntityPointer < noOfDialogueInstance)
         {
             nameText.text = dialogueEntity[currDialogueEntityPointer].CharacterName;
@@ -82,30 +83,39 @@ public class CutSceneManager : MonoBehaviour {
                     startTime = Time.time;
                 }
 
-                if (InputManager.GetButtonDown("Submit"))
+                //if (InputManager.GetButtonDown("Submit"))
+                if (InputManager.GetKeyDown(KeyCode.Space) || InputManager.GetKeyDown(KeyCode.Joystick1Button2))
                 {
                     defaultTextSpeed = fastTextSpeed;
                 }
             }
             else
             {
-                if (InputManager.GetButtonDown("Submit"))
+                nextImage.SetActive(true);
+                //if (InputManager.GetButtonDown("Submit"))
+                if (InputManager.GetKeyDown(KeyCode.Space) || InputManager.GetKeyDown(KeyCode.Joystick1Button2))
                 {
                     defaultTextSpeed = textSpeed;
                     dialogue = "";
                     currDialogueEntityPointer++;
                     currChar = 0;
+                    if (currDialogueEntityPointer == noOfDialogueInstance)
+                    {
+                        PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
+                        SceneManager.LoadScene(nextScene);
+                    }
                 }
             }
         }
-        else
-        {
-            if (InputManager.GetButtonDown("Submit"))
-            {
-                PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
-                SceneManager.LoadScene(nextScene);
-            }
-        }
+        //else
+        //{
+        //    nextImage.SetActive(true);
+        //    if (InputManager.GetButtonDown("Submit"))
+        //    {
+        //        PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
+        //        SceneManager.LoadScene(nextScene);
+        //    }
+        //}
 
 	}
 }

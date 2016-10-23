@@ -88,7 +88,7 @@ public class TriggerAreaTwo : MonoBehaviour {
 				}
 			}
 
-			if (InputManager.GetButtonDown ("Next")) {
+			if (InputManager.GetKeyDown(KeyCode.Space) || InputManager.GetKeyDown(KeyCode.Joystick1Button2)) {
 
 				if (!tutorialDone &&
 				   currentFrame == 0) {
