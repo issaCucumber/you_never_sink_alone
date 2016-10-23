@@ -4,12 +4,12 @@ using System.Collections;
 public class EnermySpawn : MonoBehaviour {
 	public GameObject enermyPrefab;
 	GameObject enermyInstance;
-	static bool startSpawn = false;
+	bool startSpawn = false;
 
 	int i;
 	public int maxNumOfEnermy = 6;
 	float timer = 5f;
-	float spawnTimeBetween = 5f;
+	float spawnTimeBetween = 3f;
 	float timerRecorder;
 	float radius;
 	//float leaveDelayTime = 15f;
@@ -29,7 +29,6 @@ public class EnermySpawn : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D obj){
 		if (!startSpawn && obj.name.Equals("Ship") ) {//need to unify name
-			Debug.Log ("enter trigger");
 			startSpawn = true;
 		} else {
 		}

@@ -19,7 +19,7 @@ public class EnermySelfDestruct : MonoBehaviour {//some problems to be discussed
 			selfDestructTime -= Time.deltaTime;
 			if (selfDestructTime <= 0) {
 				Die ();
-				Debug.Log ("finished");
+				//Debug.Log ("finished");
 			}
 		}
 	}
