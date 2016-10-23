@@ -9,7 +9,7 @@ public class EnermySpawn : MonoBehaviour {
 	int i;
 	public int maxNumOfEnermy = 6;
 	float timer = 0;
-	float spawnTimeBetween = 3f;
+	float spawnTimeBetween = 1f;
 	float timerRecorder;
 	float leaveDelayTime = 15f;
 
@@ -33,15 +33,15 @@ public class EnermySpawn : MonoBehaviour {
 
 	}
 
-	void OnTriggerExit2D(Collider2D obj){
-		if (obj.name == "Ship") {//need to unify name
-			Debug.Log ("leave trigger");
-			startSpawn = false;
-			//generate enermy at least once
-			SpawnEnermy ();
-		} else {
-		}
-	}
+//	void OnTriggerExit2D(Collider2D obj){
+//		if (obj.name == "Ship") {//need to unify name
+//			Debug.Log ("leave trigger");
+//			startSpawn = false;
+//			//generate enermy at least once
+//			SpawnEnermy ();
+//		} else {
+//		}
+//	}
 
 	void SpawnEnermy(){
 		enermyInstance = (GameObject)Instantiate (enermyPrefab, transform.position, Quaternion.identity);

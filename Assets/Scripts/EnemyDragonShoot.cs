@@ -8,7 +8,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 
 	public GameObject wave;
 
-	public float attackDistance = 3f;
+	public float attackDistance = 10f;
 
 	Transform ship;
 
@@ -29,7 +29,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		Debug.Log ("dragonshoot update cooldownTimer="+cooldownTimer);
 		cooldownTimer -= Time.deltaTime;
 		if (cooldownTimer < shootDelay - attackEffectDelay) {
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.white;
@@ -39,12 +39,14 @@ public class EnemyDragonShoot : MonoBehaviour {
 			cooldownTimer = shootDelay;
 
 			if (isFireAttack) {
+				Debug.Log ("fireattack");
 				//DragonFire.wav
 				audio.PlayOneShot(audioClip[0]);
 				Instantiate (fire, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
 			} else {
 				//DragonWave.wav
+				Debug.Log ("waveattack");
 				audio.PlayOneShot(audioClip[1]);
 				Instantiate (wave, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.magenta;
@@ -67,11 +69,14 @@ public class EnemyDragonShoot : MonoBehaviour {
 				ship = target.transform;
 			}
 		}
-
+		Debug.Log ("ship dis:Vector3.Distance(position, ship.position) ="+Vector3.Distance(position, ship.position) );
+		Debug.Log ("attackDistance="+attackDistance);
 		if (ship != null && Vector3.Distance(position, ship.position) < attackDistance) {
+			Debug.Log ("inattckdistance return true");
 			return true;
 		}
 
+		Debug.Log ("inattckdistance return false");
 		return false;
 	}
 

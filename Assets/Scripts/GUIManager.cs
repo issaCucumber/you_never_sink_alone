@@ -203,6 +203,7 @@ public class GUIManager : MonoBehaviour {
         PlayerPrefs.SetInt(Constants.DRAGONSEEN, 0);
         PlayerPrefs.SetInt(Constants.LEVELCLEARED, 0);
         PlayerPrefs.SetInt(Constants.PRESTIGEEARN, 0);
+        PlayerPrefs.SetInt(Constants.DEFEATDRAGON, 0);
     }
 
     public void OnClickContinue()
