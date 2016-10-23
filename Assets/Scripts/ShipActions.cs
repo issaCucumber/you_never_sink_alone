@@ -55,6 +55,19 @@ public class ShipActions : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		shipcollidesound = GetComponent<AudioSource> ();
+
+		hulllevel = PlayerPrefs.GetInt(Constants.HULL, 1);
+		toolboxlevel = PlayerPrefs.GetInt(Constants.TOOLBOX, 1);
+		starboardcannonpowerlevel = PlayerPrefs.GetInt(Constants.STARBOARDPOWER, 1);
+		starboardcannonfireratelevel = PlayerPrefs.GetInt(Constants.STARBOARDFIRERATE, 1);
+		wheellevel = PlayerPrefs.GetInt(Constants.WHEEL, 1);
+		dynamitelevel = PlayerPrefs.GetInt(Constants.DYNAMITE, 1);
+		portcannonpowerlevel = PlayerPrefs.GetInt(Constants.PORTPOWER, 1);
+		portcannonfireratelevel = PlayerPrefs.GetInt(Constants.PORTFIRERATE, 1);
+		hullcurrent = PlayerPrefs.GetInt(Constants.HULLCURRVALUE, hullmax);
+		SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
+		crewsaved = PlayerPrefs.GetInt (Constants.CURRCREWSAVED, 0);
+
 	}
 
 	// Update is called once per frame
@@ -145,6 +158,7 @@ public class ShipActions : MonoBehaviour {
 				Vector3 v = transform.position;
 				v.x += Random.Range (-0.9f, 0.9f);
 				v.y += Random.Range (-1.5f, 1.5f);
+				Debug.Log ("damagearraysize="+damagearraysize);
 				damagearray [damagearraysize] = Instantiate (burning, v, transform.rotation) as GameObject;
 				damagearray [damagearraysize].transform.parent = gameObject.transform;
 				float randomsize = currentdamage * Random.value / 10.0f;
