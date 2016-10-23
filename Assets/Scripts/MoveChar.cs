@@ -291,6 +291,7 @@ public class MoveChar : MonoBehaviour {
             Pos X = 3, 5, 6
             Neg X = 1, 2, 4
          */
+
 		if (rayColArr[3] || rayColArr[5] || rayColArr[6])
 		{
 			if (returnVal > 0)

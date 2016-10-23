@@ -27,8 +27,8 @@ public class DynamiteActions : MonoBehaviour
 		energy.Initialize ();
         //need to initialise cooldown here when loading game
 
-		timePast = PlayerPrefs.GetInt(Constants.DYNAMITECURRCOOLDOWN,cooldown);
-		timePast = cooldown; //remove later
+        timePast = PlayerPrefs.GetInt(Constants.DYNAMITECURRCOOLDOWN,cooldown);
+        timePast = cooldown; //remove later
     }
 
     // Update is called once per frame

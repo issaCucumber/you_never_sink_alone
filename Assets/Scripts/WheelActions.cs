@@ -75,7 +75,7 @@ public class WheelActions : MonoBehaviour
         // Do nothing when ship is shocked
         if (Ship.GetComponent<ShipActions>().isShocked == true)
         {
-            return;
+			rb.velocity = new Vector3 (0.0f, 0.0f);
         }
 
         for (int k = 0; k < charArray.Length; k++)
@@ -85,7 +85,7 @@ public class WheelActions : MonoBehaviour
             charArray[k].GetComponent<Rigidbody2D>().velocity = rb.velocity;
 
 
-            if (charArray[k].GetComponent<MoveChar>().isContactWheel)
+			if ((charArray[k].GetComponent<MoveChar>().isContactWheel) && (Ship.GetComponent<ShipActions>().isShocked == false))
             {
 				wheelUsed = true;
                 //get character no

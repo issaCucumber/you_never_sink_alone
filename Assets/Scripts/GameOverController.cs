@@ -39,24 +39,25 @@ public class GameOverController : MonoBehaviour {
             }
         }
 
-        if (gameOverScreen.activeInHierarchy == false)
-        {
-            if(timer.GetTimeLeft() <= 0)
-            {
-                gameOverScreen.SetActive(true);
-                reasonText.text = "Time has run out";
-                Time.timeScale = 0;
-                timer.enabled = false;
-            }
+		if (gameOverScreen.activeInHierarchy == false) {
+			if (timer.GetTimeLeft () <= 0) {
+				gameOverScreen.SetActive (true);
+				reasonText.text = "Time has run out";
+				Time.timeScale = 0;
+				timer.enabled = false;
+			}
 
-            if( shipAction.hullcurrent <= 0)
-            {
-                gameOverScreen.SetActive(true);
-                reasonText.text = "Ship is destroyed";
-                Time.timeScale = 0;
-                timer.enabled = false;
-            }
-        }
+			if (shipAction.hullcurrent <= 0) {
+				gameOverScreen.SetActive (true);
+				reasonText.text = "Ship is destroyed";
+				Time.timeScale = 0;
+				timer.enabled = false;
+			}
+		} else {
+			if (shipAction.touchWhirlpool) {
+				reasonText.text = "xx xx xx whirlpool";
+			}
+		}
 	}
 
     public void OnClickRetry()

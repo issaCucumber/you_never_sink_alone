@@ -35,6 +35,7 @@ public class ShipActions : MonoBehaviour {
 	public int dynamitelevel = 1;
 
 	public bool isGodMode = false;
+	public bool touchWhirlpool = false;
 
 	public GameObject burning;
 	public GameObject hole;
@@ -55,7 +56,7 @@ public class ShipActions : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		shipcollidesound = GetComponent<AudioSource> ();
-
+		
 		hulllevel = PlayerPrefs.GetInt(Constants.HULL, 1);
 		toolboxlevel = PlayerPrefs.GetInt(Constants.TOOLBOX, 1);
 		starboardcannonpowerlevel = PlayerPrefs.GetInt(Constants.STARBOARDPOWER, 1);
@@ -157,7 +158,6 @@ public class ShipActions : MonoBehaviour {
 				Vector3 v = transform.position;
 				v.x += Random.Range (-0.9f, 0.9f);
 				v.y += Random.Range (-1.5f, 1.5f);
-				Debug.Log ("damagearraysize="+damagearraysize);
 				if (damagearraysize > 9) {
 					damagearraysize = 9;
 				}
@@ -166,7 +166,6 @@ public class ShipActions : MonoBehaviour {
 				float randomsize = currentdamage * Random.value / 10.0f;
 				damagearray [damagearraysize].transform.localScale = new Vector3 (1.0f + (currentdamage / 10.0f), 1.0f + (currentdamage / 10.0f), 1.0f);
 				damagearraysize++;
-
 /*				if (Random.value >= 0.5f)
 				{
 					Vector3 v = transform.position;

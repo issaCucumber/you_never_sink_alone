@@ -11,10 +11,11 @@ public class Constants{
     public const string DYNAMITE = "Dynamite";
     public const string PORTPOWER = "Port Cannon Power";
     public const string PORTFIRERATE = "Port Cannon Fire Rate";
-	public const string HULLCURRVALUE = "HullCurrValue";
-	public const string DYNAMITECURRCOOLDOWN = "DynamiteCoolDown";
-	public const string TIMELEFT = "TimeLeft";
-	public const string CURRCREWSAVED = "CurrCrewSaved";
+    public const string HULLCURRVALUE = "HullCurrValue";
+    public const string DYNAMITECURRCOOLDOWN = "DynamiteCoolDown";
+    public const string TIMELEFT = "TimeLeft";
+    public const string CURRCREWSAVED = "CurrCrewSaved";
+
 
     //playerPref
     public const string FLYINGFISHSEEN = "FlyingFishSeen";
@@ -25,7 +26,7 @@ public class Constants{
 
     public const string LEVELCLEARED = "LevelCleared";
 
-	public const string PRESTIGEEARN = "PrestigeEarn";
-	public const string DEFEATDRAGON = "DefeatDragon";
+    public const string PRESTIGEEARN = "PrestigeEarn";
+    public const string DEFEATDRAGON = "DefeatDragon";
 
 }

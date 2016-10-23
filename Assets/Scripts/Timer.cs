@@ -14,13 +14,13 @@ public class Timer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		float time = PlayerPrefs.GetFloat (Constants.TIMELEFT, -1);
-		if (time < 0) {
-			timeLeft = timerInMins * 60;
-		} else {
-			timeLeft = time;
-		}
-			startTime = Time.time;
+        float time = PlayerPrefs.GetFloat (Constants.TIMELEFT, -1);
+        if (time < 0) {
+            timeLeft = timerInMins * 60;
+        } else {
+            timeLeft = time;
+        }
+            startTime = Time.time;
 	}
 	
 	// Update is called once per frame

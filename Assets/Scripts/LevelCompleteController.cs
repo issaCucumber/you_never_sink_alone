@@ -130,9 +130,9 @@ public class LevelCompleteController : MonoBehaviour {
         PlayerPrefs.SetInt(Constants.PORTPOWER, ship.portcannonpowerlevel);
         PlayerPrefs.SetInt(Constants.PORTFIRERATE, ship.portcannonfireratelevel);
         PlayerPrefs.SetInt(Constants.PRESTIGEEARN, finalPrestige);
-		PlayerPrefs.SetInt(Constants.HULLCURRVALUE, ship.hullmax);
-		PlayerPrefs.SetInt(Constants.DYNAMITECURRCOOLDOWN, 300/ship.dynamitelevel);
-		PlayerPrefs.SetInt (Constants.TIMELEFT, -1);
-		PlayerPrefs.SetInt (Constants.CURRCREWSAVED, 0);
+        PlayerPrefs.SetInt(Constants.HULLCURRVALUE, ship.hullmax);
+        PlayerPrefs.SetInt(Constants.DYNAMITECURRCOOLDOWN, 300/ship.dynamitelevel);
+        PlayerPrefs.SetInt (Constants.TIMELEFT, -1);
+        PlayerPrefs.SetInt (Constants.CURRCREWSAVED, 0);
     }
 }
