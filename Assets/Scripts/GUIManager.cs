@@ -204,6 +204,8 @@ public class GUIManager : MonoBehaviour {
         PlayerPrefs.SetInt(Constants.LEVELCLEARED, 0);
         PlayerPrefs.SetInt(Constants.PRESTIGEEARN, 0);
         PlayerPrefs.SetInt(Constants.DEFEATDRAGON, 0);
+		PlayerPrefs.SetInt(Constants.HULLCURRVALUE, 100);
+		PlayerPrefs.SetInt (Constants.CURRCREWSAVED, 0);
     }
 
     public void OnClickContinue()

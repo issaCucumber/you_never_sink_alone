@@ -15,7 +15,7 @@ public class EnermySelfDestruct : MonoBehaviour {//some problems to be discussed
 		cameraPos = Camera.main.gameObject.transform.position;
 		enemyPos = gameObject.transform.position;
 		if (distBwtCameraNEnemy (cameraPos, enemyPos)) {
-			Debug.Log ("Time left:" + selfDestructTime);
+//			Debug.Log ("Time left:" + selfDestructTime);
 			selfDestructTime -= Time.deltaTime;
 			if (selfDestructTime <= 0) {
 				Die ();
@@ -27,7 +27,7 @@ public class EnermySelfDestruct : MonoBehaviour {//some problems to be discussed
 	bool distBwtCameraNEnemy(Vector2 cameraPos, Vector2 enemyPos){
 		float dist;
 		dist = Mathf.Sqrt ((cameraPos.x-enemyPos.x)*(cameraPos.x-enemyPos.x)+(cameraPos.y-enemyPos.y)*(cameraPos.y-enemyPos.y));
-		Debug.Log ("Distance bwt enemy and ship: "+ dist);
+//		Debug.Log ("Distance bwt enemy and ship: "+ dist);
 		if (dist >= 15) {
 			return true;
 		} else {

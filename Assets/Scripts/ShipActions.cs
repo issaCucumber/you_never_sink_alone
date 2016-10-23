@@ -14,8 +14,8 @@ public class ShipActions : MonoBehaviour {
 
 	public int hullmax = 100;
 	public int hullcurrent = 100;
-	public int crewtosave = 20;
-	public int crewsaved = 0;
+	public int crewtosave ;
+	public int crewsaved ;
 	public int prestigevalue = 0; // for enemies
 	public bool shocknow = false;
 	public bool isShocked = false;
@@ -153,22 +153,31 @@ public class ShipActions : MonoBehaviour {
 		if (damagearraysize > currentdamage)
 		{
 			damagearraysize--;
-			Destroy (damagearray [damagearraysize]);
+			if (damagearraysize < 0) {
+				damagearraysize = 0;
+			}
+			else
+			{
+				Destroy (damagearray [damagearraysize]);
+			}
 		}
 		else
-			if (damagearraysize < currentdamage)
+		if (damagearraysize < currentdamage)
+		{
+			Vector3 v = transform.position;
+			v.x += Random.Range (-0.6f, 0.6f);
+			v.y += Random.Range (-1.5f, 1.5f);
+			if (damagearraysize > 9) {
+				damagearraysize = 9;
+			}
+			else
 			{
-				Vector3 v = transform.position;
-				v.x += Random.Range (-0.6f, 0.6f);
-				v.y += Random.Range (-1.5f, 1.5f);
-				if (damagearraysize > 9) {
-					damagearraysize = 9;
-				}
 				damagearray [damagearraysize] = Instantiate (burning, v, transform.rotation) as GameObject;
 				damagearray [damagearraysize].transform.parent = gameObject.transform;
 				float randomsize = currentdamage * Random.value / 10.0f;
 				damagearray [damagearraysize].transform.localScale = new Vector3 (1.0f + (currentdamage / 10.0f), 1.0f + (currentdamage / 10.0f), 1.0f);
 				damagearraysize++;
+			}
 /*				if (Random.value >= 0.5f)
 				{
 					Vector3 v = transform.position;

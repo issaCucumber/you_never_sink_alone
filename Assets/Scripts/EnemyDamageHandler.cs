@@ -66,8 +66,8 @@ public class EnemyDamageHandler : MonoBehaviour {
 			}
 
 			if(deathDelay <= 0) {
-				Debug.Log ("health="+health);
-				Debug.Log ("deathDelay="+deathDelay);
+//				Debug.Log ("health="+health);
+//				Debug.Log ("deathDelay="+deathDelay);
 				sa.prestigevalue = getEnemyPrestigeValue();
 				Die();
 			}
