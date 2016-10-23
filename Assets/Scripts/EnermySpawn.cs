@@ -5,11 +5,12 @@ public class EnermySpawn : MonoBehaviour {
 	public GameObject enermyPrefab;
 	GameObject enermyInstance;
 	bool startSpawn = false;
+	int offset = 15;
 
 	int i;
 	//public int maxNumOfEnermy = 6;
-	float timer = 5f;
-	float spawnTimeBetween = 5f;
+	float timer = 3f;
+	float spawnTimeBetween = 3f;
 	//float timerRecorder;
 	//float leaveDelayTime = 15f;
 
@@ -46,7 +47,8 @@ public class EnermySpawn : MonoBehaviour {
 	void SpawnEnermy(bool start,bool execute){
 		startSpawn = start;
 		if (execute) {
-			enermyInstance = (GameObject)Instantiate (enermyPrefab, transform.position, Quaternion.identity);
+			Vector3 radomoffset = new Vector3 (Random.Range(-offset,offset),Random.Range(-offset,offset),0);
+			enermyInstance = (GameObject)Instantiate (enermyPrefab, transform.position + radomoffset, Quaternion.identity);
 			timer = 0;
 			i+=1;
 		}
