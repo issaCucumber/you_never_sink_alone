@@ -68,6 +68,9 @@ public class ShipActions : MonoBehaviour {
 		hullcurrent = PlayerPrefs.GetInt(Constants.HULLCURRVALUE, hullmax);
 		SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
 		crewsaved = PlayerPrefs.GetInt (Constants.CURRCREWSAVED, 0);
+		if (PlayerPrefs.GetInt (Constants.DEFEATDRAGON, 0) == 1) {
+			GameObject.Find ("Ship").transform.position = new Vector3 (67,28,0);
+		}
 	}
 
 	// Update is called once per frame
