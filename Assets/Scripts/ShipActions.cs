@@ -33,6 +33,7 @@ public class ShipActions : MonoBehaviour {
 	public int wheellevel = 1;
 	public int toolboxlevel = 1;
 	public int dynamitelevel = 1;
+	public int defeatdragon = 0;
 
 	public bool isGodMode = false;
 
@@ -67,7 +68,9 @@ public class ShipActions : MonoBehaviour {
 		hullcurrent = PlayerPrefs.GetInt(Constants.HULLCURRVALUE, hullmax);
 		SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
 		crewsaved = PlayerPrefs.GetInt (Constants.CURRCREWSAVED, 0);
-
+		Debug.Log ("ShipActions:defeatdragon was to "+defeatdragon);
+		defeatdragon = PlayerPrefs.GetInt(Constants.DEFEATDRAGON, 0);
+		Debug.Log ("ShipActions:defeatdragon is set to "+defeatdragon);
 	}
 
 	// Update is called once per frame
@@ -159,11 +162,15 @@ public class ShipActions : MonoBehaviour {
 				v.x += Random.Range (-0.9f, 0.9f);
 				v.y += Random.Range (-1.5f, 1.5f);
 				Debug.Log ("damagearraysize="+damagearraysize);
+				if (damagearraysize > 9) {
+					damagearraysize = 9;
+				}
 				damagearray [damagearraysize] = Instantiate (burning, v, transform.rotation) as GameObject;
 				damagearray [damagearraysize].transform.parent = gameObject.transform;
 				float randomsize = currentdamage * Random.value / 10.0f;
 				damagearray [damagearraysize].transform.localScale = new Vector3 (1.0f + (currentdamage / 10.0f), 1.0f + (currentdamage / 10.0f), 1.0f);
 				damagearraysize++;
+
 /*				if (Random.value >= 0.5f)
 				{
 					Vector3 v = transform.position;

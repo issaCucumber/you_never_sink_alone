@@ -25,6 +25,7 @@ public class Constants{
 
     public const string LEVELCLEARED = "LevelCleared";
 
-    public const string PRESTIGEEARN = "PrestigeEarn";
+	public const string PRESTIGEEARN = "PrestigeEarn";
+	public const string DEFEATDRAGON = "DefeatDragon";
 
 }
