@@ -27,6 +27,6 @@ public class WhirlpoolTrigger : MonoBehaviour {
 
 	private void absorb(Collider2D other){
 		Vector3 toDeath = Vector3.Normalize (transform.position - other.transform.position);
-		other.attachedRigidbody.AddForce (50f * toDeath);
+		other.attachedRigidbody.AddForce (10f * toDeath);
 	}
 }
