@@ -14,8 +14,8 @@ public class ShipActions : MonoBehaviour {
 
 	public int hullmax = 100;
 	public int hullcurrent = 100;
-	public int crewtosave = 20;
-	public int crewsaved = 0;
+	public int crewtosave ;
+	public int crewsaved ;
 	public int prestigevalue = 0; // for enemies
 	public bool shocknow = false;
 	public bool isShocked = false;
@@ -68,8 +68,8 @@ public class ShipActions : MonoBehaviour {
 		hullcurrent = PlayerPrefs.GetInt(Constants.HULLCURRVALUE, hullmax);
 		SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
 		crewsaved = PlayerPrefs.GetInt (Constants.CURRCREWSAVED, 0);
-		if (PlayerPrefs.GetInt (Constants.DEFEATDRAGON, 0) == 1) {
-			GameObject.Find ("Ship").transform.position = new Vector3 (67,28,0);
+		if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON,0)==1) {
+			transform.position = new Vector3 (67, 28, 0);
 		}
 	}
 
@@ -153,22 +153,31 @@ public class ShipActions : MonoBehaviour {
 		if (damagearraysize > currentdamage)
 		{
 			damagearraysize--;
-			Destroy (damagearray [damagearraysize]);
+			if (damagearraysize < 0) {
+				damagearraysize = 0;
+			}
+			else
+			{
+				Destroy (damagearray [damagearraysize]);
+			}
 		}
 		else
-			if (damagearraysize < currentdamage)
+		if (damagearraysize < currentdamage)
+		{
+			Vector3 v = transform.position;
+			v.x += Random.Range (-0.6f, 0.6f);
+			v.y += Random.Range (-1.5f, 1.5f);
+			if (damagearraysize > 9) {
+				damagearraysize = 9;
+			}
+			else
 			{
-				Vector3 v = transform.position;
-				v.x += Random.Range (-0.9f, 0.9f);
-				v.y += Random.Range (-1.5f, 1.5f);
-				if (damagearraysize > 9) {
-					damagearraysize = 9;
-				}
 				damagearray [damagearraysize] = Instantiate (burning, v, transform.rotation) as GameObject;
 				damagearray [damagearraysize].transform.parent = gameObject.transform;
 				float randomsize = currentdamage * Random.value / 10.0f;
 				damagearray [damagearraysize].transform.localScale = new Vector3 (1.0f + (currentdamage / 10.0f), 1.0f + (currentdamage / 10.0f), 1.0f);
 				damagearraysize++;
+			}
 /*				if (Random.value >= 0.5f)
 				{
 					Vector3 v = transform.position;
@@ -202,20 +211,21 @@ public class ShipActions : MonoBehaviour {
 			isGodMode = !isGodMode;
 		}
 
-		if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.T))
-		{
+		if ((Input.GetKey (KeyCode.RightControl) || Input.GetKey (KeyCode.LeftControl)) && Input.GetKeyDown (KeyCode.T)) {
 			// CTRL + T = Teleport
-			if (SceneManager.GetActiveScene ().name == "Training")
-			{
+			if (SceneManager.GetActiveScene ().name == "Training") {
 				Vector3 newposition = new Vector3 (58.46f, 31.45f, 0f);
 				transform.position = newposition;
+			} else if (SceneManager.GetActiveScene ().name == "Level 1") {
+				Vector3 newposition = new Vector3 (65.26f, 23.28f, 0f);
+				transform.position = newposition;
 			}
-			else
-				if (SceneManager.GetActiveScene ().name == "Level 1")
-				{
-					Vector3 newposition = new Vector3 (220.00f, 122.00f, 0f); // Put in actual values
-					transform.position = newposition;
-				}
+		}
+
+		if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.P))
+		{
+			// CTRL + P = 5000 prestige
+			SetCurrentPrestige(5000);
 		}
 	}
 

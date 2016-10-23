@@ -15,7 +15,7 @@ public class EnemyFaceShip : MonoBehaviour {
 
 
 	void OnTriggerEnter2D(Collider2D other) {
-		//Debug.Log ("OnTriggerEnter2D");
+//		Debug.Log ("OnTriggerEnter2D");
 		if (other.name.StartsWith ("Academy")
 		    || other.name.StartsWith ("final-island")
 			|| other.name.StartsWith ("island1")

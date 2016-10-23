@@ -16,6 +16,7 @@ public class Constants{
     public const string TIMELEFT = "TimeLeft";
     public const string CURRCREWSAVED = "CurrCrewSaved";
 
+	public const string ISLAND = "Island";
 
     //playerPref
     public const string FLYINGFISHSEEN = "FlyingFishSeen";

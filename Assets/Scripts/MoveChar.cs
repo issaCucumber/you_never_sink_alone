@@ -44,8 +44,16 @@ public class MoveChar : MonoBehaviour {
 
 	void Update () {
 
-		if (controlNo == 4) {
-			if (PlayerPrefs.GetInt ("Player2", 2) == 4) {
+		if (controlNo == 1) {
+			if (PlayerPrefs.GetInt ("Player1", 1) == 1) {
+				playerNo = 1;	//using keyboard 1
+			} else if (PlayerPrefs.GetInt ("Player1", 1) == 3) {
+				playerNo = 3;	// using controller 1
+			}
+		} else if (controlNo == 2) {
+			if (PlayerPrefs.GetInt ("Player2", 2) == 2) {
+				playerNo = 2;
+			} else if (PlayerPrefs.GetInt ("Player2", 2) == 4) {
 				if (PlayerPrefs.GetInt ("Player1", 1) == 1) {
 					playerNo = 3;
 				} else if (PlayerPrefs.GetInt ("Player1", 1) == 3) {
