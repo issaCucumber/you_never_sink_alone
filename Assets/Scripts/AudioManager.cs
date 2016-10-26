@@ -91,7 +91,6 @@ public class AudioManager : MonoBehaviour {
         if (clip != null)
         {
             AudioSource.PlayClipAtPoint(clip, pos, sfxVolumePercent * masterVolumePercent);
-            
         }
     }
 
@@ -103,6 +102,24 @@ public class AudioManager : MonoBehaviour {
     public void PlaySound2D(string soundName)
     {
         sfx2DSource.PlayOneShot(library.GetClipFromName(soundName), sfxVolumePercent * masterVolumePercent);
+    }
+
+    public void PlaySound2D(AudioClip clip)
+    {
+        sfx2DSource.PlayOneShot(clip, sfxVolumePercent * masterVolumePercent);
+    }
+
+    public void StopMusic()
+    {
+        foreach(AudioSource musicSource in musicSources)
+        {
+            musicSource.Stop();
+        }
+    }
+
+    public void StopSoundFx()
+    {
+        sfx2DSource.Stop();
     }
 
 	IEnumerator AnimateMusicCrossfade(float duration)

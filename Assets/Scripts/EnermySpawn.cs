@@ -49,7 +49,27 @@ public class EnermySpawn : MonoBehaviour {
 		if (execute) {
 			Vector3 radomoffset = new Vector3 (Random.Range(-offset,offset),Random.Range(-offset,offset),0);
 			enermyInstance = (GameObject)Instantiate (enermyPrefab, transform.position + radomoffset, Quaternion.identity);
-			timer = 0;
+
+            if (enermyPrefab.name.Equals("ElectricEel", System.StringComparison.OrdinalIgnoreCase))
+            {
+                PlayerPrefs.SetInt(Constants.ELECTRICEELSEEN, 1);
+            } 
+            else if (enermyPrefab.name.Equals("Octupus", System.StringComparison.OrdinalIgnoreCase))
+            {
+                PlayerPrefs.SetInt(Constants.OCTUPUSSEEN, 1);
+
+            }
+            else if (enermyPrefab.name.Equals("JellyFish", System.StringComparison.OrdinalIgnoreCase))
+            {
+                PlayerPrefs.SetInt(Constants.JELLYFISHSEEN, 1);
+
+            }
+            else if (enermyPrefab.name.Equals("FlyingFish", System.StringComparison.OrdinalIgnoreCase))
+            {
+                PlayerPrefs.SetInt(Constants.FLYINGFISHSEEN, 1);
+            }
+
+            timer = 0;
 			i+=1;
 		}
 	}

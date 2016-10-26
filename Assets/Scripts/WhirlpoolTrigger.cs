@@ -4,6 +4,7 @@ using System.Collections;
 public class WhirlpoolTrigger : MonoBehaviour {
 
 	private bool triggered = false;
+    public float power = 10f;
 
 	void OnTriggerEnter2D(Collider2D other){
 		triggered = true;
@@ -26,7 +27,11 @@ public class WhirlpoolTrigger : MonoBehaviour {
 	}
 
 	private void absorb(Collider2D other){
-		Vector3 toDeath = Vector3.Normalize (transform.position - other.transform.position);
-		other.attachedRigidbody.AddForce (10f * toDeath);
+        if (!other.transform.name.StartsWith("CannonballPrefab") && !other.transform.name.StartsWith("Dragon"))
+        {
+            Vector3 toDeath = Vector3.Normalize(transform.position - other.transform.position);
+            other.attachedRigidbody.AddForce(power * toDeath);
+        }
+            
 	}
 }

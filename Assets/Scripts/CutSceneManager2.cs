@@ -97,6 +97,7 @@ public class CutSceneManager2 : MonoBehaviour {
                     dialogue = "";
                     currDialogueEntityPointer++;
                     currChar = 0;
+                    once = true;
                     if (currDialogueEntityPointer == noOfDialogueInstance)
                     {
                         PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
@@ -214,18 +215,32 @@ public class CutSceneManager2 : MonoBehaviour {
             rain.SetActive(false);
         }
     }
-
+    bool once = true;
     private void HandleSound(DialogueEntity2 currDialogueEntity)
     {
-        if (!String.IsNullOrEmpty(currDialogueEntity.AudioName))
+        if (currDialogueEntity.StopMusic)
         {
-            AudioManager.instance.PlaySound2D(currDialogueEntity.AudioName);
+            AudioManager.instance.StopMusic();
+        }
+
+        if (currDialogueEntity.StopSound)
+        {
+            AudioManager.instance.StopSoundFx();
+        }
+
+        if (currDialogueEntity.AudioSfx != null && once)
+        {
+            AudioManager.instance.PlaySound2D(currDialogueEntity.AudioSfx);
+            once = false;
+
         }
         
         if(currDialogueEntity.Music != null)
         {
             AudioManager.instance.PlayMusic(currDialogueEntity.Music);
         }
+
+        
     }
 }
 
@@ -261,9 +276,13 @@ public class DialogueEntity2
     [SerializeField]
     private float windSpeed;
     [SerializeField]
-    private string audioName;
+    private AudioClip audioSfx;
+    [SerializeField]
+    private Boolean stopSound;
     [SerializeField]
     private AudioClip music;
+    [SerializeField]
+    private Boolean stopMusic;
 
     public string CharacterName
     {
@@ -446,19 +465,6 @@ public class DialogueEntity2
         }
     }
 
-    public string AudioName
-    {
-        get
-        {
-            return audioName;
-        }
-
-        set
-        {
-            audioName = value;
-        }
-    }
-
     public AudioClip Music
     {
         get
@@ -469,6 +475,45 @@ public class DialogueEntity2
         set
         {
             music = value;
+        }
+    }
+
+    public bool StopMusic
+    {
+        get
+        {
+            return stopMusic;
+        }
+
+        set
+        {
+            stopMusic = value;
+        }
+    }
+
+    public bool StopSound
+    {
+        get
+        {
+            return stopSound;
+        }
+
+        set
+        {
+            stopSound = value;
+        }
+    }
+
+    public AudioClip AudioSfx
+    {
+        get
+        {
+            return audioSfx;
+        }
+
+        set
+        {
+            audioSfx = value;
         }
     }
 }

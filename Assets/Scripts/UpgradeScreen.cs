@@ -59,6 +59,9 @@ public class UpgradeScreen : MonoBehaviour
     public Sprite[] toolboxSprite;
     public Sprite[] dynamiteSprite;
 
+    public AudioClip success;
+    public AudioClip failure;
+
     Dictionary<int, int> stationsAndLevel;
     int maxLevel = 5 ;
     ShipActions ship;
@@ -150,6 +153,7 @@ public class UpgradeScreen : MonoBehaviour
 								int i = Random.Range (1, number);
 								currCrewSaveOnIsland += i;
 								resultText.text = "You have found " + i + " crews";
+                                AudioManager.instance.PlaySound2D(success);
 
 								ship.crewsaved += i;
 							} else {
@@ -158,7 +162,8 @@ public class UpgradeScreen : MonoBehaviour
 								} else {
 									resultText.text = "Sharpie pressed too fast";
 								}
-							}
+                                AudioManager.instance.PlaySound2D(failure);
+                            }
 
 							crewText.text = ship.crewsaved + "/" + ship.crewtosave;
 
@@ -218,17 +223,17 @@ public class UpgradeScreen : MonoBehaviour
             leftUpgradeText.text = GetUpgradeText(leftPair.Key);
             int leftLevel = leftPair.Value + 1;
             ShowUpgradeImage(leftPair.Key, leftPair.Value, leftUpgradeImage);
-            leftPrestigeText.text = System.Convert.ToString(200 * leftLevel);
+            leftPrestigeText.text = System.Convert.ToString(20 * leftLevel);
 
             middleUpgradeText.text = GetUpgradeText(middlePair.Key);
             int middleLevel = middlePair.Value + 1;
             ShowUpgradeImage(middlePair.Key, middlePair.Value, middleUpgradeImage);
-            middlePrestigeText.text = System.Convert.ToString(200 * middleLevel);
+            middlePrestigeText.text = System.Convert.ToString(20 * middleLevel);
 
             rightUpgradeText.text = GetUpgradeText(rightPair.Key);
             int rightLevel = rightPair.Value + 1;
             ShowUpgradeImage(rightPair.Key, rightPair.Value, rightUpgradeImage);
-            rightPrestigeText.text = System.Convert.ToString(200 * rightLevel);
+            rightPrestigeText.text = System.Convert.ToString(20 * rightLevel);
 
             DisablePurchaseButton();
             upgradeScreen.gameObject.SetActive(true);
@@ -452,21 +457,27 @@ public class UpgradeScreen : MonoBehaviour
     void OnTriggerEnter2D(Collider2D obj)
 	{
 		if (obj.name.Equals ("Ship")) {
-			if (islandNo == 4) {
-				if (PlayerPrefs.GetInt (Constants.DEFEATDRAGON, 0) == 1) {
-					PlayerPrefs.SetInt (Constants.ISLAND, islandNo);
-					stationsAndLevel = new Dictionary<int, int> ();
-					Debug.Log ("Calling upgrade screen");
-					Pause ();	
-				}
-			
-			} else {
-			
-				PlayerPrefs.SetInt (Constants.ISLAND, islandNo);
-				stationsAndLevel = new Dictionary<int, int> ();
-				Debug.Log ("Calling upgrade screen");
-				Pause ();
-			}
+            if (totalNoOfCrewOnIsland != currCrewSaveOnIsland)
+            {
+                if (islandNo == 4)
+                {
+                    if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON, 0) == 1)
+                    {
+                        PlayerPrefs.SetInt(Constants.ISLAND, islandNo);
+                        stationsAndLevel = new Dictionary<int, int>();
+                        Debug.Log("Calling upgrade screen");
+                        Pause();
+                    }
+
+                }
+                else
+                {
+                    PlayerPrefs.SetInt(Constants.ISLAND, islandNo);
+                    stationsAndLevel = new Dictionary<int, int>();
+                    Debug.Log("Calling upgrade screen");
+                    Pause();
+                }
+            }
 		}
 	}
 }

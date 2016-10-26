@@ -26,9 +26,16 @@ public class DynamiteActions : MonoBehaviour
     {
 		energy.Initialize ();
         //need to initialise cooldown here when loading game
-
-        timePast = PlayerPrefs.GetInt(Constants.DYNAMITECURRCOOLDOWN,cooldown);
         timePast = cooldown; //remove later
+        if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON, 0) == 1)
+        {
+            timePast = PlayerPrefs.GetFloat(Constants.DYNAMITECOOLDOWN_TEMP, cooldown);
+        }
+    }
+
+    public float GetTimePast()
+    {
+        return timePast;
     }
 
     // Update is called once per frame

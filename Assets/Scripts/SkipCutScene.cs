@@ -56,7 +56,10 @@ public class SkipCutScene : MonoBehaviour {
     public void OnClickYes()
     {
         Time.timeScale = 1;
-        PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
+        if (PlayerPrefs.GetInt(Constants.LEVELCLEARED) < levelClear)
+        {
+            PlayerPrefs.SetInt(Constants.LEVELCLEARED, levelClear);
+        }
         Debug.Log("Level clear " + PlayerPrefs.GetInt(Constants.LEVELCLEARED));
         SceneManager.LoadScene(nextScene);
     }

@@ -23,6 +23,8 @@ public class PauseGame : MonoBehaviour {
     public GameObject audioOptionScreen;
     public GameObject controlOptionScreen;
 
+    public GameObject objectiveText;
+
     public GameObject resumeBtn;
     public GameObject firstSelectedInAudio;
     public GameObject firstSelectedInControl;
@@ -116,6 +118,11 @@ public class PauseGame : MonoBehaviour {
     void Start () {
         //storeSelected = ES.firstSelectedGameObject;
         ship = playerObj.GetComponent<ShipActions>();
+
+        if (SceneManager.GetActiveScene().name.Equals("Training"))
+        {
+            objectiveText.SetActive(false);
+        }
     }
 	
 	// Update is called once per frame
@@ -378,7 +385,7 @@ public class PauseGame : MonoBehaviour {
 
     private void RevealEnemies()
     {
-        int flyingFishSeen = PlayerPrefs.GetInt(Constants.FLYINGFISHSEEN, 0);
+        int flyingFishSeen = PlayerPrefs.GetInt(Constants.FLYINGFISHSEEN, 1);
         if(flyingFishSeen > 0)
         {
             flyingFishImage.GetComponent<Image>().sprite = revealFlyingFish;
@@ -434,13 +441,24 @@ public class PauseGame : MonoBehaviour {
 
     public void OnClickRestart()
     {
+        PlayerPrefs.SetInt(Constants.DEFEATDRAGON, 0);
+        
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (SceneManager.GetActiveScene().name.Equals("DragonFight"))
+        {
+            SceneManager.LoadScene("Level 1");
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void OnClickExit()
     {
         Time.timeScale = 1;
+        PlayerPrefs.SetInt(Constants.DEFEATDRAGON, 0);
         SceneManager.LoadScene("Main Menu");
     }
     

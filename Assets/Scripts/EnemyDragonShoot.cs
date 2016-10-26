@@ -13,8 +13,9 @@ public class EnemyDragonShoot : MonoBehaviour {
 	Transform ship;
 
 	bool isFireAttack = true;
+	bool firstshoot = true;
 
-	public float shootDelay = 15f;
+	public float shootDelay = 5f;
 	float attackEffectDelay = 0.3f;
 
 	float cooldownTimer;
@@ -24,18 +25,22 @@ public class EnemyDragonShoot : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audio = GetComponent<AudioSource> ();
-		cooldownTimer = shootDelay;
+		cooldownTimer = 0f;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		Debug.Log ("dragonshoot update cooldownTimer="+cooldownTimer);
-		cooldownTimer -= Time.deltaTime;
-		if (cooldownTimer < shootDelay - attackEffectDelay) {
+		if (inAttackDistance(transform.position)) {
+			cooldownTimer -= Time.deltaTime;
+		}
+		Debug.Log ("cooldownTimer="+cooldownTimer);
+		Debug.Log ("shootDelay - attackEffectDelay="+(shootDelay-attackEffectDelay));
+		if (cooldownTimer < shootDelay - attackEffectDelay || !inAttackDistance(transform.position)) {
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.white;
 		}
-		if (cooldownTimer <= 0 && inAttackDistance(transform.position)) {
-
+		if (cooldownTimer <= 0 && (firstshoot || inAttackDistance(transform.position))) {
+			firstshoot = false;
 			cooldownTimer = shootDelay;
 
 			if (isFireAttack) {
@@ -69,14 +74,10 @@ public class EnemyDragonShoot : MonoBehaviour {
 				ship = target.transform;
 			}
 		}
-		Debug.Log ("ship dis:Vector3.Distance(position, ship.position) ="+Vector3.Distance(position, ship.position) );
-		Debug.Log ("attackDistance="+attackDistance);
 		if (ship != null && Vector3.Distance(position, ship.position) < attackDistance) {
-			Debug.Log ("inattckdistance return true");
 			return true;
 		}
 
-		Debug.Log ("inattckdistance return false");
 		return false;
 	}
 
@@ -97,7 +98,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 		}
 
 		Vector3 dir = ship.position - transform.position;
-		Vector3 offset = dir.normalized * new Vector3 (5f,5f,0).magnitude;
+		Vector3 offset = dir.normalized * new Vector3 (2.5f,2.5f,0).magnitude;
 
 		return offset;
 

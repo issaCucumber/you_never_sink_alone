@@ -18,6 +18,7 @@ public class EnemyBulletHitShip : MonoBehaviour {
 			ship.gameObject.GetComponent<ShipActions> ().hullcurrent -= getEnemyDamageValue();
 			go.transform.parent = ship;
 			hitship = false;
+			Destroy (gameObject);
 		}
 	}
 

@@ -275,7 +275,7 @@ public class TriggerAreaThree : MonoBehaviour {
 			continueGame ();
 			break;
 		case 2: //After darn it, we got hit!
-			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station and Interact with the Toolbox";
+			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station. Interact with the Toolbox";
 			instruction.SetActive (true);
 
 			canvas.SetActive (false);
@@ -293,7 +293,7 @@ public class TriggerAreaThree : MonoBehaviour {
 		case 4:
 			continueGame ();
 			dynamite.SetActive (true);
-			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station and Interact with the Dynamite";
+			instruction.GetComponentInChildren<Text> ().text = "Disengage the current station. Both players Interact with the Dynamite together to activate";
 			instruction.SetActive (true);
 			break;
 		case 5:
