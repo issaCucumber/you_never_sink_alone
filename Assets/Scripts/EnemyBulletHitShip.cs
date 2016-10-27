@@ -6,6 +6,8 @@ public class EnemyBulletHitShip : MonoBehaviour {
 	// Use this for initialization
 	bool hitship = false;
 	Transform ship;
+	float damagedelay = 1f;
+	float timer = 1f;
 	public GameObject hitEffect;
 	void Start () {
 	
@@ -13,12 +15,14 @@ public class EnemyBulletHitShip : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		timer += Time.deltaTime;
+
 		if (hitship) {
 			GameObject go = (GameObject)Instantiate (hitEffect, ship.position, ship.rotation);
 			ship.gameObject.GetComponent<ShipActions> ().hullcurrent -= getEnemyDamageValue();
 			go.transform.parent = ship;
 			hitship = false;
-			Destroy (gameObject);
+			//Destroy (gameObject);
 		}
 	}
 
@@ -32,10 +36,13 @@ public class EnemyBulletHitShip : MonoBehaviour {
 
 
 	int getEnemyDamageValue() {
-		if (gameObject.name.StartsWith ("DragonFire")) {
-			return 15;
-		} else if (gameObject.name.StartsWith ("DragonWave")) {
-			return 25;
+		if (timer >= damagedelay) {
+			timer = 0;
+			if (gameObject.name.StartsWith ("DragonFire")) {
+				return 15;
+			} else if (gameObject.name.StartsWith ("DragonWave")) {
+				return 25;
+			}
 		}
 		return  0;
 	}

@@ -8,8 +8,6 @@ public class EnemyDragonShoot : MonoBehaviour {
 
 	public GameObject wave;
 
-	public float attackDistance = 10f;
-
 	Transform ship;
 
 	bool isFireAttack = true;
@@ -25,21 +23,20 @@ public class EnemyDragonShoot : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audio = GetComponent<AudioSource> ();
-		cooldownTimer = 0f;
+		cooldownTimer = 1f;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log ("dragonshoot update cooldownTimer="+cooldownTimer);
-		if (inAttackDistance(transform.position)) {
+		//if (inAttackDistance(transform.position)) {
 			cooldownTimer -= Time.deltaTime;
-		}
-		Debug.Log ("cooldownTimer="+cooldownTimer);
-		Debug.Log ("shootDelay - attackEffectDelay="+(shootDelay-attackEffectDelay));
-		if (cooldownTimer < shootDelay - attackEffectDelay || !inAttackDistance(transform.position)) {
+		//}
+		//if (cooldownTimer < shootDelay - attackEffectDelay || !inAttackDistance(transform.position)) {
+		if (cooldownTimer < shootDelay - attackEffectDelay) {
 			transform.gameObject.GetComponent<Renderer> ().material.color = Color.white;
 		}
-		if (cooldownTimer <= 0 && (firstshoot || inAttackDistance(transform.position))) {
+		//if (cooldownTimer <= 0 && (firstshoot || inAttackDistance(transform.position))) {
+		if (cooldownTimer <= 0) {
 			firstshoot = false;
 			cooldownTimer = shootDelay;
 
@@ -61,7 +58,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 		}
 
 	}
-
+	/*
 	bool inAttackDistance(Vector3 position) {
 
 		if (ship == null) {
@@ -80,6 +77,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 
 		return false;
 	}
+	*/
 
 	Vector3 getBulletOffset () {
 		
@@ -98,7 +96,7 @@ public class EnemyDragonShoot : MonoBehaviour {
 		}
 
 		Vector3 dir = ship.position - transform.position;
-		Vector3 offset = dir.normalized * new Vector3 (2.5f,2.5f,0).magnitude;
+		Vector3 offset = dir.normalized * new Vector3 (4f,4f,0).magnitude;
 
 		return offset;
 
