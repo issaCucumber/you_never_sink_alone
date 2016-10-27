@@ -43,14 +43,16 @@ public class EnemyDragonShoot : MonoBehaviour {
 			if (isFireAttack) {
 				Debug.Log ("fireattack");
 				//DragonFire.wav
-				audio.PlayOneShot(audioClip[0]);
+				//audio.PlayOneShot(audioClip[0]);
+                AudioManager.instance.PlaySound(audioClip[0], this.transform.position);
 				Instantiate (fire, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.red;
 			} else {
 				//DragonWave.wav
 				Debug.Log ("waveattack");
-				audio.PlayOneShot(audioClip[1]);
-				Instantiate (wave, transform.position + getBulletOffset (), transform.rotation);
+				//audio.PlayOneShot(audioClip[1]);
+                AudioManager.instance.PlaySound(audioClip[1], this.transform.position);
+                Instantiate (wave, transform.position + getBulletOffset (), transform.rotation);
 				transform.gameObject.GetComponent<Renderer> ().material.color = Color.magenta;
 			}
 			cooldownTimer = shootDelay;
