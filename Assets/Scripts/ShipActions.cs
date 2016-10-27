@@ -25,14 +25,14 @@ public class ShipActions : MonoBehaviour {
 	private float hypnotizestarttime;
 	public GameObject shipshock;
 
-	public int hulllevel = 1;
-	public int portcannonpowerlevel = 1;
-	public int portcannonfireratelevel = 1;
-	public int starboardcannonpowerlevel = 1;
-	public int starboardcannonfireratelevel = 1;
-	public int wheellevel = 1;
-	public int toolboxlevel = 1;
-	public int dynamitelevel = 1;
+	public int hulllevel;
+	public int portcannonpowerlevel;
+	public int portcannonfireratelevel;
+	public int starboardcannonpowerlevel;
+	public int starboardcannonfireratelevel;
+	public int wheellevel;
+	public int toolboxlevel;
+	public int dynamitelevel;
 
 	public bool isGodMode = false;
 	public bool touchWhirlpool = false;
@@ -65,13 +65,42 @@ public class ShipActions : MonoBehaviour {
 		dynamitelevel = PlayerPrefs.GetInt(Constants.DYNAMITE, 1);
 		portcannonpowerlevel = PlayerPrefs.GetInt(Constants.PORTPOWER, 1);
 		portcannonfireratelevel = PlayerPrefs.GetInt(Constants.PORTFIRERATE, 1);
-		hullcurrent = PlayerPrefs.GetInt(Constants.HULLCURRVALUE, hullmax);
-		SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
-		crewsaved = PlayerPrefs.GetInt (Constants.CURRCREWSAVED, 0);
-		if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON,0)==1) {
-			transform.position = new Vector3 (67, 28, 0);
-		}
-	}
+        SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN, 0));
+
+        if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON,0)==1)
+        {
+			transform.position = new Vector3 (44, -33, 0);
+            
+            hullcurrent = PlayerPrefs.GetInt(Constants.HULLVALUE_TEMP, hullmax);
+            SetCurrentPrestige(PlayerPrefs.GetInt(Constants.PRESTIGEEARN_TEMP, 0));
+            crewsaved = PlayerPrefs.GetInt(Constants.CREWSAVED_TEMP, 0);
+
+            hulllevel = PlayerPrefs.GetInt(Constants.HULL_TEMP, 1);
+            toolboxlevel = PlayerPrefs.GetInt(Constants.TOOLBOX_TEMP, 1);
+            starboardcannonpowerlevel = PlayerPrefs.GetInt(Constants.STARBOARDPOWER_TEMP, 1);
+            starboardcannonfireratelevel = PlayerPrefs.GetInt(Constants.STARBOARDFIRERATE_TEMP, 1);
+            wheellevel = PlayerPrefs.GetInt(Constants.WHEEL_TEMP, 1);
+            dynamitelevel = PlayerPrefs.GetInt(Constants.DYNAMITE_TEMP, 1);
+            portcannonpowerlevel = PlayerPrefs.GetInt(Constants.PORTPOWER_TEMP, 1);
+            portcannonfireratelevel = PlayerPrefs.GetInt(Constants.PORTFIRERATE_TEMP, 1);
+        }
+
+        //if (SceneManager.GetActiveScene().name.Equals("Training"))
+        //{
+        //    hulllevel = 5;
+        //    toolboxlevel = 5;
+        //    starboardcannonpowerlevel = 5;
+        //    starboardcannonfireratelevel = 5;
+        //    wheellevel = 5;
+        //    dynamitelevel = 5;
+        //    portcannonpowerlevel = 5;
+        //    portcannonfireratelevel = 5;
+
+        //    hullmax = 100 + (25 * (hulllevel -1));
+        //    hullcurrent = hullmax;
+        //}
+
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -217,19 +246,35 @@ public class ShipActions : MonoBehaviour {
 				Vector3 newposition = new Vector3 (58.46f, 31.45f, 0f);
 				transform.position = newposition;
 			} else if (SceneManager.GetActiveScene ().name == "Level 1") {
-				Vector3 newposition = new Vector3 (65.26f, 23.28f, 0f);
+				Vector3 newposition = new Vector3 (44.0f, -33.0f, 0f);
 				transform.position = newposition;
 			}
 		}
 
-		if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.P))
+        if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.Y))
+        {
+            // CTRL + Y = Teleport
+            if (SceneManager.GetActiveScene().name == "Level 1")
+            {
+                Vector3 newposition = new Vector3(135.0f, -62.0f, 0f);
+                transform.position = newposition;
+            }
+        }
+
+        if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.P))
 		{
 			// CTRL + P = 5000 prestige
 			SetCurrentPrestige(5000);
 		}
-	}
 
-	public int GetCurrentPrestige()
+        if ((Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl)) && Input.GetKeyDown(KeyCode.V))
+        {
+            // CTRL + V = all crew saved
+            crewsaved = 7;
+        }
+    }
+
+    public int GetCurrentPrestige()
 	{
 		return prestige.PrestigeVal;
 	}
@@ -248,8 +293,8 @@ public class ShipActions : MonoBehaviour {
 		if (coll.gameObject.tag == "rock")
 		{
 			// Play ShipCollide.wav
-			shipcollidesound.Play();
-
+			//shipcollidesound.Play();
+            AudioManager.instance.PlaySound(shipcollidesound.clip, this.transform.position);
 			hullcurrent -= Mathf.CeilToInt(rb.velocity.magnitude);
 		}
 	}

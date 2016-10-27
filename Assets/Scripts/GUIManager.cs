@@ -196,7 +196,7 @@ public class GUIManager : MonoBehaviour {
         PlayerPrefs.SetInt(Constants.DYNAMITE, 1);
         PlayerPrefs.SetInt(Constants.PORTPOWER, 1);
         PlayerPrefs.SetInt(Constants.PORTFIRERATE, 1);
-        PlayerPrefs.SetInt(Constants.FLYINGFISHSEEN, 0);
+        PlayerPrefs.SetInt(Constants.FLYINGFISHSEEN, 1);
         PlayerPrefs.SetInt(Constants.ELECTRICEELSEEN, 0);
         PlayerPrefs.SetInt(Constants.JELLYFISHSEEN, 0);
         PlayerPrefs.SetInt(Constants.OCTUPUSSEEN, 0);
@@ -204,8 +204,6 @@ public class GUIManager : MonoBehaviour {
         PlayerPrefs.SetInt(Constants.LEVELCLEARED, 0);
         PlayerPrefs.SetInt(Constants.PRESTIGEEARN, 0);
         PlayerPrefs.SetInt(Constants.DEFEATDRAGON, 0);
-		PlayerPrefs.SetInt(Constants.HULLCURRVALUE, 100);
-		PlayerPrefs.SetInt (Constants.CURRCREWSAVED, 0);
     }
 
     public void OnClickContinue()

@@ -68,7 +68,8 @@ public class ToolboxActions : MonoBehaviour {
                     float currenttime = Time.time;
                     if ((currenttime - lastfiretime) >= 1.0f)
                     {
-						toolboxsound.Play ();
+						//toolboxsound.Play ();
+                        AudioManager.instance.PlaySound(toolboxsound.clip, this.transform.position);
                         Ship.GetComponent<ShipActions>().hullcurrent += repairrate;
                         if (Ship.GetComponent<ShipActions>().hullcurrent > Ship.GetComponent<ShipActions>().hullmax)
                         {

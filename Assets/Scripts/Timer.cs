@@ -14,21 +14,34 @@ public class Timer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        float time = PlayerPrefs.GetFloat (Constants.TIMELEFT, -1);
-        if (time < 0) {
-            timeLeft = timerInMins * 60;
-        } else {
-            timeLeft = time;
+
+        timeLeft = timerInMins * 60;
+
+        if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON, 0) == 1)
+        {
+            timeLeft = PlayerPrefs.GetFloat(Constants.TIMELEFT_TEMP, -1);
         }
-            startTime = Time.time;
+
+        startTime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+
         float t = (timerInMins * 60);
+        if (PlayerPrefs.GetInt(Constants.DEFEATDRAGON, 0) == 1)
+        {
+            t = PlayerPrefs.GetFloat(Constants.TIMELEFT_TEMP, -1);
+        }
+
         t = t - (Time.time - startTime);
         timeLeft = t;
+        //if (SceneManager.GetActiveScene().name.Equals("Level 1"))
+        //{
+        //    t = t - (Time.time - startTime);
+        //    timeLeft = t;
+        //}
+
         string minutes = ((int)t / 60).ToString();
 
         float seconds = t % 60;
@@ -42,7 +55,7 @@ public class Timer : MonoBehaviour {
 
         timeString = minutes + ":" + secondsString;
         timerText.text = timeString;
-	}
+    }
 
     public float GetTimeLeft()
     {

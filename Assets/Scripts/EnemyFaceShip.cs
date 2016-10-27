@@ -17,11 +17,11 @@ public class EnemyFaceShip : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 //		Debug.Log ("OnTriggerEnter2D");
 		if (other.name.StartsWith ("Academy")
-		    || other.name.StartsWith ("final-island")
-			|| other.name.StartsWith ("island1")
-			|| other.name.StartsWith ("island2")
-			|| other.name.StartsWith ("island3")
-			|| other.name.StartsWith ("rock island")) {//TODO to add other island names
+		    || other.name.Equals ("Hamburger Island", System.StringComparison.OrdinalIgnoreCase)
+			|| other.name.Equals ("Island of the Mist", System.StringComparison.OrdinalIgnoreCase)
+			|| other.name.Equals ("Pepperoni Pizza Island", System.StringComparison.OrdinalIgnoreCase)
+			|| other.name.Equals ("Hawaiian Pizza Island", System.StringComparison.OrdinalIgnoreCase)
+			|| other.name.Equals ("rock island", System.StringComparison.OrdinalIgnoreCase)) {//TODO to add other island names
 			//Debug.Log ("hit island!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			hitIsland = true;
 		}

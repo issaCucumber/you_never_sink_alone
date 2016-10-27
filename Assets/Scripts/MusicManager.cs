@@ -8,7 +8,7 @@ public class MusicManager : MonoBehaviour {
 
     void Start()
     {
-        AudioManager.instance.PlayMusic(menuTheme, 2);
+        AudioManager.instance.PlayMusic(menuTheme, 1);
     }
 	
 	// Update is called once per frame

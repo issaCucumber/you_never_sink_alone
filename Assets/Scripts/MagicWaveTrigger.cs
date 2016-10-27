@@ -15,10 +15,10 @@ public class MagicWaveTrigger : MonoBehaviour {
 	void Update(){
 		if (Time.time - startTime < 5.0f) {
 			transform.GetComponent<SpriteRenderer> ().enabled = true;
-			force = -90.0f;
+            triggered = true;
 		}else {
 			transform.GetComponent<SpriteRenderer> ().enabled = false;
-			force = 0.0f;
+            triggered = false;
 			if (Time.time - startTime > 20.0f) {
 				startTime = Time.time;
 			}
@@ -31,9 +31,23 @@ public class MagicWaveTrigger : MonoBehaviour {
 
 	private void attack(Collider2D other){
 
-		if (!other.transform.name.StartsWith ("CannonballPrefab")) {
-			other.attachedRigidbody.AddForce (force * Vector3.Normalize(transform.position - other.transform.position));
-		}
+		if (triggered && !other.transform.name.StartsWith ("CannonballPrefab")) {
+
+			//distance
+            float distance = Vector3.Distance (other.transform.position, transform.position);
+
+            float force = 0f;
+            if (distance < 50f) {
+                force = -100F;
+            } else if (distance < 70f) {
+                force = -50F;
+            } else if (distance < 95f) {
+                force = -10F;
+            }
+
+            //other.attachedRigidbody.AddForce (force * other.attachedRigidbody.velocity);
+            other.attachedRigidbody.AddForce(force * Vector3.Normalize(transform.position - other.transform.position));
+        }
 
 
 //		Debug.Log ("================== ATTACK =================");
@@ -41,8 +55,7 @@ public class MagicWaveTrigger : MonoBehaviour {
 //			Debug.Log ("================== ATTACK !!!!! =================" + (Time.time - startTime));
 //			transform.GetComponent<SpriteRenderer> ().enabled = true;
 //
-//			//distance
-//			float distance = Vector3.Distance (other.transform.position, transform.position);
+
 //
 //			float force = 0f;
 //			if (distance < 50f) {
@@ -64,4 +77,6 @@ public class MagicWaveTrigger : MonoBehaviour {
 //		}
 
 	}
+
+
 }
